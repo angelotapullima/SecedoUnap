@@ -214,48 +214,6 @@ class PrestamosTab extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          _datosRow(
-                                              responsive,
-                                              'Codigo:',
-                                              'AC005',
-                                              'N° de Cheque:',
-                                              '84810411'),
-                                          SizedBox(height: responsive.hp(1.5)),
-                                          _datosRow(
-                                              responsive,
-                                              'Nombre:',
-                                              'Acosta Diaz, Arturo',
-                                              'Prioridad:',
-                                              'Emergencia'),
-                                          SizedBox(height: responsive.hp(1.5)),
-                                          _datosRow(
-                                              responsive,
-                                              'Tipo:',
-                                              'Ampliación',
-                                              'Tasa De Interes:',
-                                              '1'),
-                                          SizedBox(height: responsive.hp(1.5)),
-                                          _datosRow(
-                                            responsive,
-                                            'Fecha Solicitada:',
-                                            '27/11/2018',
-                                            'Fecha Aprobada:',
-                                            '28/11/2018',
-                                          ),
-                                          SizedBox(height: responsive.hp(1.5)),
-                                          _datosRow2(
-                                            responsive,
-                                            'Cantidad Solicitada:',
-                                            'S/ 61,500.00',
-                                            'Cantidad Aprobada:',
-                                            'S/ 61,500.00',
-                                          ),
-                                          SizedBox(height: responsive.hp(1.5)),
-                                          _datosRow(responsive, 'Cuotas:', '30',
-                                              'Monto Girado:', 'S/ 5,720.80'),
-                                          SizedBox(
-                                            height: responsive.hp(4),
-                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -263,7 +221,7 @@ class PrestamosTab extends StatelessWidget {
                                               Container(
                                                 padding: EdgeInsets.symmetric(
                                                   horizontal: responsive.wp(3),
-                                                  vertical: responsive.hp(.5),
+                                                  vertical: responsive.hp(.8),
                                                 ),
                                                 decoration: BoxDecoration(
                                                     borderRadius:
@@ -317,11 +275,54 @@ class PrestamosTab extends StatelessWidget {
                                                 },
                                               ),
                                             ],
-                                          )
+                                          ),
+                                          SizedBox(height: responsive.hp(2)),
+                                          _datosRow(
+                                              responsive,
+                                              'Codigo:',
+                                              'AC005',
+                                              'N° de Cheque:',
+                                              '84810411'),
+                                          SizedBox(height: responsive.hp(1.5)),
+                                          _datosRow(
+                                              responsive,
+                                              'Nombre:',
+                                              'Acosta Diaz, Arturo',
+                                              'Prioridad:',
+                                              'Emergencia'),
+                                          SizedBox(height: responsive.hp(1.5)),
+                                          _datosRow(
+                                              responsive,
+                                              'Tipo:',
+                                              'Ampliación',
+                                              'Tasa De Interes:',
+                                              '1'),
+                                          SizedBox(height: responsive.hp(1.5)),
+                                          _datosRow(
+                                            responsive,
+                                            'Fecha Solicitada:',
+                                            '27/11/2018',
+                                            'Fecha Aprobada:',
+                                            '28/11/2018',
+                                          ),
+                                          SizedBox(height: responsive.hp(1.5)),
+                                          _datosRow2(
+                                            responsive,
+                                            'Cantidad Solicitada:',
+                                            'S/ 61,500.00',
+                                            'Cantidad Aprobada:',
+                                            'S/ 61,500.00',
+                                          ),
+                                          SizedBox(height: responsive.hp(1.5)),
+                                          _datosRow(responsive, 'Cuotas:', '30',
+                                              'Monto Girado:', 'S/ 5,720.80'),
+                                          SizedBox(
+                                            height: responsive.hp(4),
+                                          ),
                                         ],
                                       ),
                                     );
-                            },
+                                   },
                           ),
                         ),
                       ),

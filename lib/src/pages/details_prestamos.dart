@@ -368,18 +368,18 @@ class _CardExpandableState extends State<CardExpandable> {
             ],
           ),
           margin: EdgeInsets.symmetric(
-            vertical: responsive.hp(1.5),
+            vertical: responsive.hp(.5),
             horizontal: responsive.wp(2),
           ),
           padding: EdgeInsets.symmetric(
-            vertical: responsive.hp(.5),
+            vertical: responsive.hp(0),
             horizontal: responsive.wp(2),
           ),
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.only(top: responsive.hp(2)),
-                height: responsive.hp(9),
+                padding: EdgeInsets.only(top: responsive.hp(3.2)),
+                height: responsive.hp(10),
                 child: (widget.prestamo.estado == '0')
                     ? _datosRow(
                         responsive,
@@ -442,7 +442,7 @@ class _CardExpandableState extends State<CardExpandable> {
           },
         ),
         Positioned(
-          top: responsive.hp(1),
+          top: responsive.hp(0),
           left: responsive.wp(2),
           child: Container(
             padding: EdgeInsets.symmetric(
@@ -460,12 +460,11 @@ class _CardExpandableState extends State<CardExpandable> {
           ),
         ),
         Positioned(
-          top: responsive.hp(.5),
+          top: 0,
           right: responsive.wp(2),
           child: Container(
             padding: EdgeInsets.symmetric(
               horizontal: responsive.wp(2),
-              vertical: responsive.hp(.5),
             ),
             child: IconButton(
                 icon: Container(

@@ -95,7 +95,7 @@ class PagosTab extends StatelessWidget {
                             ),
                             Expanded(
                               child: ListView.builder(
-                                  itemCount: 5,
+                                  itemCount: 4,
                                   itemBuilder: (_, index) {
                                     return CardExpandable(
                                       index: (index + 1).toString(),
@@ -148,51 +148,302 @@ class _CardExpandableState extends State<CardExpandable> {
             ],
           ),
           margin: EdgeInsets.symmetric(
-            vertical: responsive.hp(1.5),
+            vertical: responsive.hp(1),
             horizontal: responsive.wp(2),
           ),
           padding: EdgeInsets.symmetric(
-            vertical: responsive.hp(1.5),
+            vertical: responsive.hp(1),
             horizontal: responsive.wp(2),
           ),
           child: Column(
             children: [
               Container(
                 padding: EdgeInsets.only(top: responsive.hp(2.5)),
-                height: responsive.hp(9.5),
-                child: _datosRow(responsive, 'Fecha:', '21/05/2019',
-                    'Descontado Unap', '3361.99', 'Diferencia', '0.0'),
+                height: responsive.hp(9),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: responsive.wp(30),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Enviado (SECEDO):',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: responsive.ip(1.5),
+                            ),
+                          ),
+                          Text(
+                            'S/. 3,361.00',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: responsive.ip(1.5),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: responsive.wp(30),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Descontado (UNAP):',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: responsive.ip(1.5),
+                            ),
+                          ),
+                          Text(
+                            'S/. 3,361.00',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: Colors.green,
+                              fontSize: responsive.ip(1.5),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: responsive.wp(30),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Diferencia:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: responsive.ip(1.5),
+                            ),
+                          ),
+                          Text(
+                            'S/. 0,00',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: Colors.red,
+                              fontSize: responsive.ip(1.5),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
               ExpandableContainer(
-                  expanded: expandFlag,
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    children: [
-                      SizedBox(
-                        height: responsive.hp(1),
-                      ),
-                      _datosRow(responsive, 'Jubilación:', '0.00',
-                          'Enviado (Secedo):', '3230.99', 'APR:', '3230.99'),
-                      SizedBox(
-                        height: responsive.hp(1),
-                      ),
-                      _datosRow(
-                        responsive,
-                        'Garantizado:',
-                        '0.00',
-                        'Multa:',
-                        '0.00',
-                        'Descuento:',
-                        '0.00',
-                      ),
-                      SizedBox(
-                        height: responsive.hp(1),
-                      ),
-                      _datosRow(responsive, 'Cesantía:', '04/01/2019',
-                          'Funeral:', '04/01/2019', '', '')
-                    ],
-                  ))
+                expanded: expandFlag,
+                child: ListView(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  children: [
+                    SizedBox(
+                      height: responsive.hp(1),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'Fecha:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Container(
+                              height: responsive.hp(.5),
+                              color: Colors.green,
+                            ),
+                            Text(
+                              '30/06/2019',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Cesantía:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Text(
+                              'S/. 109.20',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Funeral:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Text(
+                              'S/. 10.50',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1.5),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'Jubilación:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Container(
+                              height: responsive.hp(.5),
+                              color: Colors.green,
+                            ),
+                            Text(
+                              'S/. 0.00',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Multa:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Text(
+                              'S/. 0.00',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'APR:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Text(
+                              'S/. 3,230.99',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1.5),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'Garantizado:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Container(
+                              height: responsive.hp(.5),
+                              color: Colors.green,
+                            ),
+                            Text(
+                              'S/. 0.00',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Descuento:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Text(
+                              'S/. 0.00',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                        /* Column(
+                            children: [
+                              Text(
+                                'Total:',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: responsive.ip(1.8),
+                                ),
+                              ),
+                              Text(
+                                '3350.00',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                  fontSize: responsive.ip(2),
+                                ),
+                              ),
+                            ],
+                          ),
+                         */
+                      ],
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ).ripple(
@@ -203,7 +454,7 @@ class _CardExpandableState extends State<CardExpandable> {
           },
         ),
         Positioned(
-          top: responsive.hp(1),
+          top: responsive.hp(0),
           left: responsive.wp(2),
           child: Container(
             padding: EdgeInsets.symmetric(
@@ -211,7 +462,7 @@ class _CardExpandableState extends State<CardExpandable> {
               vertical: responsive.hp(.5),
             ),
             decoration: BoxDecoration(
-              color: Colors.red,
+              color: Colors.blue[900],
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
@@ -221,19 +472,19 @@ class _CardExpandableState extends State<CardExpandable> {
           ),
         ),
         Positioned(
-          top: responsive.hp(.5),
+          top: 0,
           right: responsive.wp(2),
           child: Container(
             padding: EdgeInsets.symmetric(
               horizontal: responsive.wp(2),
-              vertical: responsive.hp(.5),
+              vertical: responsive.hp(0),
             ),
             child: IconButton(
                 icon: Container(
                   height: responsive.ip(8),
                   width: responsive.ip(8),
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: Colors.blue[900],
                     shape: BoxShape.circle,
                   ),
                   child: Center(
@@ -250,97 +501,6 @@ class _CardExpandableState extends State<CardExpandable> {
                     expandFlag = !expandFlag;
                   });
                 }),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _datosRow(Responsive responsive, String title, String subtitle,
-      String title2, String subtitle2, String title3, String subtitle3) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Container(
-          width: responsive.wp(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: responsive.ip(1.8),
-                    fontWeight: FontWeight.w700,
-                    color: Colors.grey[600]),
-              ),
-              Text(
-                subtitle,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: responsive.ip(1.5),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          height: responsive.hp(7),
-          color: Colors.black,
-          width: responsive.wp(1),
-        ),
-        Container(
-          width: responsive.wp(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                title2,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: responsive.ip(1.8),
-                    fontWeight: FontWeight.w700,
-                    color: Colors.grey[600]),
-              ),
-              Text(
-                subtitle2,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: responsive.ip(1.5),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          height: responsive.hp(7),
-          color: Colors.black,
-          width: responsive.wp(1),
-        ),
-        Container(
-          width: responsive.wp(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                title3,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: responsive.ip(1.8),
-                    fontWeight: FontWeight.w700,
-                    color: Colors.grey[600]),
-              ),
-              Text(
-                subtitle3,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: responsive.ip(1.5),
-                ),
-              ),
-            ],
           ),
         ),
       ],
