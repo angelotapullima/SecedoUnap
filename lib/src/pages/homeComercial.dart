@@ -33,7 +33,7 @@ class _HomePageState extends State<HomeComercialPage> {
   @override
   Widget build(BuildContext context) {
     final buttonBloc = ProviderBloc.homeComercial(context);
-    buttonBloc.changePage(0);
+    buttonBloc.changePage(2);
     final responsive = Responsive.of(context);
     return StreamBuilder(
             stream: buttonBloc.selectPageStream,
@@ -195,32 +195,7 @@ class _HomePageState extends State<HomeComercialPage> {
                                 ],
                               ),
                             ),
-                            /* InkWell(
-                            onTap: () {
-                              buttonBloc.changePage(2);
-                            },
-                            child: Column(
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.fileAlt,
-                                  size: responsive.ip(2.8),
-                                  color: (buttonBloc.page == 2)
-                                      ? Colors.green[600]
-                                      : Colors.white60,
-                                ),
-                                Text(
-                                  "Pagos",
-                                  style: TextStyle(
-                                    fontSize: responsive.ip(1.5),
-                                    color: (buttonBloc.page == 2)
-                                        ? Colors.green[600]
-                                        : Colors.white60,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                           */
+                            
                             InkWell(
                               onTap: () {
                                 buttonBloc.changePage(3);
@@ -280,40 +255,6 @@ class _HomePageState extends State<HomeComercialPage> {
                   ],
                 ),
               );
-            })
-        /* bottomNavigationBar: StreamBuilder(
-          stream: buttonBloc.selectPageStream,
-          builder: (context, snapshot) {
-            return BottomNavigationBar(
-              selectedItemColor: Theme.of(context).textSelectionColor,
-              type: BottomNavigationBarType.fixed,
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                  ),
-                  label: "Principal",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart),
-                  label: "Pedidos",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.data_usage),
-                  label: "Pagos",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.supervised_user_circle),
-                  label: "Usuario",
-                ),
-              ],
-              currentIndex: buttonBloc.page,
-              onTap: (valor) {
-                buttonBloc.changePage(valor);
-              },
-            );
-          }),
-    */
-        ;
+            });
   }
 }

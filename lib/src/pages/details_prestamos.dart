@@ -1,11 +1,100 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:secedo_unap/src/pages/tabs/PrestamosTab.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
 
-class DetailsPrestamos extends StatelessWidget {
+class DetailsPrestamos extends StatefulWidget {
   const DetailsPrestamos({Key key, @required this.index}) : super(key: key);
 
   final String index;
+
+  @override
+  _DetailsPrestamosState createState() => _DetailsPrestamosState();
+}
+
+class _DetailsPrestamosState extends State<DetailsPrestamos> {
+  final int touchedIndex = 0;
+
+  var list = [
+    PrestamosCuotas(
+      numeroCuota: '1',
+      importe: '2,383.01',
+      fPago: '31/01/2019',
+      pagado: '2,383.01',
+      vencimiento: '01/2019',
+      interes: '615.00',
+      principal: '1,768.00',
+      monto: '61,500.00',
+      estado: '1',
+    ),
+    PrestamosCuotas(
+      numeroCuota: '2',
+      importe: '2,383.01',
+      fPago: '18/02/2019',
+      pagado: '2,383.01',
+      vencimiento: '02/2019',
+      interes: '597.00',
+      principal: '1,765.99',
+      monto: '59,731.99',
+      estado: '1',
+    ),
+    PrestamosCuotas(
+      numeroCuota: '3',
+      importe: '2,383.01',
+      fPago: '13/03/2019',
+      pagado: '2,383.01',
+      vencimiento: '03/2019',
+      interes: '579.46',
+      principal: '1,803.55',
+      monto: '57,946.30',
+      estado: '1',
+    ),
+    PrestamosCuotas(
+      numeroCuota: '4',
+      importe: '2,383.00',
+      fPago: '31/01/2019',
+      pagado: '2,383.00',
+      vencimiento: '01/2019',
+      interes: '615.00',
+      principal: '1,768.00',
+      monto: '61,500.00',
+      estado: '0',
+    ),
+    PrestamosCuotas(
+      numeroCuota: '5',
+      importe: '2,383.00',
+      fPago: '31/01/2019',
+      pagado: '2,383.00',
+      vencimiento: '01/2019',
+      interes: '615.00',
+      principal: '1,768.00',
+      monto: '61,500.00',
+      estado: '0',
+    ),
+    PrestamosCuotas(
+      numeroCuota: '6',
+      importe: '2,383.00',
+      fPago: '31/01/2019',
+      pagado: '2,383.00',
+      vencimiento: '01/2019',
+      interes: '615.00',
+      principal: '1,768.00',
+      monto: '61,500.00',
+      estado: '0',
+    ),
+    PrestamosCuotas(
+      numeroCuota: '7',
+      importe: '2,383.00',
+      fPago: '31/01/2019',
+      pagado: '2,383.00',
+      vencimiento: '01/2019',
+      interes: '615.00',
+      principal: '1,768.00',
+      monto: '61,500.00',
+      estado: '0',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -32,143 +121,173 @@ class DetailsPrestamos extends StatelessWidget {
               top: responsive.hp(11),
               left: 0,
               right: 0,
-              child: Container(
-               
-                height: responsive.hp(89),
-                decoration: BoxDecoration(
-                  color: Color(0xFFF6F7F8),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    topLeft: Radius.circular(30),
-                  ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(30),
+                  topLeft: Radius.circular(30),
                 ),
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemCount: 7,
-                    itemBuilder: (_, index) {
-                      if (index == 0) {
-                        return Column(
-                          children: [
-                            Container(
-                              height: responsive.hp(23),
-                              margin: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(8),
-                                vertical: responsive.hp(1),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(2),
-                                vertical: responsive.hp(3),
-                              ),
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.blue[700],
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Column(
+                child: Container(
+                  height: responsive.hp(89),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF6F7F8),
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        color: Colors.white,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: responsive.wp(3),
+                            vertical: responsive.hp(1.5),
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
                                 children: [
-                                  Row(
+                                  Text(
+                                    'N° de Cheque',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: responsive.ip(1.8),
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    '84810303',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: responsive.ip(1.7),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: responsive.hp(1)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Expanded(
-                                        child: Text(
-                                          'N° de Cheque',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: responsive.ip(2),
-                                          ),
+                                      Text(
+                                        'S/. 12,300.00',
+                                        style: TextStyle(
+                                          color: Colors.blue[900],
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: responsive.ip(2),
                                         ),
                                       ),
-                                      Expanded(
-                                        child: Text(
-                                          '84810303',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: responsive.ip(2),
-                                          ),
+                                      Text(
+                                        'deuda por pagar',
+                                        style: TextStyle(
+                                          color: Colors.blue[900],
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: responsive.ip(1.5),
                                         ),
-                                      )
+                                      ),
                                     ],
-                                  ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: responsive.hp(2),
+                              ),
+                              Row(
+                                children: <Widget>[
                                   SizedBox(
                                     height: responsive.hp(2),
                                   ),
                                   Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(2),
-                                    ),
-                                    height: responsive.hp(10),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 3,
-                                          child: Container(
-                                            width: responsive.wp(45),
-                                            child: Text(
-                                              'S/. 61,500.00',
-                                              style: TextStyle(
-                                                  fontSize: responsive.ip(2.7),
-                                                  color: Colors.white),
-                                            ),
-                                          ),
+                                    width: responsive.wp(33),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Indicator(
+                                          size: responsive.ip(1.6),
+                                          color: Color(0xFF218A07),
+                                          text: 'Monto Pagado S/.49,200.00',
+                                          isSquare: true,
                                         ),
                                         SizedBox(
-                                          width: responsive.wp(2),
+                                          height: responsive.hp(1.6),
                                         ),
-                                        Expanded(
-                                          child: Container(
-                                            width: responsive.wp(21),
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.white,
-                                            ),
-                                            child: Center(
-                                              child: Container(
-                                                width: responsive.wp(16),
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.blue[700],
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    '80%',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            responsive.ip(2),
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
+                                        Indicator(
+                                          color: Color(0xFFEE0221),
+                                          text: 'Monto Por pagar S/. 12,300.00',
+                                          isSquare: true,
+                                        ),
+                                        SizedBox(
+                                          height: 4,
                                         ),
                                       ],
                                     ),
-                                  )
+                                  ),
+                                  SizedBox(
+                                    width: responsive.wp(10),
+                                  ),
+                                  Expanded(
+                                    child: AspectRatio(
+                                      aspectRatio: 1.2,
+                                      child: PieChart(
+                                        PieChartData(
+                                          borderData: FlBorderData(
+                                            show: false,
+                                          ),
+                                          sectionsSpace: 4,
+                                          centerSpaceRadius: 30,
+                                          sections: showingSections(),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(3),
-                              ),
-                              child: Row(
+                              Row(
                                 children: [
                                   Text(
-                                    'Cronograma de pago',
+                                    'Actualizado al 21/05/2019',
                                     style: TextStyle(
-                                      fontSize: responsive.ip(2.5),
+                                      color: Colors.black,
+                                      fontSize: responsive.ip(1.5),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
-                            ),
-                          ],
-                        );
-                      }
-                      return CardExpandable(
-                        index: index.toString(),
-                      );
-                    }),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        color: Colors.grey[300],
+                        padding:
+                            EdgeInsets.symmetric(vertical: responsive.hp(.5)),
+                        child: Text(
+                          'Cuotas según cronograma',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.blue[900],
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                            padding: EdgeInsets.symmetric(vertical: 0),
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemCount: list.length,
+                            itemBuilder: (_, index) {
+                              return CardExpandable(
+                                prestamo: list[index],
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             )
           ],
@@ -176,12 +295,52 @@ class DetailsPrestamos extends StatelessWidget {
       ),
     );
   }
+
+  List<PieChartSectionData> showingSections() {
+    return List.generate(
+      2,
+      (i) {
+        final isTouched = i == touchedIndex;
+        final double fontSize = isTouched ? 25 : 16;
+        final double radius = isTouched ? 60 : 50;
+        switch (i) {
+          case 0:
+            return PieChartSectionData(
+              color: const Color(0xFF218A07),
+              value: 80,
+              title: '80%',
+              radius: radius,
+              titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff),
+              ),
+            );
+          case 1:
+            return PieChartSectionData(
+              color: const Color(0xFFEE0221),
+              value: 20,
+              title: '20%',
+              radius: radius,
+              titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff),
+              ),
+            );
+
+          default:
+            return null;
+        }
+      },
+    );
+  }
 }
 
 class CardExpandable extends StatefulWidget {
-  const CardExpandable({Key key, @required this.index}) : super(key: key);
+  const CardExpandable({Key key, @required this.prestamo}) : super(key: key);
 
-  final String index;
+  final PrestamosCuotas prestamo;
 
   @override
   _CardExpandableState createState() => _CardExpandableState();
@@ -213,35 +372,64 @@ class _CardExpandableState extends State<CardExpandable> {
             horizontal: responsive.wp(2),
           ),
           padding: EdgeInsets.symmetric(
-            vertical: responsive.hp(1.5),
+            vertical: responsive.hp(.5),
             horizontal: responsive.wp(2),
           ),
           child: Column(
             children: [
               Container(
                 padding: EdgeInsets.only(top: responsive.hp(2)),
-                height: responsive.hp(7),
-                child: _datosRow(responsive, 'Monto:', 'S/.5,000.00',
-                    'Vencimiento:', '04/01/2019'),
+                height: responsive.hp(9),
+                child: (widget.prestamo.estado == '0')
+                    ? _datosRow(
+                        responsive,
+                        'Importe:',
+                        'S/.${widget.prestamo.importe}',
+                        'Vencimiento:',
+                        'S/.${widget.prestamo.vencimiento}')
+                    : _datosRow(
+                        responsive,
+                        'Importe:',
+                        'S/.${widget.prestamo.importe}',
+                        'Fecha de pago:',
+                        '${widget.prestamo.fPago}'),
               ),
               ExpandableContainer(
                   expanded: expandFlag,
                   child: ListView(
+                    padding: EdgeInsets.all(0),
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),
                     children: [
-                      _datosRow(responsive, 'Monto:', 'S/.5,000.00',
-                          'Fecha de pago:', '04/01/2019'),
+                      (widget.prestamo.estado == '0')
+                          ? _datosRow2(
+                              responsive,
+                              'Pagado:',
+                              '${widget.prestamo.pagado}',
+                              'Fecha de pago:',
+                              '${widget.prestamo.fPago}',
+                              'Interes:',
+                              'S/. ${widget.prestamo.interes}',
+                            )
+                          : _datosRow2(
+                              responsive,
+                              'Pagado:',
+                              '${widget.prestamo.pagado}',
+                              'Vencimiento:',
+                              'S/.${widget.prestamo.vencimiento}',
+                              'Interes:',
+                              'S/. ${widget.prestamo.interes}',
+                            ),
                       SizedBox(
                         height: responsive.hp(1),
                       ),
-                      _datosRow(responsive, 'Pagado:', 'S/.5,000.00',
-                          'Principal:', '04/01/2019'),
+                      /* _datosRow2(responsive, 'Pagado:', 'S/.5,000.00',
+                          'Principal:', '04/01/2019'), */
                       SizedBox(
                         height: responsive.hp(1),
                       ),
-                      _datosRow(responsive, 'Interes:', 'S/.5,000.00',
-                          'Cuotas:', '30'),
+                      _datosRow3(responsive, 'Principal:', 'S/. ${widget.prestamo.principal}',
+                          'Monto:', 'S/. ${widget.prestamo.monto}'),
                     ],
                   ))
             ],
@@ -262,16 +450,16 @@ class _CardExpandableState extends State<CardExpandable> {
               vertical: responsive.hp(.5),
             ),
             decoration: BoxDecoration(
-              color: Colors.red,
+              color:  (widget.prestamo.estado == '0')?Colors.green:Colors.red,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
-              'Cuota N° ${widget.index}',
+              'Cuota N° ${widget.prestamo.numeroCuota}',
               style: TextStyle(color: Colors.white),
             ),
           ),
         ),
-      Positioned(
+        Positioned(
           top: responsive.hp(.5),
           right: responsive.wp(2),
           child: Container(
@@ -284,7 +472,7 @@ class _CardExpandableState extends State<CardExpandable> {
                   height: responsive.ip(8),
                   width: responsive.ip(8),
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: Colors.blue[900],
                     shape: BoxShape.circle,
                   ),
                   child: Center(
@@ -310,50 +498,164 @@ class _CardExpandableState extends State<CardExpandable> {
   Widget _datosRow(Responsive responsive, String title, String subtitle,
       String title2, String subtitle2) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          width: responsive.wp(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                    fontSize: responsive.ip(1.8),
-                    fontWeight: FontWeight.w700,
-                    color: Colors.grey[600]),
-              ),
-              Text(
-                subtitle,
-                style: TextStyle(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                  fontSize: responsive.ip(1.8),
                   fontWeight: FontWeight.w700,
-                  fontSize: responsive.ip(1.5),
-                ),
-              ),
-            ],
-          ),
+                  color: Colors.grey[600]),
+            ),
+            Text(
+              subtitle,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: responsive.ip(2.5),
+
+              color: Colors.blue[900]),
+            ),
+          ],
         ),
-        Container(
-          width: responsive.wp(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title2,
-                style: TextStyle(
-                    fontSize: responsive.ip(1.8),
-                    fontWeight: FontWeight.w700,
-                    color: Colors.grey[600]),
-              ),
-              Text(
-                subtitle2,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
+        Spacer(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title2,
+              style: TextStyle(
                   fontSize: responsive.ip(1.5),
-                ),
+                  fontWeight: FontWeight.w700,
+                  color: Colors.grey[600]),
+            ),
+            Text(
+              subtitle2,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: responsive.ip(1.5),
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  
+  Widget _datosRow3(Responsive responsive, String title, String subtitle,
+      String title2, String subtitle2) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                  fontSize: responsive.ip(1.8),
+                  fontWeight: FontWeight.w700,
+                  color: Colors.grey[600]),
+            ),
+            Text(
+              subtitle,
+              style: TextStyle(
+                fontSize: responsive.ip(1.8),
+                  fontWeight: FontWeight.w700,
+                  color: Colors.grey[600]),
+            ),
+          ],
+        ),
+        Spacer(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title2,
+              style: TextStyle(
+                  fontSize: responsive.ip(1.5),
+                  fontWeight: FontWeight.w700,
+                  color: Colors.grey[600]),
+            ),
+            Text(
+              subtitle2,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: responsive.ip(1.5),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _datosRow2(Responsive responsive, String title, String subtitle,
+      String title2, String subtitle2, String title3, String subtitle3) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                  fontSize: responsive.ip(1.5),
+                  fontWeight: FontWeight.w700,
+                  color: Colors.grey[600]),
+            ),
+            Text(
+              subtitle,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: responsive.ip(1.5),
+              ),
+            ),
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              title2,
+              style: TextStyle(
+                  fontSize: responsive.ip(1.5),
+                  fontWeight: FontWeight.w700,
+                  color: Colors.grey[600]),
+            ),
+            Text(
+              subtitle2,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: responsive.ip(1.5),
+              ),
+            ),
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              title3,
+              style: TextStyle(
+                  fontSize: responsive.ip(1.5),
+                  fontWeight: FontWeight.w700,
+                  color: Colors.grey[600]),
+            ),
+            Text(
+              subtitle3,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: responsive.ip(1.5),
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -379,10 +681,33 @@ class ExpandableContainer extends StatelessWidget {
       duration: Duration(milliseconds: 300),
       curve: Curves.easeInOut,
       width: screenWidth,
-      height: expanded ? responsive.hp(19) : collapsedHeight,
+      height: expanded ? responsive.hp(14) : collapsedHeight,
       child: Container(
         child: child,
       ),
     );
   }
+}
+
+class PrestamosCuotas {
+  String numeroCuota;
+  String importe;
+  String fPago;
+  String pagado;
+  String vencimiento;
+  String interes;
+  String principal;
+  String monto;
+  String estado;
+
+  PrestamosCuotas(
+      {this.numeroCuota,
+      this.importe,
+      this.fPago,
+      this.pagado,
+      this.vencimiento,
+      this.interes,
+      this.principal,
+      this.monto,
+      this.estado});
 }

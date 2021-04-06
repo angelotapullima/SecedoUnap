@@ -35,56 +35,58 @@ class InicioTab extends StatelessWidget {
               height: responsive.hp(92.5),
               color: Colors.white,
               child: SafeArea(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: responsive.hp(2),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: responsive.wp(3),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: responsive.hp(2),
                       ),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Bienvenido Arturo',
-                            style: TextStyle(
-                                fontSize: responsive.ip(3),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: responsive.wp(3),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Bienvenido Arturo',
+                              style: TextStyle(
+                                  fontSize: responsive.ip(3),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: responsive.hp(3),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: responsive.wp(3),
+                      SizedBox(
+                        height: responsive.hp(3),
                       ),
-                      child: Text(
-                        'Diferencias de pagos',
-                        style: TextStyle(
-                            fontSize: responsive.ip(2),
-                            fontWeight: FontWeight.bold),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: responsive.wp(3),
+                        ),
+                        child: Text(
+                          'Diferencias de pagos',
+                          style: TextStyle(
+                              fontSize: responsive.ip(2),
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                    CardExpandable(
-                      color: Colors.green,
-                      texto: 'Está al día en sus pagos',
-                    ),
-                    CardExpandable(
-                      color: Colors.red,
-                      texto: 'Tiene una deuda de S/ 3261.99',
-                    ),
-                    PieChartSample2(),
-                    Container(
-                      child: Column(
-                        children: [],
+                      CardExpandable(
+                        color: Colors.green,
+                        texto: 'Está al día en sus pagos',
                       ),
-                    )
-                  ],
+                      CardExpandable(
+                        color: Colors.red,
+                        texto: 'Tiene una deuda de S/ 3261.99',
+                      ),
+                      PieChartSample2(),
+                      Container(
+                        child: Column(
+                          children: [],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -154,199 +156,200 @@ class _CardExpandableState extends State<CardExpandable> {
                 ),
               ),
               ExpandableContainer(
-                  expanded: expandFlag,
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                'Cesantía:',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.8),
-                                ),
+                expanded: expandFlag,
+                child: ListView(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'Cesantía:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.8),
                               ),
-                              Text(
-                                '109.20',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.6),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                'Funeral:',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.8),
-                                ),
-                              ),
-                              Text(
-                                '10.50',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.6),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                'Jubilación:',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.8),
-                                ),
-                              ),
-                              Container(
-                                height: responsive.hp(.5),
-                                color: Colors.green,
-                              ),
-                              Text(
-                                '0.00',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.6),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: responsive.hp(1.5),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                'Multa:',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.8),
-                                ),
-                              ),
-                              Text(
-                                '0.00',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.6),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                'APR:',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.8),
-                                ),
-                              ),
-                              Text(
-                                '3230.99',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.6),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                'Garantizado:',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.8),
-                                ),
-                              ),
-                              Container(
-                                height: responsive.hp(.5),
-                                color: Colors.green,
-                              ),
-                              Text(
-                                '0.00',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.6),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: responsive.hp(1.5),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                'Descuento:',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.8),
-                                ),
-                              ),
-                              Text(
-                                '0.00',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontSize: responsive.ip(1.6),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: responsive.hp(1),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Actualizado al 21/05/2019',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: responsive.ip(1.8),
                             ),
+                            Text(
+                              '109.20',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Funeral:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Text(
+                              '10.50',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Jubilación:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Container(
+                              height: responsive.hp(.5),
+                              color: Colors.green,
+                            ),
+                            Text(
+                              '0.00',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1.5),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'Multa:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Text(
+                              '0.00',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'APR:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Text(
+                              '3230.99',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Garantizado:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Container(
+                              height: responsive.hp(.5),
+                              color: Colors.green,
+                            ),
+                            Text(
+                              '0.00',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1.5),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'Descuento:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.8),
+                              ),
+                            ),
+                            Text(
+                              '0.00',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                fontSize: responsive.ip(1.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Actualizado al 21/05/2019',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: responsive.ip(1.8),
                           ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: responsive.hp(1),
-                      ),
-                    ],
-                  ))
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ).ripple(
@@ -365,27 +368,30 @@ class _CardExpandableState extends State<CardExpandable> {
               vertical: responsive.hp(.5),
             ),
             child: IconButton(
-                icon: Container(
-                  height: responsive.ip(8),
-                  width: responsive.ip(8),
-                  decoration: BoxDecoration(
-                    color: widget.color,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Icon(
-                      expandFlag
-                          ? Icons.keyboard_arrow_up
-                          : Icons.keyboard_arrow_down,
-                      color: Colors.white,
-                    ),
+              icon: Container(
+                height: responsive.ip(8),
+                width: responsive.ip(8),
+                decoration: BoxDecoration(
+                  color: widget.color,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Icon(
+                    expandFlag
+                        ? Icons.keyboard_arrow_up
+                        : Icons.keyboard_arrow_down,
+                    color: Colors.white,
                   ),
                 ),
-                onPressed: () {
-                  setState(() {
+              ),
+              onPressed: () {
+                setState(
+                  () {
                     expandFlag = !expandFlag;
-                  });
-                }),
+                  },
+                );
+              },
+            ),
           ),
         ),
       ],
@@ -432,95 +438,138 @@ class PieChart2State extends State {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: responsive.wp(2),vertical: responsive.hp(1)),
-      margin: EdgeInsets.symmetric(horizontal: responsive.wp(3),vertical: responsive.hp(1)),
+      padding: EdgeInsets.symmetric(
+        horizontal: responsive.wp(2),
+        vertical: responsive.hp(1),
+      ),
+      margin: EdgeInsets.symmetric(
+        horizontal: responsive.wp(3),
+        vertical: responsive.hp(1),
+      ),
       decoration: BoxDecoration(
-            color: Colors.white,
-            //border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.blue.withOpacity(0.2),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
-              ),
-            ],
+        color: Colors.white,
+        //border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.withOpacity(0.2),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
           ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Prestamo',
+            'APR',
             style: TextStyle(
               color: Colors.blue[900],
               fontWeight: FontWeight.bold,
               fontSize: responsive.ip(3),
             ),
           ),
-          Text('S/. 61,500.00',style: TextStyle(
-              color: Colors.blue[900],
-              fontWeight: FontWeight.bold,
-              fontSize: responsive.ip(3),
-            ),),
+          Center(
+            child: Column(
+              children: [
+                Text(
+                  'S/. 61,500.00',
+                  style: TextStyle(
+                    color: Colors.blue[900],
+                    fontWeight: FontWeight.bold,
+                    fontSize: responsive.ip(3),
+                  ),
+                ), Text(
+                  'Monto total del prestamo',
+                  style: TextStyle(
+                    color: Colors.blue[900],
+                    fontWeight: FontWeight.bold,
+                    fontSize: responsive.ip(1.5),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: responsive.hp(2)),
           Row(
             children: <Widget>[
-               SizedBox(
+              SizedBox(
                 height: responsive.hp(2),
               ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
-                  Indicator(
-                    color: Color(0xFF218A07),
-                    text: 'Pagado',
-                    isSquare: true,
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Indicator(
-                    color: Color(0xFFEE3902),
-                    text: 'Deuda',
-                    isSquare: true,
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                ],
+              Container(
+                width: responsive.wp(38),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Indicator(
+                      size: responsive.ip(2),
+                      color: Color(0xFF218A07),
+                      text: 'Monto Pagado (%80)       S/.49,200.00',
+                      isSquare: true,
+                    ),
+                    SizedBox(
+                      height: responsive.hp(2),
+                    ),
+                    Indicator(
+                      color: Color(0xFFEE0221),
+                      text: 'Monto Por pagar(%20)       S/. 12,300.00',
+                      isSquare: true,
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                  ],
+                ),
               ),
-               SizedBox(
+              SizedBox(
                 width: responsive.wp(10),
               ),
               Expanded(
                 child: AspectRatio(
-                  aspectRatio: 1.3,
+                  aspectRatio: 1,
                   child: PieChart(
                     PieChartData(
-                        pieTouchData:
-                            PieTouchData(touchCallback: (pieTouchResponse) {
-                          setState(() {
-                            final desiredTouch = pieTouchResponse.touchInput
-                                    is! PointerExitEvent &&
-                                pieTouchResponse.touchInput is! PointerUpEvent;
-                            if (desiredTouch &&
-                                pieTouchResponse.touchedSection != null) {
-                              touchedIndex =
-                                  pieTouchResponse.touchedSectionIndex;
-                            } else {
-                              touchedIndex = -1;
-                            }
-                          });
-                        }),
-                        borderData: FlBorderData(
-                          show: false,
-                        ),
-                        sectionsSpace: 4,
-                        centerSpaceRadius: 30,
-                        sections: showingSections()),
+                      pieTouchData: PieTouchData(
+                        touchCallback: (pieTouchResponse) {
+                          setState(
+                            () {
+                              final desiredTouch = pieTouchResponse.touchInput
+                                      is! PointerExitEvent &&
+                                  pieTouchResponse.touchInput
+                                      is! PointerUpEvent;
+                              if (desiredTouch &&
+                                  pieTouchResponse.touchedSection != null) {
+                                touchedIndex =
+                                    pieTouchResponse.touchedSectionIndex;
+                              } else {
+                                touchedIndex = -1;
+                              }
+                            },
+                          );
+                        },
+                      ),
+                      borderData: FlBorderData(
+                        show: false,
+                      ),
+                      sectionsSpace: 4,
+                      centerSpaceRadius: 30,
+                      sections: showingSections(),
+                    ),
                   ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                'Actualizado al 21/05/2019',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: responsive.ip(1.5),
                 ),
               ),
             ],
@@ -531,38 +580,43 @@ class PieChart2State extends State {
   }
 
   List<PieChartSectionData> showingSections() {
-    return List.generate(2, (i) {
-      final isTouched = i == touchedIndex;
-      final double fontSize = isTouched ? 25 : 16;
-      final double radius = isTouched ? 60 : 50;
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: const Color(0xFF218A07),
-            value: 80,
-            title: '80%',
-            radius: radius,
-            titleStyle: TextStyle(
+    return List.generate(
+      2,
+      (i) {
+        final isTouched = i == touchedIndex;
+        final double fontSize = isTouched ? 25 : 16;
+        final double radius = isTouched ? 60 : 50;
+        switch (i) {
+          case 0:
+            return PieChartSectionData(
+              color: const Color(0xFF218A07),
+              value: 80,
+              title: '80%',
+              radius: radius,
+              titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: const Color(0xFFEE3902),
-            value: 20,
-            title: '20%',
-            radius: radius,
-            titleStyle: TextStyle(
+                color: const Color(0xffffffff),
+              ),
+            );
+          case 1:
+            return PieChartSectionData(
+              color: const Color(0xFFEE0221),
+              value: 20,
+              title: '20%',
+              radius: radius,
+              titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
+                color: const Color(0xffffffff),
+              ),
+            );
 
-        default:
-          return null;
-      }
-    });
+          default:
+            return null;
+        }
+      },
+    );
   }
 }
 
@@ -597,10 +651,12 @@ class Indicator extends StatelessWidget {
         const SizedBox(
           width: 4,
         ),
-        Text(
-          text,
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+          ),
         )
       ],
     );

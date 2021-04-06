@@ -39,7 +39,6 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
             porcentaje: '100%',
             nombre: 'Manuel Arturo Acosta Vigo',
             parentesco: 'Hijo'),
-       
       ],
     ),
   ];
@@ -97,29 +96,85 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                       child: ListView.builder(
                           shrinkWrap: true,
                           physics: ClampingScrollPhysics(),
-                          itemCount: list.length + 1,
+                          itemCount: list.length + 2,
                           itemBuilder: (_, index1) {
+                            if (index1 == list.length + 1) {
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                  top: responsive.hp(2),
+                                ),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: responsive.wp(2),
+                                    ),
+                                    Container(
+                                      height: responsive.ip(4),
+                                      width: responsive.ip(4),
+                                      child: Stack(
+                                        children: [
+                                          Center(
+                                            child: Container(
+                                              height: responsive.ip(4),
+                                              width: responsive.ip(4),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.red),
+                                            ),
+                                          ),
+                                          Center(
+                                            child: Container(
+                                              height: responsive.ip(3.5),
+                                              width: responsive.ip(3.5),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          Center(
+                                            child: Icon(
+                                              Icons.close_outlined,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(width: responsive.wp(2),),
+                                    Expanded(
+                                      child: Text(
+                                        ' Falta Actualizar carta declaratoria, favor de apesonarse a SECEDO-UNAP',
+                                        style: TextStyle(
+                                            fontSize: responsive.ip(2),
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: responsive.wp(2),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
                             if (index1 == list.length) {
-
                               final letras =
-                                      Random().nextInt(Colors.primaries.length);
-
+                                  Random().nextInt(Colors.primaries.length);
 
                               return Column(
                                 children: [
                                   Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: responsive.wp(3),
-                                        vertical: responsive.hp(1.5),
-                                      ),
-                                      child: Text(
-                                        'A mi Fallecimientoel fondo de funerales debe ingresarse a : ',
-                                        style: TextStyle(
-                                          fontSize: responsive.ip(1.8),
-                                        ),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: responsive.wp(3),
+                                      vertical: responsive.hp(1.5),
+                                    ),
+                                    child: Text(
+                                      'A mi Fallecimientoel fondo de funerales debe ingresarse a : ',
+                                      style: TextStyle(
+                                        fontSize: responsive.ip(1.8),
                                       ),
                                     ),
-                                    Container(
+                                  ),
+                                  Container(
                                     margin: EdgeInsets.symmetric(
                                         horizontal: responsive.wp(3),
                                         vertical: responsive.hp(.8)),
@@ -192,7 +247,6 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                                     ),
                                                   ),
                                                   Spacer(),
-                                                  
                                                 ],
                                               )
                                             ],
@@ -201,7 +255,6 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                       ],
                                     ),
                                   )
-                                
                                 ],
                               );
                             }
@@ -226,8 +279,8 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                       ),
                                     );
                                   }
-                                  
-                                    final letras =
+
+                                  final letras =
                                       Random().nextInt(Colors.primaries.length);
                                   return Container(
                                     margin: EdgeInsets.symmetric(
