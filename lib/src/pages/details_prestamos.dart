@@ -100,198 +100,201 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     return Scaffold(
-      body: Material(
-        child: Stack(
-          children: [
-            Container(
-              height: double.infinity,
-              width: double.infinity,
-              color: Colors.black,
-            ),
-            Container(
-              height: responsive.hp(13),
-              child: SafeArea(
-                child: AppBar(
-                  backgroundColor: Colors.transparent,
-                  title: Text('Detalle De Préstamo'),
-                ),
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            color: Colors.black,
+          ),
+          Container(
+            height: responsive.hp(13),
+            child: SafeArea(
+              child: AppBar(
+                backgroundColor: Colors.transparent,
+                title: Text('Detalle De Préstamo'),
               ),
             ),
-            Positioned(
-              top: responsive.hp(11),
-              left: 0,
-              right: 0,
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(30),
-                  topLeft: Radius.circular(30),
+          ),
+          Positioned(
+            top: responsive.hp(11),
+            left: 0,
+            right: 0,
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30),
+                topLeft: Radius.circular(30),
+              ),
+              child: Container(
+                height: responsive.hp(89),
+                decoration: BoxDecoration(
+                  color: Colors.white,
                 ),
-                child: Container(
-                  height: responsive.hp(89),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF6F7F8),
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        color: Colors.white,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: responsive.wp(3),
-                            vertical: responsive.hp(1.5),
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'N° de Cheque',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: responsive.ip(1.8),
-                                    ),
+                child: Column(
+                  children: [
+                    Container(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: responsive.wp(3),
+                          vertical: responsive.hp(1.5),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  'N° de Cheque',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: responsive.ip(1.8),
                                   ),
-                                  Spacer(),
-                                  Text(
-                                    '84810303',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: responsive.ip(1.7),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              SizedBox(height: responsive.hp(1)),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'S/. 12,300.00',
-                                        style: TextStyle(
-                                          color: Colors.blue[900],
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: responsive.ip(2),
-                                        ),
+                                ),
+                                Spacer(),
+                                Text(
+                                  '84810303',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: responsive.ip(1.7),
+                                  ),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: responsive.hp(1)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'S/. 12,300.00',
+                                      style: TextStyle(
+                                        color: Colors.blue[900],
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: responsive.ip(2),
                                       ),
-                                      Text(
-                                        'deuda por pagar',
-                                        style: TextStyle(
-                                          color: Colors.blue[900],
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: responsive.ip(1.5),
-                                        ),
+                                    ),
+                                    Text(
+                                      'deuda por pagar',
+                                      style: TextStyle(
+                                        color: Colors.blue[900],
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: responsive.ip(1.5),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: responsive.hp(2),
+                            ),
+                            Row(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: responsive.hp(2),
+                                ),
+                                Container(
+                                  width: responsive.wp(33),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Indicator(
+                                        size: responsive.ip(1.6),
+                                        color: Color(0xFF218A07),
+                                        text: 'Monto Pagado S/.49,200.00',
+                                        isSquare: true,
+                                      ),
+                                      SizedBox(
+                                        height: responsive.hp(1.6),
+                                      ),
+                                      Indicator(
+                                        color: Color(0xFFEE0221),
+                                        text: 'Monto Por pagar S/. 12,300.00',
+                                        isSquare: true,
+                                      ),
+                                      SizedBox(
+                                        height: 4,
                                       ),
                                     ],
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: responsive.hp(2),
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  SizedBox(
-                                    height: responsive.hp(2),
                                   ),
-                                  Container(
-                                    width: responsive.wp(33),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Indicator(
-                                          size: responsive.ip(1.6),
-                                          color: Color(0xFF218A07),
-                                          text: 'Monto Pagado S/.49,200.00',
-                                          isSquare: true,
+                                ),
+                                SizedBox(
+                                  width: responsive.wp(15),
+                                ),
+                                Expanded(
+                                  child: AspectRatio(
+                                    aspectRatio: 1.2,
+                                    child: PieChart(
+                                      PieChartData(
+                                        borderData: FlBorderData(
+                                          show: false,
                                         ),
-                                        SizedBox(
-                                          height: responsive.hp(1.6),
-                                        ),
-                                        Indicator(
-                                          color: Color(0xFFEE0221),
-                                          text: 'Monto Por pagar S/. 12,300.00',
-                                          isSquare: true,
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: responsive.wp(10),
-                                  ),
-                                  Expanded(
-                                    child: AspectRatio(
-                                      aspectRatio: 1.2,
-                                      child: PieChart(
-                                        PieChartData(
-                                          borderData: FlBorderData(
-                                            show: false,
-                                          ),
-                                          sectionsSpace: 4,
-                                          centerSpaceRadius: 30,
-                                          sections: showingSections(),
-                                        ),
+                                        sectionsSpace: 4,
+                                        centerSpaceRadius: 30,
+                                        sections: showingSections(),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Actualizado al 21/05/2019',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: responsive.ip(1.5),
-                                    ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Actualizado al 21/05/2019',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: responsive.ip(1.5),
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: responsive.hp(1),
+                            )
+                          ],
                         ),
                       ),
-                      Container(
-                        width: double.infinity,
-                        color: Colors.grey[300],
-                        padding:
-                            EdgeInsets.symmetric(vertical: responsive.hp(.5)),
-                        child: Text(
-                          'Cuotas según cronograma',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.blue[900],
-                              fontWeight: FontWeight.bold),
-                        ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      color: Colors.grey[300],
+                      padding:
+                          EdgeInsets.symmetric(vertical: responsive.hp(.5)),
+                      child: Text(
+                        'Cuotas según cronograma',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.blue[900],
+                            fontWeight: FontWeight.bold),
                       ),
-                      Expanded(
-                        child: ListView.builder(
-                            padding: EdgeInsets.symmetric(vertical: 0),
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                            itemCount: list.length,
-                            itemBuilder: (_, index) {
-                              return CardExpandable(
-                                prestamo: list[index],
-                              );
-                            }),
-                      ),
-                    ],
-                  ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          itemCount: list.length,
+                          itemBuilder: (_, index) {
+                            return CardExpandable(
+                              prestamo: list[index],
+                            );
+                          }),
+                    ),
+                  ],
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -351,146 +354,160 @@ class _CardExpandableState extends State<CardExpandable> {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            //border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
-              ),
-            ],
-          ),
-          margin: EdgeInsets.symmetric(
-            vertical: responsive.hp(.5),
-            horizontal: responsive.wp(2),
-          ),
-          padding: EdgeInsets.symmetric(
-            vertical: responsive.hp(0),
-            horizontal: responsive.wp(2),
-          ),
-          child: Column(
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          Stack(
             children: [
               Container(
-                padding: EdgeInsets.only(top: responsive.hp(3.2)),
-                height: responsive.hp(10),
-                child: (widget.prestamo.estado == '0')
-                    ? _datosRow(
-                        responsive,
-                        'Importe:',
-                        'S/.${widget.prestamo.importe}',
-                        'Vencimiento:',
-                        'S/.${widget.prestamo.vencimiento}')
-                    : _datosRow(
-                        responsive,
-                        'Importe:',
-                        'S/.${widget.prestamo.importe}',
-                        'Fecha de pago:',
-                        '${widget.prestamo.fPago}'),
-              ),
-              ExpandableContainer(
-                  expanded: expandFlag,
-                  child: ListView(
-                    padding: EdgeInsets.all(0),
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    children: [
-                      (widget.prestamo.estado == '0')
-                          ? _datosRow2(
-                              responsive,
-                              'Pagado:',
-                              '${widget.prestamo.pagado}',
-                              'Fecha de pago:',
-                              '${widget.prestamo.fPago}',
-                              'Interes:',
-                              'S/. ${widget.prestamo.interes}',
-                            )
-                          : _datosRow2(
-                              responsive,
-                              'Pagado:',
-                              '${widget.prestamo.pagado}',
-                              'Vencimiento:',
-                              'S/.${widget.prestamo.vencimiento}',
-                              'Interes:',
-                              'S/. ${widget.prestamo.interes}',
-                            ),
-                      SizedBox(
-                        height: responsive.hp(1),
-                      ),
-                      /* _datosRow2(responsive, 'Pagado:', 'S/.5,000.00',
-                          'Principal:', '04/01/2019'), */
-                      SizedBox(
-                        height: responsive.hp(1),
-                      ),
-                      _datosRow3(responsive, 'Principal:', 'S/. ${widget.prestamo.principal}',
-                          'Monto:', 'S/. ${widget.prestamo.monto}'),
-                    ],
-                  ))
-            ],
-          ),
-        ).ripple(
-          () {
-            setState(() {
-              expandFlag = !expandFlag;
-            });
-          },
-        ),
-        Positioned(
-          top: responsive.hp(0),
-          left: responsive.wp(2),
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: responsive.wp(2),
-              vertical: responsive.hp(.5),
-            ),
-            decoration: BoxDecoration(
-              color:  (widget.prestamo.estado == '0')?Colors.green:Colors.red,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Text(
-              'Cuota N° ${widget.prestamo.numeroCuota}',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 0,
-          right: responsive.wp(2),
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: responsive.wp(2),
-            ),
-            child: IconButton(
-                icon: Container(
-                  height: responsive.ip(8),
-                  width: responsive.ip(8),
-                  decoration: BoxDecoration(
-                    color: Colors.blue[900],
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Icon(
-                      expandFlag
-                          ? Icons.keyboard_arrow_up
-                          : Icons.keyboard_arrow_down,
-                      color: Colors.white,
+                /* decoration: BoxDecoration(
+                  color: Colors.white,
+                  //border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
                     ),
-                  ),
+                  ],
+                ), */
+                /* margin: EdgeInsets.symmetric(
+                  vertical: responsive.hp(.5),
+                  horizontal: responsive.wp(2),
+                ), */
+                padding: EdgeInsets.symmetric(
+                  vertical: responsive.hp(0),
+                  horizontal: responsive.wp(2),
                 ),
-                onPressed: () {
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: responsive.hp(3.2)),
+                      height: responsive.hp(10),
+                      child: (widget.prestamo.estado == '0')
+                          ? _datosRow(
+                              responsive,
+                              'Importe:',
+                              'S/.${widget.prestamo.importe}',
+                              'Vencimiento:',
+                              'S/.${widget.prestamo.vencimiento}')
+                          : _datosRow(
+                              responsive,
+                              'Importe:',
+                              'S/.${widget.prestamo.importe}',
+                              'Fecha de pago:',
+                              '${widget.prestamo.fPago}'),
+                    ),
+                    ExpandableContainer(
+                        expanded: expandFlag,
+                        child: ListView(
+                          padding: EdgeInsets.all(0),
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          children: [
+                            (widget.prestamo.estado == '0')
+                                ? _datosRow2(
+                                    responsive,
+                                    'Pagado:',
+                                    '${widget.prestamo.pagado}',
+                                    'Fecha de pago:',
+                                    '${widget.prestamo.fPago}',
+                                    'Interes:',
+                                    'S/. ${widget.prestamo.interes}',
+                                  )
+                                : _datosRow2(
+                                    responsive,
+                                    'Pagado:',
+                                    '${widget.prestamo.pagado}',
+                                    'Vencimiento:',
+                                    'S/.${widget.prestamo.vencimiento}',
+                                    'Interes:',
+                                    'S/. ${widget.prestamo.interes}',
+                                  ),
+                            SizedBox(
+                              height: responsive.hp(1),
+                            ),
+                            /* _datosRow2(responsive, 'Pagado:', 'S/.5,000.00',
+                                'Principal:', '04/01/2019'), */
+                            SizedBox(
+                              height: responsive.hp(1),
+                            ),
+                            _datosRow3(
+                                responsive,
+                                'Principal:',
+                                'S/. ${widget.prestamo.principal}',
+                                'Monto:',
+                                'S/. ${widget.prestamo.monto}'),
+                          ],
+                        ))
+                  ],
+                ),
+              ).ripple(
+                () {
                   setState(() {
                     expandFlag = !expandFlag;
                   });
-                }),
+                },
+              ),
+              Positioned(
+                top: responsive.hp(0),
+                left: responsive.wp(2),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: responsive.wp(2),
+                    vertical: responsive.hp(.5),
+                  ),
+                  decoration: BoxDecoration(
+                    color: (widget.prestamo.estado == '0')
+                        ? Colors.green
+                        : Colors.red,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    'Cuota N° ${widget.prestamo.numeroCuota}',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 0,
+                right: responsive.wp(2),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: responsive.wp(2),
+                  ),
+                  child: IconButton(
+                      icon: Container(
+                        height: responsive.ip(8),
+                        width: responsive.ip(8),
+                        decoration: BoxDecoration(
+                          color: Colors.blue[900],
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Icon(
+                            expandFlag
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          expandFlag = !expandFlag;
+                        });
+                      }),
+                ),
+              ),
+            ],
           ),
-        ),
-      ],
+          Divider(),
+        ],
+      ),
     );
   }
 
@@ -512,10 +529,9 @@ class _CardExpandableState extends State<CardExpandable> {
             Text(
               subtitle,
               style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: responsive.ip(2.5),
-
-              color: Colors.blue[900]),
+                  fontWeight: FontWeight.w700,
+                  fontSize: responsive.ip(2),
+                  color: Colors.blue[900]),
             ),
           ],
         ),
@@ -544,7 +560,6 @@ class _CardExpandableState extends State<CardExpandable> {
     );
   }
 
-  
   Widget _datosRow3(Responsive responsive, String title, String subtitle,
       String title2, String subtitle2) {
     return Row(
@@ -556,14 +571,14 @@ class _CardExpandableState extends State<CardExpandable> {
             Text(
               title,
               style: TextStyle(
-                  fontSize: responsive.ip(1.8),
+                  fontSize: responsive.ip(1.5),
                   fontWeight: FontWeight.w700,
                   color: Colors.grey[600]),
             ),
             Text(
               subtitle,
               style: TextStyle(
-                fontSize: responsive.ip(1.8),
+                  fontSize: responsive.ip(1.5),
                   fontWeight: FontWeight.w700,
                   color: Colors.grey[600]),
             ),

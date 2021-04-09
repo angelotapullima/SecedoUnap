@@ -140,12 +140,14 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(width: responsive.wp(2),),
+                                    SizedBox(
+                                      width: responsive.wp(2),
+                                    ),
                                     Expanded(
                                       child: Text(
                                         ' Falta Actualizar carta declaratoria, favor de apesonarse a SECEDO-UNAP',
                                         style: TextStyle(
-                                            fontSize: responsive.ip(2),
+                                            fontSize: responsive.ip(1.8),
                                             fontWeight: FontWeight.w600),
                                       ),
                                     ),
@@ -176,8 +178,9 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                   ),
                                   Container(
                                     margin: EdgeInsets.symmetric(
-                                        horizontal: responsive.wp(3),
-                                        vertical: responsive.hp(.8)),
+                                      horizontal: responsive.wp(3),
+                                      vertical: responsive.hp(.8),
+                                    ),
                                     padding: EdgeInsets.only(
                                         right: responsive.wp(2)),
                                     decoration: BoxDecoration(
@@ -216,7 +219,7 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                                 'Martha Jacqueline Vigo Rodriguez',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: responsive.ip(1.8),
+                                                  fontSize: responsive.ip(1.7),
                                                 ),
                                               ),
                                               SizedBox(
@@ -242,7 +245,7 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                                       'Esposa ',
                                                       style: TextStyle(
                                                           fontSize: responsive
-                                                              .ip(1.6),
+                                                              .ip(1.5),
                                                           color: Colors.white),
                                                     ),
                                                   ),
@@ -324,7 +327,7 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                                 '${list[index1].beneficiarios[index2 - 1].nombre} ',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: responsive.ip(1.8),
+                                                  fontSize: responsive.ip(1.7),
                                                 ),
                                               ),
                                               SizedBox(
@@ -350,7 +353,7 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                                       '${list[index1].beneficiarios[index2 - 1].parentesco} ',
                                                       style: TextStyle(
                                                           fontSize: responsive
-                                                              .ip(1.6),
+                                                              .ip(1.5),
                                                           color: Colors.white),
                                                     ),
                                                   ),

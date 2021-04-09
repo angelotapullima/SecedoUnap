@@ -78,16 +78,20 @@ class PagosTab extends StatelessWidget {
                               height: responsive.hp(1),
                             ),
                             Planilla(responsive: responsive),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: responsive.wp(2),
-                                vertical: responsive.hp(1),
-                              ),
-                              child: Text(
-                                'Planilla descontada por la UNAP',
-                                style: TextStyle(
-                                    fontSize: responsive.ip(2),
-                                    fontWeight: FontWeight.bold),
+                            Container(
+                              width: double.infinity,
+                              color:Colors.grey[300],
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: responsive.wp(2),
+                                  vertical: responsive.hp(1),
+                                ),
+                                child: Text(
+                                  'Planilla descontada por la UNAP',
+                                  style: TextStyle(
+                                      fontSize: responsive.ip(1.7),
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
                             SizedBox(
@@ -173,7 +177,7 @@ class _CardExpandableState extends State<CardExpandable> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: responsive.ip(1.5),
+                              fontSize: responsive.ip(1.4),
                             ),
                           ),
                           Text(
@@ -181,7 +185,7 @@ class _CardExpandableState extends State<CardExpandable> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontSize: responsive.ip(1.5),
+                              fontSize: responsive.ip(1.4),
                             ),
                           ),
                         ],
@@ -196,7 +200,7 @@ class _CardExpandableState extends State<CardExpandable> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: responsive.ip(1.5),
+                              fontSize: responsive.ip(1.4),
                             ),
                           ),
                           Text(
@@ -204,7 +208,7 @@ class _CardExpandableState extends State<CardExpandable> {
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
                               color: Colors.green,
-                              fontSize: responsive.ip(1.5),
+                              fontSize: responsive.ip(1.4),
                             ),
                           ),
                         ],
@@ -218,7 +222,7 @@ class _CardExpandableState extends State<CardExpandable> {
                             'Diferencia:',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: responsive.ip(1.5),
+                              fontSize: responsive.ip(1.4),
                             ),
                           ),
                           Text(
@@ -226,7 +230,7 @@ class _CardExpandableState extends State<CardExpandable> {
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
                               color: Colors.red,
-                              fontSize: responsive.ip(1.5),
+                              fontSize: responsive.ip(1.4),
                             ),
                           ),
                         ],
@@ -253,7 +257,7 @@ class _CardExpandableState extends State<CardExpandable> {
                               'Fecha:',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Container(
@@ -264,7 +268,7 @@ class _CardExpandableState extends State<CardExpandable> {
                               '30/06/2019',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -275,14 +279,14 @@ class _CardExpandableState extends State<CardExpandable> {
                               'Cesantía:',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Text(
                               'S/. 109.20',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -293,14 +297,14 @@ class _CardExpandableState extends State<CardExpandable> {
                               'Funeral:',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Text(
                               'S/. 10.50',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -319,7 +323,7 @@ class _CardExpandableState extends State<CardExpandable> {
                               'Jubilación:',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Container(
@@ -330,7 +334,7 @@ class _CardExpandableState extends State<CardExpandable> {
                               'S/. 0.00',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -341,14 +345,14 @@ class _CardExpandableState extends State<CardExpandable> {
                               'Multa:',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Text(
                               'S/. 0.00',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -359,14 +363,14 @@ class _CardExpandableState extends State<CardExpandable> {
                               'APR:',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Text(
                               'S/. 3,230.99',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -385,7 +389,7 @@ class _CardExpandableState extends State<CardExpandable> {
                               'Garantizado:',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Container(
@@ -396,7 +400,7 @@ class _CardExpandableState extends State<CardExpandable> {
                               'S/. 0.00',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -407,14 +411,14 @@ class _CardExpandableState extends State<CardExpandable> {
                               'Descuento:',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Text(
                               'S/. 0.00',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -573,7 +577,7 @@ class Planilla extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.green,
-              fontSize: responsive.ip(2),
+              fontSize: responsive.ip(1.8),
             ),
           ),
           Text(
@@ -581,7 +585,7 @@ class Planilla extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.red,
-              fontSize: responsive.ip(2),
+              fontSize: responsive.ip(1.8),
             ),
           ),
           SizedBox(
@@ -596,7 +600,7 @@ class Planilla extends StatelessWidget {
                     'Fecha:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: responsive.ip(1.8),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                   Container(
@@ -608,7 +612,7 @@ class Planilla extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.red,
-                      fontSize: responsive.ip(1.6),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                 ],
@@ -619,14 +623,14 @@ class Planilla extends StatelessWidget {
                     'Cesantía:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: responsive.ip(1.8),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                   Text(
                     '109.20',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: responsive.ip(1.6),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                 ],
@@ -637,14 +641,14 @@ class Planilla extends StatelessWidget {
                     'Funeral:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: responsive.ip(1.8),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                   Text(
                     '10.50',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: responsive.ip(1.6),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                 ],
@@ -663,7 +667,7 @@ class Planilla extends StatelessWidget {
                     'Jubilación:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: responsive.ip(1.8),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                   Container(
@@ -674,7 +678,7 @@ class Planilla extends StatelessWidget {
                     '0.00',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: responsive.ip(1.6),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                 ],
@@ -685,14 +689,14 @@ class Planilla extends StatelessWidget {
                     'Multa:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: responsive.ip(1.8),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                   Text(
                     '0.00',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: responsive.ip(1.6),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                 ],
@@ -703,14 +707,14 @@ class Planilla extends StatelessWidget {
                     'APR:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: responsive.ip(1.8),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                   Text(
                     '3230.99',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: responsive.ip(1.6),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                 ],
@@ -729,7 +733,7 @@ class Planilla extends StatelessWidget {
                     'Garantizado:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: responsive.ip(1.8),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                   Container(
@@ -740,7 +744,7 @@ class Planilla extends StatelessWidget {
                     '0.00',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: responsive.ip(1.6),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                 ],
@@ -751,14 +755,14 @@ class Planilla extends StatelessWidget {
                     'Descuento:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: responsive.ip(1.8),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                   Text(
                     '0.00',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: responsive.ip(1.6),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                 ],
@@ -769,7 +773,7 @@ class Planilla extends StatelessWidget {
                     'Total:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: responsive.ip(1.8),
+                      fontSize: responsive.ip(1.4),
                     ),
                   ),
                   Text(
@@ -777,7 +781,7 @@ class Planilla extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.red,
-                      fontSize: responsive.ip(2),
+                      fontSize: responsive.ip(1.7),
                     ),
                   ),
                 ],

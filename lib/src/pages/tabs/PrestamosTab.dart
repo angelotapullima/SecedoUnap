@@ -170,21 +170,24 @@ class PrestamosTab extends StatelessWidget {
                                               'AC005',
                                               'N° de Cheque:',
                                               '84810411'),
-                                          SizedBox(height: responsive.hp(1.5)),
+                                          SizedBox(height: responsive.hp(2)),
+                                          Divider(),
                                           _datosRow(
                                               responsive,
                                               'Nombre:',
                                               'Acosta Diaz, Arturo',
                                               'Prioridad:',
                                               'Emergencia'),
-                                          SizedBox(height: responsive.hp(1.5)),
+                                          SizedBox(height: responsive.hp(2)),
+                                          Divider(),
                                           _datosRow(
                                               responsive,
                                               'Tipo:',
                                               'Ampliación',
                                               'Tasa De Interes:',
                                               '1'),
-                                          SizedBox(height: responsive.hp(1.5)),
+                                          SizedBox(height: responsive.hp(2)),
+                                          Divider(),
                                           _datosRow(
                                             responsive,
                                             'Fecha Solicitada:',
@@ -192,7 +195,8 @@ class PrestamosTab extends StatelessWidget {
                                             'Fecha Aprobada:',
                                             '28/11/2018',
                                           ),
-                                          SizedBox(height: responsive.hp(1.5)),
+                                          SizedBox(height: responsive.hp(2)),
+                                          Divider(),
                                           _datosRow2(
                                             responsive,
                                             'Cantidad Solicitada:',
@@ -200,7 +204,8 @@ class PrestamosTab extends StatelessWidget {
                                             'Cantidad Aprobada:',
                                             'S/ 61,500.00',
                                           ),
-                                          SizedBox(height: responsive.hp(1.5)),
+                                          SizedBox(height: responsive.hp(2)),
+                                          Divider(),
                                           _datosRow(responsive, 'Cuotas:', '30',
                                               'Monto Girado:', 'S/ 5,720.80'),
                                           SizedBox(
@@ -283,21 +288,24 @@ class PrestamosTab extends StatelessWidget {
                                               'AC005',
                                               'N° de Cheque:',
                                               '84810411'),
-                                          SizedBox(height: responsive.hp(1.5)),
+                                          SizedBox(height: responsive.hp(2)),
+                                          Divider(),
                                           _datosRow(
                                               responsive,
                                               'Nombre:',
                                               'Acosta Diaz, Arturo',
                                               'Prioridad:',
                                               'Emergencia'),
-                                          SizedBox(height: responsive.hp(1.5)),
+                                          SizedBox(height: responsive.hp(2)),
+                                          Divider(),
                                           _datosRow(
                                               responsive,
                                               'Tipo:',
                                               'Ampliación',
                                               'Tasa De Interes:',
                                               '1'),
-                                          SizedBox(height: responsive.hp(1.5)),
+                                          SizedBox(height: responsive.hp(2)),
+                                          Divider(),
                                           _datosRow(
                                             responsive,
                                             'Fecha Solicitada:',
@@ -305,7 +313,8 @@ class PrestamosTab extends StatelessWidget {
                                             'Fecha Aprobada:',
                                             '28/11/2018',
                                           ),
-                                          SizedBox(height: responsive.hp(1.5)),
+                                          SizedBox(height: responsive.hp(2)),
+                                          Divider(),
                                           _datosRow2(
                                             responsive,
                                             'Cantidad Solicitada:',
@@ -313,7 +322,8 @@ class PrestamosTab extends StatelessWidget {
                                             'Cantidad Aprobada:',
                                             'S/ 61,500.00',
                                           ),
-                                          SizedBox(height: responsive.hp(1.5)),
+                                          SizedBox(height: responsive.hp(2)),
+                                          Divider(),
                                           _datosRow(responsive, 'Cuotas:', '30',
                                               'Monto Girado:', 'S/ 5,720.80'),
                                           SizedBox(
@@ -322,7 +332,7 @@ class PrestamosTab extends StatelessWidget {
                                         ],
                                       ),
                                     );
-                                   },
+                                  },
                           ),
                         ),
                       ),
@@ -349,7 +359,7 @@ class PrestamosTab extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                    fontSize: responsive.ip(1.7), fontWeight: FontWeight.w700),
+                    fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
               ),
               Text(
                 subtitle,
@@ -369,7 +379,7 @@ class PrestamosTab extends StatelessWidget {
               Text(
                 title2,
                 style: TextStyle(
-                    fontSize: responsive.ip(1.7), fontWeight: FontWeight.w700),
+                    fontSize: responsive.ip(1.5), fontWeight: FontWeight.w700),
               ),
               Text(
                 subtitle2,
@@ -404,7 +414,7 @@ class PrestamosTab extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
-                  fontSize: responsive.ip(2),
+                  fontSize: responsive.ip(1.8),
                 ),
               ),
             ],
@@ -425,7 +435,7 @@ class PrestamosTab extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.red,
                   fontWeight: FontWeight.bold,
-                  fontSize: responsive.ip(2),
+                  fontSize: responsive.ip(1.8),
                 ),
               ),
             ],
@@ -880,120 +890,7 @@ class _PromocionesInicioState extends State<PromocionesInicio> {
                         ),
                       ),
                     ),
-                    /* InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          PageRouteBuilder(
-                            opaque: false,
-                            pageBuilder:
-                                (context, animation, secondaryAnimation) {
-                              return DetailsPrestamos(index: '1');
-                            },
-                            transitionsBuilder: (context, animation,
-                                secondaryAnimation, child) {
-                              var begin = Offset(0.0, 1.0);
-                              var end = Offset.zero;
-                              var curve = Curves.ease;
-
-                              var tween = Tween(begin: begin, end: end).chain(
-                                CurveTween(curve: curve),
-                              );
-
-                              return SlideTransition(
-                                position: animation.drive(tween),
-                                child: child,
-                              );
-                            },
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.red[700],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: widget.responsive.wp(2),
-                            vertical: widget.responsive.hp(1),
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'N° de Cheque',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: widget.responsive.ip(2),
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    '84810303',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: widget.responsive.ip(2),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: widget.responsive.hp(2),
-                              ),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: widget.responsive.wp(2)),
-                                height: widget.responsive.hp(10),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width: widget.responsive.wp(45),
-                                      child: Text(
-                                        'S/. 61,500.00',
-                                        style: TextStyle(
-                                            fontSize: widget.responsive.ip(2.7),
-                                            color: Colors.white),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: widget.responsive.wp(2),
-                                    ),
-                                    Container(
-                                      width: widget.responsive.wp(24),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.white,
-                                      ),
-                                      child: Center(
-                                        child: Container(
-                                          width: widget.responsive.wp(20),
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.red[700],
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              '80%',
-                                              style: TextStyle(
-                                                  fontSize:
-                                                      widget.responsive.ip(2),
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                   */
+                   
                   ],
                 ),
               ),
@@ -1074,6 +971,8 @@ class Indicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final responsive = Responsive.of(context);
     return Row(
       children: <Widget>[
         Container(
@@ -1084,14 +983,14 @@ class Indicator extends StatelessWidget {
             color: color,
           ),
         ),
-        const SizedBox(
-          width: 4,
+         SizedBox(
+          width: responsive.wp(1),
         ),
         Expanded(
           child: Text(
             text,
             style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+                fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold, color: textColor),
           ),
         )
       ],

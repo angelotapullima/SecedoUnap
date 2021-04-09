@@ -171,15 +171,15 @@ class _CardExpandableState extends State<CardExpandable> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Text(
-                              '109.20',
+                              'S/. 109.20',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -191,15 +191,15 @@ class _CardExpandableState extends State<CardExpandable> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Text(
-                              '10.50',
+                              'S/. 10.50',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -211,7 +211,7 @@ class _CardExpandableState extends State<CardExpandable> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Container(
@@ -219,11 +219,11 @@ class _CardExpandableState extends State<CardExpandable> {
                               color: Colors.green,
                             ),
                             Text(
-                              '0.00',
+                              'S/. 0.00',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -234,7 +234,7 @@ class _CardExpandableState extends State<CardExpandable> {
                       height: responsive.hp(1.5),
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(
                           children: [
@@ -243,15 +243,15 @@ class _CardExpandableState extends State<CardExpandable> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Text(
-                              '0.00',
+                              'S/. 0.00',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -263,15 +263,15 @@ class _CardExpandableState extends State<CardExpandable> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Text(
-                              '3230.99',
+                              'S/. 3230.99',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -283,7 +283,7 @@ class _CardExpandableState extends State<CardExpandable> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Container(
@@ -291,11 +291,11 @@ class _CardExpandableState extends State<CardExpandable> {
                               color: Colors.green,
                             ),
                             Text(
-                              '0.00',
+                              'S/. 0.00',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -315,15 +315,15 @@ class _CardExpandableState extends State<CardExpandable> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.8),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                             Text(
-                              '0.00',
+                              'S/. 0.00',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
-                                fontSize: responsive.ip(1.6),
+                                fontSize: responsive.ip(1.4),
                               ),
                             ),
                           ],
@@ -331,7 +331,7 @@ class _CardExpandableState extends State<CardExpandable> {
                       ],
                     ),
                     SizedBox(
-                      height: responsive.hp(1),
+                      height: responsive.hp(3),
                     ),
                     Row(
                       children: [
@@ -339,7 +339,7 @@ class _CardExpandableState extends State<CardExpandable> {
                           'Actualizado al 21/05/2019',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: responsive.ip(1.8),
+                            fontSize: responsive.ip(1.6),
                           ),
                         ),
                       ],
@@ -478,7 +478,7 @@ class PieChart2State extends State {
                   style: TextStyle(
                     color: Colors.blue[900],
                     fontWeight: FontWeight.bold,
-                    fontSize: responsive.ip(3),
+                    fontSize: responsive.ip(2.5),
                   ),
                 ), Text(
                   'Monto total del prestamo',
@@ -505,7 +505,7 @@ class PieChart2State extends State {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Indicator(
-                      size: responsive.ip(2),
+                      size: responsive.ip(1.8),
                       color: Color(0xFF218A07),
                       text: 'Monto Pagado (%80)       S/.49,200.00',
                       isSquare: true,
@@ -638,6 +638,7 @@ class Indicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive.of(context);
     return Row(
       children: <Widget>[
         Container(
@@ -648,14 +649,14 @@ class Indicator extends StatelessWidget {
             color: color,
           ),
         ),
-        const SizedBox(
-          width: 4,
+         SizedBox(
+          width: responsive.wp(1),
         ),
         Expanded(
           child: Text(
             text,
             style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+                fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold, color: textColor),
           ),
         )
       ],
