@@ -195,7 +195,7 @@ class PrestamosTab extends StatelessWidget {
                                                 _datosRow(
                                                     responsive,
                                                     'Codigo:',
-                                                    'AC005',
+                                                    '--AC005--',
                                                     'N° de Cheque:',
                                                     '${prestamos.data[valor.data].cheque}'),
                                                 SizedBox(
@@ -597,7 +597,7 @@ class _CardPrestamosResumenState extends State<CardPrestamosResumen> {
                       Row(
                         children: [
                           Text(
-                            '--Actualizado al 21/05/2019--',
+                            'Actualizado al ${item.fechaActualizado}',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: responsive.ip(1.5),

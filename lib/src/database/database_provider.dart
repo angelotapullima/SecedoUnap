@@ -26,7 +26,7 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'secedoV1.db');
+    final path = join(documentsDirectory.path, 'secedo2.db');
 
     Future _onConfigure(Database db) async {
       await db.execute('PRAGMA foreign_keys = ON');
@@ -50,6 +50,7 @@ class DatabaseProvider {
           ' tipo TEXT,'
           ' prioridad TEXT,'
           ' garante TEXT,'
+          ' fechaActualizado TEXT,'
           ' idPersona TEXT'
           ')');
 

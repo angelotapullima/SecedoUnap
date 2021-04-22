@@ -28,6 +28,11 @@ class PrestamosApi {
 
       if (decodedData.length > 0) {
         for (int i = 0; i < decodedData.length; i++) {
+
+          final date = DateTime.now();
+          String dia = date.day.toString();
+          String mes = date.month.toString();
+          String year = date.year.toString();
           PrestamosModel prestamosModel = PrestamosModel();
 
           prestamosModel.idPrestamo = decodedData[i]['id_prestamo'].toString();
@@ -43,6 +48,7 @@ class PrestamosApi {
           prestamosModel.prioridad = decodedData[i]['Prioridad'].toString();
           prestamosModel.garante = decodedData[i]['Garante'].toString();
           prestamosModel.idPersona = decodedData[i]['id_persona'].toString();
+          prestamosModel.fechaActualizado = '$dia/$mes/$year';
 
           await prestamosDatabase.insertarPrestamos(prestamosModel);
 

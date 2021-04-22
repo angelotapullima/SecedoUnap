@@ -18,6 +18,7 @@ class PrestamosModel {
   String montoPorPagar;
   String porcentajePagado;
   String porcentajeSinPagar;
+  String fechaActualizado;
 
   PrestamosModel(
       {this.cheque,
@@ -32,6 +33,7 @@ class PrestamosModel {
       this.prioridad,
       this.garante,
       this.idPrestamo,
+      this.fechaActualizado,
       this.idPersona});
 
   factory PrestamosModel.fromJson(Map<String, dynamic> json) => PrestamosModel(
@@ -48,5 +50,6 @@ class PrestamosModel {
         garante: json["garante"],
         idPrestamo: json["idPrestamo"],
         idPersona: json["idPersona"],
+        fechaActualizado: json["fechaActualizado"],
       );
 }

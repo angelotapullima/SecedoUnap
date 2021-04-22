@@ -46,6 +46,7 @@ class PrestamosBloc {
         prestamosModel.prioridad = prestamos[i].prioridad;
         prestamosModel.garante = prestamos[i].garante;
         prestamosModel.idPersona = prestamos[i].idPersona;
+        prestamosModel.fechaActualizado = prestamos[i].fechaActualizado;
         double montoPagado = 0.0;
         double montoPorPagar = 0.0;
         double montoTotal = 0.0;

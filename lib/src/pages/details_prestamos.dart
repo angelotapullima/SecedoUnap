@@ -190,7 +190,7 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
                                     Row(
                                       children: [
                                         Text(
-                                          'Actualizado al 21/05/2019',
+                                            'Actualizado al ${widget.prestamo.fechaActualizado}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontSize: responsive.ip(1.5),
