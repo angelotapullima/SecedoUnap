@@ -1,17 +1,17 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:secedo_unap/src/bloc/cuotas_prestamos_bloc.dart';
 import 'package:secedo_unap/src/bloc/home_comercial_bloc.dart';
+import 'package:secedo_unap/src/bloc/prestamos_bloc.dart';
 import 'package:secedo_unap/src/bloc/prestamos_item_bloc.dart';
 
 class ProviderBloc extends InheritedWidget {
   static ProviderBloc _instancia;
 
-
   final homeComercialBloc = HomeComercialBloc();
   final prestamosItemBloc = PrestamosItemBloc();
-  
-  
+
+  final prestasmosBloc = PrestamosBloc();
+  final cuotasPrestamosBloc = CuotasPrestamosBloc();
 
   factory ProviderBloc({Key key, Widget child}) {
     if (_instancia == null) {
@@ -26,17 +26,27 @@ class ProviderBloc extends InheritedWidget {
   @override
   bool updateShouldNotify(ProviderBloc oldWidget) => true;
 
-
-
   //tab
   static HomeComercialBloc homeComercial(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .homeComercialBloc;
   }
+
   //tab
   static PrestamosItemBloc presta(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .prestamosItemBloc;
   }
 
+  //tab
+  static PrestamosBloc prestamos(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .prestasmosBloc;
+  }
+
+  //tab
+  static CuotasPrestamosBloc cuotasP(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .cuotasPrestamosBloc;
+  }
 }

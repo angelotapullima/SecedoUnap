@@ -1,5 +1,5 @@
 
-import 'package:rxdart/subjects.dart';
+import 'package:rxdart/subjects.dart'; 
 
 class PrestamosItemBloc {
   //instancia que captura el ultimo elemento agregado al controlador

@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ProviderBloc(
       child: MaterialApp(
-          title: 'Quispe',
+          title: 'Secedo Unap',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primarySwatch: Colors.blue,

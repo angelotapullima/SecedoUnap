@@ -33,7 +33,7 @@ class _HomePageState extends State<HomeComercialPage> {
   @override
   Widget build(BuildContext context) {
     final buttonBloc = ProviderBloc.homeComercial(context);
-    buttonBloc.changePage(0);
+    buttonBloc.changePage(3);
     final responsive = Responsive.of(context);
     return StreamBuilder(
             stream: buttonBloc.selectPageStream,
