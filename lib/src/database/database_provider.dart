@@ -1,9 +1,3 @@
-
-
-
-
-
-
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -26,7 +20,7 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'secedo.db');
+    final path = join(documentsDirectory.path, 'secedov1.db');
 
     Future _onConfigure(Database db) async {
       await db.execute('PRAGMA foreign_keys = ON');
@@ -36,7 +30,6 @@ class DatabaseProvider {
         version: 1,
         onOpen: (db) {},
         onConfigure: _onConfigure, onCreate: (Database db, int version) async {
-
       await db.execute('CREATE TABLE Prestamos ('
           ' idPrestamo TEXT  PRIMARY KEY,'
           ' cheque TEXT,'
@@ -54,7 +47,7 @@ class DatabaseProvider {
           ' idPersona TEXT'
           ')');
 
-          await db.execute('CREATE TABLE CuotasPrestamo ('
+      await db.execute('CREATE TABLE CuotasPrestamo ('
           ' idCuota TEXT  PRIMARY KEY,'
           ' idPrestamo TEXT,'
           ' vencimiento TEXT,'
@@ -68,7 +61,7 @@ class DatabaseProvider {
           ' cuota TEXT'
           ')');
 
-           await db.execute('CREATE TABLE DescuentoPlanilla ('
+      await db.execute('CREATE TABLE DescuentoPlanilla ('
           ' idDescuentoPlanilla TEXT  PRIMARY KEY,'
           ' idAfiliacion TEXT,'
           ' codigo TEXT,'
@@ -89,8 +82,7 @@ class DatabaseProvider {
           ' posicion TEXT'
           ')');
 
-
-          await db.execute('CREATE TABLE Beneficiarios ('
+      await db.execute('CREATE TABLE Beneficiarios ('
           ' idBeneficiario TEXT  PRIMARY KEY,'
           ' idPersona TEXT,'
           ' nombre TEXT,'
@@ -105,14 +97,20 @@ class DatabaseProvider {
           ' observaciones TEXT'
           ')');
 
-     
-     
-   
-   
-
+      await db.execute('CREATE TABLE PlanillaEnviada ('
+          ' idPlanillaEnviada TEXT  PRIMARY KEY,'
+          ' idAfiliacion TEXT,'
+          ' tipoPlanilla TEXT,'
+          ' fecha TEXT,'
+          ' cesantia TEXT,'
+          ' funeral TEXT,'
+          ' jubilacion TEXT,'
+          ' multa TEXT,'
+          ' apr TEXT,'
+          ' garantizado TEXT,'
+          ' descuento TEXT,'
+          ' total TEXT'
+          ')');
     });
   }
 }
-
-
-

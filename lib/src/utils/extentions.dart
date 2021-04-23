@@ -15,7 +15,7 @@ extension OnPressed on Widget {
             right: 0,
             top: 0,
             bottom: 0,
-            child: FlatButton(
+            child: MaterialButton(
               shape: RoundedRectangleBorder(borderRadius: borderRadius),
               onPressed: () {
                 if (onPressed != null) {

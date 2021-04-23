@@ -3,6 +3,7 @@ import 'package:secedo_unap/src/bloc/beneficiarios_bloc.dart';
 import 'package:secedo_unap/src/bloc/cuotas_prestamos_bloc.dart';
 import 'package:secedo_unap/src/bloc/descuento_planilla_bloc.dart';
 import 'package:secedo_unap/src/bloc/home_comercial_bloc.dart';
+import 'package:secedo_unap/src/bloc/planilla_enviada_bloc.dart';
 import 'package:secedo_unap/src/bloc/prestamos_bloc.dart';
 import 'package:secedo_unap/src/bloc/prestamos_item_bloc.dart';
 
@@ -16,6 +17,7 @@ class ProviderBloc extends InheritedWidget {
   final cuotasPrestamosBloc = CuotasPrestamosBloc();
   final descuentoPlanillaBloc = DescuentoPlanillaBloc();
   final beneficiariosBloc = BeneficiariosBloc();
+  final planillaEnviadaBloc = PlanillaEnviadaBloc();
 
   factory ProviderBloc({Key key, Widget child}) {
     if (_instancia == null) {
@@ -64,5 +66,11 @@ class ProviderBloc extends InheritedWidget {
   static BeneficiariosBloc beneficiarios(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .beneficiariosBloc;
+  }
+
+  //tab
+  static PlanillaEnviadaBloc planillaEnviada(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .planillaEnviadaBloc;
   }
 }
