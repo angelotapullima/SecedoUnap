@@ -17,7 +17,7 @@ class HomeComercialPage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomeComercialPage> {
-  List<Widget> listPages = List<Widget>();
+  List<Widget> listPages = [];
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomeComercialPage> {
   @override
   Widget build(BuildContext context) {
     final buttonBloc = ProviderBloc.homeComercial(context);
-    buttonBloc.changePage(3);
+    buttonBloc.changePage(2);
     final responsive = Responsive.of(context);
     return StreamBuilder(
             stream: buttonBloc.selectPageStream,

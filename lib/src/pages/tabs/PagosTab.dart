@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:secedo_unap/src/bloc/provider_bloc.dart';
+import 'package:secedo_unap/src/model/descuento_planilla_model.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
 
@@ -8,6 +11,9 @@ class PagosTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
+
+    final descuentoPlanillaBloc = ProviderBloc.descuentoP(context);
+    descuentoPlanillaBloc.obtenerDescuentoPlanilla();
 
     return Scaffold(
       body: Stack(
@@ -80,7 +86,7 @@ class PagosTab extends StatelessWidget {
                             Planilla(responsive: responsive),
                             Container(
                               width: double.infinity,
-                              color:Colors.grey[300],
+                              color: Colors.grey[300],
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                   horizontal: responsive.wp(2),
@@ -98,12 +104,34 @@ class PagosTab extends StatelessWidget {
                               height: responsive.hp(1),
                             ),
                             Expanded(
-                              child: ListView.builder(
-                                  itemCount: 4,
-                                  itemBuilder: (_, index) {
-                                    return CardExpandable(
-                                      index: (index + 1).toString(),
-                                    );
+                              child: StreamBuilder(
+                                  stream: descuentoPlanillaBloc
+                                      .descuentoPlanillaControllerStream,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<
+                                              List<DescuentoPlanillaModel>>
+                                          snapshot) {
+                                    if (snapshot.hasData) {
+                                      if (snapshot.data.length > 0) {
+                                        return ListView.builder(
+                                          itemCount: snapshot.data.length,
+                                          itemBuilder: (_, index) {
+                                            return CardExpandable(
+                                              planillaModel:
+                                                  snapshot.data[index],
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        return Center(
+                                          child: CupertinoActivityIndicator(),
+                                        );
+                                      }
+                                    } else {
+                                      return Center(
+                                        child: CupertinoActivityIndicator(),
+                                      );
+                                    }
                                   }),
                             )
                           ],
@@ -122,9 +150,10 @@ class PagosTab extends StatelessWidget {
 }
 
 class CardExpandable extends StatefulWidget {
-  const CardExpandable({Key key, @required this.index}) : super(key: key);
+  const CardExpandable({Key key, @required this.planillaModel})
+      : super(key: key);
 
-  final String index;
+  final DescuentoPlanillaModel planillaModel;
 
   @override
   _CardExpandableState createState() => _CardExpandableState();
@@ -162,18 +191,19 @@ class _CardExpandableState extends State<CardExpandable> {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.only(top: responsive.hp(2.5)),
-                height: responsive.hp(9),
+                padding: EdgeInsets.only(
+                  top: responsive.hp(5),
+                ),
+                height: responsive.hp(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      width: responsive.wp(30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'Enviado (SECEDO):',
+                            'Enviado (SECEDO)',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -181,7 +211,9 @@ class _CardExpandableState extends State<CardExpandable> {
                             ),
                           ),
                           Text(
-                            'S/. 3,361.00',
+                            ('${widget.planillaModel.ntotal}' == 'null')
+                                ? '-'
+                                : 'S/.${widget.planillaModel.ntotal}',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
@@ -192,11 +224,10 @@ class _CardExpandableState extends State<CardExpandable> {
                       ),
                     ),
                     Container(
-                      width: responsive.wp(30),
                       child: Column(
                         children: [
                           Text(
-                            'Descontado (UNAP):',
+                            'Descontado (UNAP)',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -204,7 +235,9 @@ class _CardExpandableState extends State<CardExpandable> {
                             ),
                           ),
                           Text(
-                            'S/. 3,361.00',
+                            ('${widget.planillaModel.aplicado}' == 'null')
+                                ? '-'
+                                : 'S/.${widget.planillaModel.aplicado}',
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
                               color: Colors.green,
@@ -215,7 +248,6 @@ class _CardExpandableState extends State<CardExpandable> {
                       ),
                     ),
                     Container(
-                      width: responsive.wp(30),
                       child: Column(
                         children: [
                           Text(
@@ -226,7 +258,9 @@ class _CardExpandableState extends State<CardExpandable> {
                             ),
                           ),
                           Text(
-                            'S/. 0,00',
+                            ('${widget.planillaModel.diferencia}' == 'null')
+                                ? '-'
+                                : 'S/.${widget.planillaModel.diferencia}',
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
                               color: Colors.red,
@@ -246,7 +280,7 @@ class _CardExpandableState extends State<CardExpandable> {
                   physics: ClampingScrollPhysics(),
                   children: [
                     SizedBox(
-                      height: responsive.hp(1),
+                      height: responsive.hp(2),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -265,7 +299,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               color: Colors.green,
                             ),
                             Text(
-                              '30/06/2019',
+                              ('${widget.planillaModel.fecha}' == 'null')
+                                  ? '-'
+                                  : '${widget.planillaModel.fecha}',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: responsive.ip(1.4),
@@ -283,7 +319,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               ),
                             ),
                             Text(
-                              'S/. 109.20',
+                              ('${widget.planillaModel.cesantia}' == 'null')
+                                  ? '-'
+                                  : 'S/.${widget.planillaModel.cesantia}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -301,7 +339,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               ),
                             ),
                             Text(
-                              'S/. 10.50',
+                              ('${widget.planillaModel.funeral}' == 'null')
+                                  ? '-'
+                                  : 'S/.${widget.planillaModel.funeral}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -312,7 +352,7 @@ class _CardExpandableState extends State<CardExpandable> {
                       ],
                     ),
                     SizedBox(
-                      height: responsive.hp(1.5),
+                      height: responsive.hp(2),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -331,7 +371,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               color: Colors.green,
                             ),
                             Text(
-                              'S/. 0.00',
+                              ('${widget.planillaModel.jubilacion}' == 'null')
+                                  ? '-'
+                                  : '${widget.planillaModel.jubilacion}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -349,7 +391,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               ),
                             ),
                             Text(
-                              'S/. 0.00',
+                              ('${widget.planillaModel.multa}' == 'null')
+                                  ? '-'
+                                  : '${widget.planillaModel.jubilacion}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -367,7 +411,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               ),
                             ),
                             Text(
-                              'S/. 3,230.99',
+                              ('${widget.planillaModel.apr}' == 'null')
+                                  ? '-'
+                                  : 'S/.${widget.planillaModel.apr}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -378,7 +424,7 @@ class _CardExpandableState extends State<CardExpandable> {
                       ],
                     ),
                     SizedBox(
-                      height: responsive.hp(1.5),
+                      height: responsive.hp(2),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -397,7 +443,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               color: Colors.green,
                             ),
                             Text(
-                              'S/. 0.00',
+                              ('${widget.planillaModel.garantizado}' == 'null')
+                                  ? '-'
+                                  : '${widget.planillaModel.garantizado}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -415,7 +463,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               ),
                             ),
                             Text(
-                              'S/. 0.00',
+                              ('${widget.planillaModel.descuento}' == 'null')
+                                  ? '-'
+                                  : '${widget.planillaModel.descuento}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -470,7 +520,7 @@ class _CardExpandableState extends State<CardExpandable> {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
-              'N° ${widget.index}',
+              'N° ${widget.planillaModel.posicion}',
               style: TextStyle(color: Colors.white),
             ),
           ),
