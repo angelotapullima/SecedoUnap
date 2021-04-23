@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:secedo_unap/src/bloc/beneficiarios_bloc.dart';
 import 'package:secedo_unap/src/bloc/cuotas_prestamos_bloc.dart';
 import 'package:secedo_unap/src/bloc/descuento_planilla_bloc.dart';
 import 'package:secedo_unap/src/bloc/home_comercial_bloc.dart';
@@ -14,6 +15,7 @@ class ProviderBloc extends InheritedWidget {
   final prestasmosBloc = PrestamosBloc();
   final cuotasPrestamosBloc = CuotasPrestamosBloc();
   final descuentoPlanillaBloc = DescuentoPlanillaBloc();
+  final beneficiariosBloc = BeneficiariosBloc();
 
   factory ProviderBloc({Key key, Widget child}) {
     if (_instancia == null) {
@@ -56,5 +58,11 @@ class ProviderBloc extends InheritedWidget {
   static DescuentoPlanillaBloc descuentoP(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .descuentoPlanillaBloc;
+  }
+
+  //tab
+  static BeneficiariosBloc beneficiarios(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .beneficiariosBloc;
   }
 }

@@ -26,7 +26,7 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'secedo4.db');
+    final path = join(documentsDirectory.path, 'secedo.db');
 
     Future _onConfigure(Database db) async {
       await db.execute('PRAGMA foreign_keys = ON');
@@ -87,6 +87,22 @@ class DatabaseProvider {
           ' diferencia TEXT,'
           ' idPersona TEXT,'
           ' posicion TEXT'
+          ')');
+
+
+          await db.execute('CREATE TABLE Beneficiarios ('
+          ' idBeneficiario TEXT  PRIMARY KEY,'
+          ' idPersona TEXT,'
+          ' nombre TEXT,'
+          ' gradoParentesco TEXT,'
+          ' porcentaje TEXT,'
+          ' funeral TEXT,'
+          ' beneficioFallecimiento TEXT,'
+          ' fallecido TEXT,'
+          ' idGradoParentesco TEXT,'
+          ' defuncion TEXT,'
+          ' cartaDeclaratoria TEXT,'
+          ' observaciones TEXT'
           ')');
 
      

@@ -1,6 +1,9 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:secedo_unap/src/bloc/beneficiarios_bloc.dart';
+import 'package:secedo_unap/src/bloc/provider_bloc.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 
 class BeneficiariosTab extends StatefulWidget {
@@ -11,41 +14,12 @@ class BeneficiariosTab extends StatefulWidget {
 }
 
 class _BeneficiariosTabState extends State<BeneficiariosTab> {
-  var list = [
-    BeneficiariosGeneral(
-      tipo: '1',
-      texto:
-          'Beneficiarios con derecho a fondo de cesantía y bolsa de jubilación',
-      beneficiarios: [
-        Beneficiarios(
-            porcentaje: '100%',
-            nombre: 'Martha Jacqueline Vigo Rodriguez',
-            parentesco: 'Esposa')
-      ],
-    ),
-    BeneficiariosGeneral(
-      tipo: '2',
-      texto: 'Derecho como afiliado al cobro de fondos de funerales',
-      beneficiarios: [
-        Beneficiarios(
-            porcentaje: '100%',
-            nombre: 'Martha Jacqueline Vigo Rodriguez',
-            parentesco: 'Esposa'),
-        Beneficiarios(
-            porcentaje: '100%',
-            nombre: 'Benedicto Acosta Vela',
-            parentesco: 'Padre'),
-        Beneficiarios(
-            porcentaje: '100%',
-            nombre: 'Manuel Arturo Acosta Vigo',
-            parentesco: 'Hijo'),
-      ],
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
+
+    final beneficiariosBloc = ProviderBloc.beneficiarios(context);
+    beneficiariosBloc.obtenerBeneficiarios();
 
     return Scaffold(
       body: Stack(
@@ -72,326 +46,440 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
               color: Colors.white,
               child: SafeArea(
                 bottom: false,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: responsive.wp(3),
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Beneficiarios',
-                            style: TextStyle(
-                                fontSize: responsive.ip(3),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: responsive.hp(2),
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          itemCount: list.length + 2,
-                          itemBuilder: (_, index1) {
-                            if (index1 == list.length + 1) {
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                  top: responsive.hp(2),
-                                ),
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: responsive.wp(2),
-                                    ),
-                                    Container(
-                                      height: responsive.ip(4),
-                                      width: responsive.ip(4),
-                                      child: Stack(
-                                        children: [
-                                          Center(
-                                            child: Container(
-                                              height: responsive.ip(4),
-                                              width: responsive.ip(4),
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.red),
-                                            ),
-                                          ),
-                                          Center(
-                                            child: Container(
-                                              height: responsive.ip(3.5),
-                                              width: responsive.ip(3.5),
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                          Center(
-                                            child: Icon(
-                                              Icons.close_outlined,
-                                              color: Colors.red,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: responsive.wp(2),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        ' Falta Actualizar carta declaratoria, favor de apesonarse a SECEDO-UNAP',
-                                        style: TextStyle(
-                                            fontSize: responsive.ip(1.8),
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: responsive.wp(2),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                            if (index1 == list.length) {
-                              final letras =
-                                  Random().nextInt(Colors.primaries.length);
-
-                              return Column(
+                child: StreamBuilder(
+                  stream: beneficiariosBloc.beneficiariosControllerStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<BeneficiariosList>> snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data.length > 0) {
+                        return ListView(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: responsive.wp(3),
+                              ),
+                              child: Row(
                                 children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(3),
-                                      vertical: responsive.hp(1.5),
-                                    ),
+                                  Text(
+                                    'Beneficiarios',
+                                    style: TextStyle(
+                                        fontSize: responsive.ip(3),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: responsive.hp(2),
+                            ),
+                            (snapshot.data[0].funeral.length > 0)
+                                ? ListView.builder(
+                                    physics: ClampingScrollPhysics(),
+                                    itemCount:
+                                        snapshot.data[0].funeral.length + 1,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, indexFune) {
+                                      final letras = Random()
+                                          .nextInt(Colors.primaries.length);
+
+                                      if (indexFune == 0) {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: responsive.wp(3),
+                                              vertical: responsive.hp(1)),
+                                          child: Text(
+                                            'Beneficiarios con derecho a fondo de cesantía y bolsa de jubilación',
+                                            style: TextStyle(
+                                                fontSize: responsive.ip(2)),
+                                          ),
+                                        );
+                                      }
+
+                                      int indexFuneral = indexFune - 1;
+
+                                      return Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: responsive.wp(3),
+                                            vertical: responsive.hp(.8)),
+                                        padding: EdgeInsets.only(
+                                            right: responsive.wp(2)),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.4),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.primaries[letras],
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              ),
+                                              width: responsive.wp(2),
+                                              height: responsive.hp(7),
+                                            ),
+                                            SizedBox(
+                                              width: responsive.wp(2),
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${snapshot.data[0].funeral[indexFuneral].nombre}',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize:
+                                                          responsive.ip(1.7),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: responsive.hp(.5),
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                          horizontal:
+                                                              responsive.wp(2),
+                                                          vertical:
+                                                              responsive.hp(.5),
+                                                        ),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Colors.primaries[
+                                                                  letras],
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                        ),
+                                                        child: Text(
+                                                          '${snapshot.data[0].funeral[indexFuneral].gradoParentesco}',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  responsive
+                                                                      .ip(1.5),
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      ),
+                                                      Spacer(),
+                                                      Text(
+                                                        'Porcentaje : ',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: responsive
+                                                              .ip(1.6),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        '${snapshot.data[0].funeral[indexFuneral].porcentaje}%',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: responsive
+                                                              .ip(1.6),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : Container(),
+                            (snapshot.data[0].fallecido.length > 0)
+                                ? ListView.builder(
+                                    physics: ClampingScrollPhysics(),
+                                    itemCount:
+                                        snapshot.data[0].fallecido.length + 1,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, indexFalle) {
+                                      final letras = Random()
+                                          .nextInt(Colors.primaries.length);
+
+                                      if (indexFalle == 0) {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: responsive.wp(3),
+                                              vertical: responsive.hp(1)),
+                                          child: Text(
+                                            'Beneficiarios con derecho a fondo de cesantía y bolsa de jubilación',
+                                            style: TextStyle(
+                                                fontSize: responsive.ip(2)),
+                                          ),
+                                        );
+                                      }
+
+                                      int indexFallecido = indexFalle - 1;
+
+                                      return Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: responsive.wp(3),
+                                            vertical: responsive.hp(.8)),
+                                        padding: EdgeInsets.only(
+                                            right: responsive.wp(2)),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.4),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.primaries[letras],
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              ),
+                                              width: responsive.wp(2),
+                                              height: responsive.hp(7),
+                                            ),
+                                            SizedBox(
+                                              width: responsive.wp(2),
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${snapshot.data[0].fallecido[indexFallecido].nombre}',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize:
+                                                          responsive.ip(1.7),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: responsive.hp(.5),
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                          horizontal:
+                                                              responsive.wp(2),
+                                                          vertical:
+                                                              responsive.hp(.5),
+                                                        ),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Colors.primaries[
+                                                                  letras],
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                        ),
+                                                        child: Text(
+                                                          '${snapshot.data[0].fallecido[indexFallecido].gradoParentesco}',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  responsive
+                                                                      .ip(1.5),
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      ),
+                                                      Spacer(),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : Container(),
+                            (snapshot.data[0].beneficioFallecido.length > 0)
+                                ? ListView.builder(
+                                    itemCount:
+                                        snapshot.data[0].funeral.length + 1,
+                                    shrinkWrap: true,
+                                    physics: ClampingScrollPhysics(),
+                                    itemBuilder: (context, indexFune) {
+                                      final letras = Random()
+                                          .nextInt(Colors.primaries.length);
+
+                                      if (indexFune == 0) {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: responsive.wp(3),
+                                              vertical: responsive.hp(1)),
+                                          child: Text(
+                                            ' A mi fallecimiento el fondo de funerales debe ingresarse a:',
+                                            style: TextStyle(
+                                              fontSize: responsive.ip(2),
+                                            ),
+                                          ),
+                                        );
+                                      }
+
+                                      int indexFuneral = indexFune - 1;
+
+                                      return Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: responsive.wp(3),
+                                            vertical: responsive.hp(.8)),
+                                        padding: EdgeInsets.only(
+                                            right: responsive.wp(2)),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.4),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.primaries[letras],
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              ),
+                                              width: responsive.wp(2),
+                                              height: responsive.hp(7),
+                                            ),
+                                            SizedBox(
+                                              width: responsive.wp(2),
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${snapshot.data[0].funeral[indexFuneral].nombre}',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize:
+                                                          responsive.ip(1.7),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: responsive.hp(.5),
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                          horizontal:
+                                                              responsive.wp(2),
+                                                          vertical:
+                                                              responsive.hp(.5),
+                                                        ),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Colors.primaries[
+                                                                  letras],
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                        ),
+                                                        child: Text(
+                                                          '${snapshot.data[0].funeral[indexFuneral].gradoParentesco}',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  responsive
+                                                                      .ip(1.5),
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      ),
+                                                      Spacer(),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : Container(),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: responsive.wp(3),
+                                vertical: responsive.hp(1),
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.add_alert_sharp,color: Colors.red,),
+                                  SizedBox(
+                                    width: responsive.wp(3),
+                                  ),
+                                  Expanded(
                                     child: Text(
-                                      'A mi Fallecimientoel fondo de funerales debe ingresarse a : ',
+                                      '${snapshot.data[0].funeral[0].observaciones}',
                                       style: TextStyle(
-                                        fontSize: responsive.ip(1.8),
-                                      ),
+                                          fontSize: responsive.ip(2),
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                      horizontal: responsive.wp(3),
-                                      vertical: responsive.hp(.8),
-                                    ),
-                                    padding: EdgeInsets.only(
-                                        right: responsive.wp(2)),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.4),
-                                          spreadRadius: 5,
-                                          blurRadius: 7,
-                                          offset: Offset(0,
-                                              3), // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.primaries[letras],
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                          ),
-                                          width: responsive.wp(2),
-                                          height: responsive.hp(7),
-                                        ),
-                                        SizedBox(
-                                          width: responsive.wp(2),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Martha Jacqueline Vigo Rodriguez',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: responsive.ip(1.7),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: responsive.hp(.5),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                responsive
-                                                                    .wp(2),
-                                                            vertical: responsive
-                                                                .hp(.5)),
-                                                    decoration: BoxDecoration(
-                                                        color: Colors
-                                                            .primaries[letras],
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15)),
-                                                    child: Text(
-                                                      'Esposa ',
-                                                      style: TextStyle(
-                                                          fontSize: responsive
-                                                              .ip(1.5),
-                                                          color: Colors.white),
-                                                    ),
-                                                  ),
-                                                  Spacer(),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
                                 ],
-                              );
-                            }
-
-                            return ListView.builder(
-                                shrinkWrap: true,
-                                physics: ClampingScrollPhysics(),
-                                itemCount:
-                                    list[index1].beneficiarios.length + 1,
-                                itemBuilder: (_, index2) {
-                                  if (index2 == 0) {
-                                    return Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: responsive.wp(3),
-                                        vertical: responsive.hp(1.5),
-                                      ),
-                                      child: Text(
-                                        '${list[index1].texto}',
-                                        style: TextStyle(
-                                          fontSize: responsive.ip(1.8),
-                                        ),
-                                      ),
-                                    );
-                                  }
-
-                                  final letras =
-                                      Random().nextInt(Colors.primaries.length);
-                                  return Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: responsive.wp(3),
-                                        vertical: responsive.hp(.8)),
-                                    padding: EdgeInsets.only(
-                                        right: responsive.wp(2)),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.4),
-                                          spreadRadius: 5,
-                                          blurRadius: 7,
-                                          offset: Offset(0,
-                                              3), // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.primaries[letras],
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                          ),
-                                          width: responsive.wp(2),
-                                          height: responsive.hp(7),
-                                        ),
-                                        SizedBox(
-                                          width: responsive.wp(2),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                '${list[index1].beneficiarios[index2 - 1].nombre} ',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: responsive.ip(1.7),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: responsive.hp(.5),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                responsive
-                                                                    .wp(2),
-                                                            vertical: responsive
-                                                                .hp(.5)),
-                                                    decoration: BoxDecoration(
-                                                        color: Colors
-                                                            .primaries[letras],
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15)),
-                                                    child: Text(
-                                                      '${list[index1].beneficiarios[index2 - 1].parentesco} ',
-                                                      style: TextStyle(
-                                                          fontSize: responsive
-                                                              .ip(1.5),
-                                                          color: Colors.white),
-                                                    ),
-                                                  ),
-                                                  Spacer(),
-                                                  (list[index1].tipo == '1')
-                                                      ? Text(
-                                                          'Porcentaje : ',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize: responsive
-                                                                .ip(1.6),
-                                                          ),
-                                                        )
-                                                      : Container(),
-                                                  (list[index1].tipo == '1')
-                                                      ? Text(
-                                                          '100%',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize: responsive
-                                                                .ip(1.6),
-                                                          ),
-                                                        )
-                                                      : Container(),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                });
-                          }),
-                    ),
-                  ],
+                              ),
+                            )
+                          ],
+                        );
+                      } else {
+                        return Center(
+                          child: CupertinoActivityIndicator(),
+                        );
+                      }
+                    } else {
+                      return Center(
+                        child: CupertinoActivityIndicator(),
+                      );
+                    }
+                  },
                 ),
               ),
             ),
@@ -400,20 +488,4 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
       ),
     );
   }
-}
-
-class BeneficiariosGeneral {
-  String tipo;
-  String texto;
-  List<Beneficiarios> beneficiarios;
-
-  BeneficiariosGeneral({this.tipo, this.beneficiarios, this.texto});
-}
-
-class Beneficiarios {
-  Beneficiarios({this.porcentaje, this.nombre, this.parentesco});
-
-  String porcentaje;
-  String nombre;
-  String parentesco;
 }
