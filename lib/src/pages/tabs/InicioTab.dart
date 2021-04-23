@@ -1,15 +1,27 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:secedo_unap/src/bloc/provider_bloc.dart';
+import 'package:secedo_unap/src/model/prestamos_model.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
 
-class InicioTab extends StatelessWidget {
+class InicioTab extends StatefulWidget {
   const InicioTab({Key key}) : super(key: key);
 
   @override
+  _InicioTabState createState() => _InicioTabState();
+}
+
+class _InicioTabState extends State<InicioTab> {
+  final _pageController =
+      PageController(viewportFraction: 0.92, initialPage: 0);
+  @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
+    final prestamosBloc = ProviderBloc.prestamos(context);
+    prestamosBloc.obtenerPrestamos();
 
     return Scaffold(
       body: Stack(
@@ -79,7 +91,57 @@ class InicioTab extends StatelessWidget {
                         color: Colors.red,
                         texto: 'Tiene una deuda de S/ 3261.99',
                       ),
-                      PieChartSample2(),
+                      SizedBox(height: responsive.hp(2),),
+                      StreamBuilder(
+                        stream: prestamosBloc.prestamosStream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<PrestamosModel>> prestamos) {
+                          if (prestamos.hasData) {
+                            if (prestamos.data.length > 0) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: responsive.wp(4),
+                                      ),
+                                      Text(
+                                        'APR',
+                                        style: TextStyle(
+                                          color: Colors.blue[900],
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: responsive.ip(3),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    height: responsive.hp(40),
+                                    child: PageView.builder(
+                                      itemCount: prestamos.data.length,
+                                      controller: _pageController,
+                                      itemBuilder: (context, index) {
+                                        return PrestamosItem(
+                                          prestamoModel: prestamos.data[index],
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return Center(
+                                child: CupertinoActivityIndicator(),
+                              );
+                            }
+                          } else {
+                            return Center(
+                              child: CupertinoActivityIndicator(),
+                            );
+                          }
+                        },
+                      ),
                       Container(
                         child: Column(
                           children: [],
@@ -234,7 +296,7 @@ class _CardExpandableState extends State<CardExpandable> {
                       height: responsive.hp(1.5),
                     ),
                     Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(
                           children: [
@@ -426,12 +488,15 @@ class ExpandableContainer extends StatelessWidget {
   }
 }
 
-class PieChartSample2 extends StatefulWidget {
+class PrestamosItem extends StatefulWidget {
+  PrestamosItem({Key key, @required this.prestamoModel}) : super(key: key);
+
+  final PrestamosModel prestamoModel;
   @override
-  State<StatefulWidget> createState() => PieChart2State();
+  _PrestamosItemState createState() => _PrestamosItemState();
 }
 
-class PieChart2State extends State {
+class _PrestamosItemState extends State<PrestamosItem> {
   int touchedIndex;
 
   @override
@@ -442,9 +507,10 @@ class PieChart2State extends State {
         horizontal: responsive.wp(2),
         vertical: responsive.hp(1),
       ),
-      margin: EdgeInsets.symmetric(
-        horizontal: responsive.wp(3),
-        vertical: responsive.hp(1),
+      margin: EdgeInsets.only(
+        right: responsive.wp(3),
+        top: responsive.hp(1),
+        bottom: responsive.hp(1),
       ),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -462,25 +528,26 @@ class PieChart2State extends State {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          /*  Text(
             'APR',
             style: TextStyle(
               color: Colors.blue[900],
               fontWeight: FontWeight.bold,
               fontSize: responsive.ip(3),
             ),
-          ),
+          ), */
           Center(
             child: Column(
               children: [
                 Text(
-                  'S/. 61,500.00',
+                  'S/. ${widget.prestamoModel.aprobado}',
                   style: TextStyle(
                     color: Colors.blue[900],
                     fontWeight: FontWeight.bold,
                     fontSize: responsive.ip(2.5),
                   ),
-                ), Text(
+                ),
+                Text(
                   'Monto total del prestamo',
                   style: TextStyle(
                     color: Colors.blue[900],
@@ -491,7 +558,9 @@ class PieChart2State extends State {
               ],
             ),
           ),
-          SizedBox(height: responsive.hp(2)),
+          SizedBox(
+            height: responsive.hp(2),
+          ),
           Row(
             children: <Widget>[
               SizedBox(
@@ -507,7 +576,8 @@ class PieChart2State extends State {
                     Indicator(
                       size: responsive.ip(1.8),
                       color: Color(0xFF218A07),
-                      text: 'Monto Pagado (%80)       S/.49,200.00',
+                      text:
+                          'Monto Pagado S/.${widget.prestamoModel.montoPagado}',
                       isSquare: true,
                     ),
                     SizedBox(
@@ -515,7 +585,8 @@ class PieChart2State extends State {
                     ),
                     Indicator(
                       color: Color(0xFFEE0221),
-                      text: 'Monto Por pagar(%20)       S/. 12,300.00',
+                      text:
+                          'Monto Por pagar S/.${widget.prestamoModel.montoPorPagar}',
                       isSquare: true,
                     ),
                     SizedBox(
@@ -555,8 +626,8 @@ class PieChart2State extends State {
                         show: false,
                       ),
                       sectionsSpace: 4,
-                      centerSpaceRadius: 30,
-                      sections: showingSections(),
+                      centerSpaceRadius: 10,
+                      sections: showingSections(widget.prestamoModel),
                     ),
                   ),
                 ),
@@ -566,7 +637,7 @@ class PieChart2State extends State {
           Row(
             children: [
               Text(
-                'Actualizado al 21/05/2019',
+                'Actualizado al ${widget.prestamoModel.fechaActualizado}',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: responsive.ip(1.5),
@@ -579,7 +650,7 @@ class PieChart2State extends State {
     );
   }
 
-  List<PieChartSectionData> showingSections() {
+  List<PieChartSectionData> showingSections(PrestamosModel prestamosModel) {
     return List.generate(
       2,
       (i) {
@@ -590,8 +661,8 @@ class PieChart2State extends State {
           case 0:
             return PieChartSectionData(
               color: const Color(0xFF218A07),
-              value: 80,
-              title: '80%',
+              value: double.parse(prestamosModel.porcentajePagado),
+              title: '${prestamosModel.porcentajePagado}%',
               radius: radius,
               titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -602,8 +673,8 @@ class PieChart2State extends State {
           case 1:
             return PieChartSectionData(
               color: const Color(0xFFEE0221),
-              value: 20,
-              title: '20%',
+              value: double.parse(prestamosModel.porcentajeSinPagar),
+              title: '${prestamosModel.porcentajeSinPagar}%',
               radius: radius,
               titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -649,14 +720,16 @@ class Indicator extends StatelessWidget {
             color: color,
           ),
         ),
-         SizedBox(
+        SizedBox(
           width: responsive.wp(1),
         ),
         Expanded(
           child: Text(
             text,
             style: TextStyle(
-                fontSize: responsive.ip(1.5), fontWeight: FontWeight.bold, color: textColor),
+                fontSize: responsive.ip(1.5),
+                fontWeight: FontWeight.bold,
+                color: textColor),
           ),
         )
       ],

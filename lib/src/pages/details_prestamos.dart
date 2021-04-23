@@ -655,25 +655,3 @@ class ExpandableContainer extends StatelessWidget {
   }
 }
 
-class PrestamosCuotas {
-  String numeroCuota;
-  String importe;
-  String fPago;
-  String pagado;
-  String vencimiento;
-  String interes;
-  String principal;
-  String monto;
-  String estado;
-
-  PrestamosCuotas(
-      {this.numeroCuota,
-      this.importe,
-      this.fPago,
-      this.pagado,
-      this.vencimiento,
-      this.interes,
-      this.principal,
-      this.monto,
-      this.estado});
-}

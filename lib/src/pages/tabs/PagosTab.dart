@@ -119,6 +119,7 @@ class PagosTab extends StatelessWidget {
                                             return CardExpandable(
                                               planillaModel:
                                                   snapshot.data[index],
+                                                  index:index+1
                                             );
                                           },
                                         );
@@ -150,10 +151,11 @@ class PagosTab extends StatelessWidget {
 }
 
 class CardExpandable extends StatefulWidget {
-  const CardExpandable({Key key, @required this.planillaModel})
+  const CardExpandable({Key key, @required this.planillaModel,@required this.index})
       : super(key: key);
 
   final DescuentoPlanillaModel planillaModel;
+  final int index;
 
   @override
   _CardExpandableState createState() => _CardExpandableState();
@@ -520,7 +522,7 @@ class _CardExpandableState extends State<CardExpandable> {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
-              'N° ${widget.planillaModel.posicion}',
+              'N° ${widget.index}',
               style: TextStyle(color: Colors.white),
             ),
           ),
