@@ -672,7 +672,7 @@ class _CardPrestamosResumenState extends State<CardPrestamosResumen> {
       (i) {
         final isTouched = i == touchedIndex;
         final double fontSize =
-            isTouched ? responsive.ip(2) : responsive.ip(1.8);
+            isTouched ? responsive.ip(1.8) : responsive.ip(1.6);
         final double radius = isTouched ? 60 : 50;
         switch (i) {
           case 0:

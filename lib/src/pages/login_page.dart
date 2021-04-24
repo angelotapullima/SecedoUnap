@@ -277,16 +277,31 @@ class _LoginPageState extends State<LoginPage> {
         await afiliadosDatabase.cargarAfiliadoPorDni('${bloc.email}');
 
     if (usuario.length > 0) {
+
+      String ano;
+      String yearAfi,mesAfi,diaAfi;
+
       String fechaNacimiento;
       var fechaNac = usuario[0].fechaNac;
       List fechexNac = fechaNac.split('T');
       fechaNacimiento = fechexNac[0].trim();
 
 
+      var age = fechaNacimiento;
+      List fechexAge = age.split('-');
+      ano = fechexAge[0].trim();
+
+
       String fechaAfiliacion;
       var fechaAfi = usuario[0].fechaAfiliacion;
       List fechexAfi = fechaAfi.split('T');
       fechaAfiliacion = fechexAfi[0].trim();
+
+      var fechaAfix = fechaAfiliacion;
+      List fechinAfi = fechaAfix.split('-');
+      yearAfi = fechinAfi[0].trim(); 
+      mesAfi = fechinAfi[1].trim(); 
+      diaAfi = fechinAfi[2].trim(); 
 
       String fechaNombramiento;
       var fechaNom = usuario[0].fechaNombramiento;
@@ -299,6 +314,10 @@ class _LoginPageState extends State<LoginPage> {
       fechaDesafiliacion = fechexDes[0].trim();
 
 
+      prefs.yearNacimiento = ano;
+      prefs.yearAfiliacion = yearAfi;
+      prefs.mesAfiliacion = mesAfi;
+      prefs.diaAfiliacion = diaAfi;
       prefs.idPersona = usuario[0].idPersona;
       prefs.idTipoPersonaDtipoPersona = usuario[0].idTipoPersonaDtipoPersona;
       prefs.idFacultadDfacultad = usuario[0].idFacultadDfacultad;

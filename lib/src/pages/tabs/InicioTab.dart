@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
 import 'package:secedo_unap/src/model/prestamos_model.dart';
+import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
 
@@ -22,6 +23,8 @@ class _InicioTabState extends State<InicioTab> {
     final responsive = Responsive.of(context);
     final prestamosBloc = ProviderBloc.prestamos(context);
     prestamosBloc.obtenerPrestamos();
+
+    final prefs = Preferences();
 
     return Scaffold(
       body: Stack(
@@ -60,11 +63,13 @@ class _InicioTabState extends State<InicioTab> {
                         ),
                         child: Row(
                           children: [
-                            Text(
-                              'Bienvenido Arturo',
-                              style: TextStyle(
-                                  fontSize: responsive.ip(3),
-                                  fontWeight: FontWeight.bold),
+                            Expanded(
+                              child: Text(
+                                'Bienvenido ${prefs.nombrePersona}',
+                                style: TextStyle(
+                                    fontSize: responsive.ip(3),
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ],
                         ),
@@ -132,7 +137,7 @@ class _InicioTabState extends State<InicioTab> {
                               );
                             } else {
                               return Center(
-                                child: CupertinoActivityIndicator(),
+                                child: Container(),
                               );
                             }
                           } else {
@@ -627,7 +632,7 @@ class _PrestamosItemState extends State<PrestamosItem> {
                       ),
                       sectionsSpace: 4,
                       centerSpaceRadius: 10,
-                      sections: showingSections(widget.prestamoModel),
+                      sections: showingSections(responsive,widget.prestamoModel),
                     ),
                   ),
                 ),
@@ -650,12 +655,12 @@ class _PrestamosItemState extends State<PrestamosItem> {
     );
   }
 
-  List<PieChartSectionData> showingSections(PrestamosModel prestamosModel) {
+  List<PieChartSectionData> showingSections(Responsive responsive,PrestamosModel prestamosModel) {
     return List.generate(
       2,
       (i) {
         final isTouched = i == touchedIndex;
-        final double fontSize = isTouched ? 25 : 16;
+        final double fontSize = isTouched ? responsive.ip(1.8) : responsive.ip(1.6);
         final double radius = isTouched ? 60 : 50;
         switch (i) {
           case 0:

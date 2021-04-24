@@ -1,3 +1,4 @@
+import 'package:age/age.dart';
 import 'package:flutter/material.dart';
 import 'package:secedo_unap/src/database/beneficiarios_database.dart';
 import 'package:secedo_unap/src/database/cuotas_prestamos_database.dart';
@@ -14,6 +15,29 @@ class UsuarioTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final preferences = Preferences();
+    DateTime today = DateTime.now();
+    AgeDuration age, ageAfiliacion;
+
+    String nacimientoValidacion='false';
+    String afiliacionValidacion='false';
+
+    if (preferences.fechaNac != 'null') {
+      DateTime birthday = DateTime(int.parse(preferences.yearNacimiento));
+      age = Age.dateDifference(
+          fromDate: birthday, toDate: today, includeToDate: false);
+
+          nacimientoValidacion = 'true';
+    }
+    if (preferences.fechaAfiliacion != 'null') {
+      DateTime timeAfiliacion = DateTime(
+          int.parse(preferences.yearAfiliacion),
+          int.parse(preferences.mesAfiliacion),
+          int.parse(preferences.diaAfiliacion));
+
+      ageAfiliacion = Age.dateDifference(
+          fromDate: timeAfiliacion, toDate: today, includeToDate: false);
+          afiliacionValidacion ='true';
+    }
 
     return Scaffold(
       body: Stack(
@@ -179,8 +203,8 @@ class UsuarioTab extends StatelessWidget {
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
-                                  _datos2(responsive, 'Edad:',
-                                      '${preferences.codigo}'),
+                                  _datos2(
+                                      responsive, 'Edad:', (nacimientoValidacion=='false')?'-':'${age.years} Años'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
@@ -283,8 +307,8 @@ class UsuarioTab extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xff2ea2e8),
                         ),
-                        child: Text(
-                          '30 años , 5 meses y 22 días ',
+                        child: Text((afiliacionValidacion =='true')?
+                          '${ageAfiliacion.years} años , ${ageAfiliacion.months} meses y ${ageAfiliacion.days} días ':'-',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: responsive.ip(2.5),
@@ -359,7 +383,7 @@ class UsuarioTab extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-              ('$contenido' == 'null') ? '-' : '$contenido',
+            ('$contenido' == 'null') ? '-' : '$contenido',
             style: TextStyle(
                 fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
           ),
@@ -381,7 +405,7 @@ class UsuarioTab extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-              ('$contenido' == 'null') ? '-' : '$contenido',
+            ('$contenido' == 'null') ? '-' : '$contenido',
             style: TextStyle(
                 fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
           ),

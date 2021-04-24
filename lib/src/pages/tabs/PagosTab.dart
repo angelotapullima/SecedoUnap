@@ -643,7 +643,9 @@ class Planilla extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${snapshot.data[0].fechaOriginal}',
+                      ('${snapshot.data[0].fechaOriginal}' == 'null')
+                                  ? '-'
+                                  : '${snapshot.data[0].fechaOriginal}', 
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.red,
@@ -669,8 +671,9 @@ class Planilla extends StatelessWidget {
                               height: responsive.hp(.5),
                               color: Colors.green,
                             ),
-                            Text(
-                              '${snapshot.data[0].fecha}',
+                            Text( ('${snapshot.data[0].fecha}' == 'null')
+                                  ? '-'
+                                  : '${snapshot.data[0].fecha}',  
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.red,
@@ -689,7 +692,11 @@ class Planilla extends StatelessWidget {
                               ),
                             ),
                             Text(
-                               'S/.${dosdecimales(double.parse(snapshot.data[0].cesantia))}',
+                              ('${snapshot.data[0].cesantia}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].cesantia))}',  
+
+                                
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -707,7 +714,9 @@ class Planilla extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'S/.${dosdecimales(double.parse(snapshot.data[0].funeral))}',
+                                ('${snapshot.data[0].funeral}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].funeral))}',   
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -736,8 +745,9 @@ class Planilla extends StatelessWidget {
                               height: responsive.hp(.5),
                               color: Colors.green,
                             ),
-                            Text(
-                              'S/.${dosdecimales(double.parse(snapshot.data[0].jubilacion))}',
+                            Text( ('${snapshot.data[0].jubilacion}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].jubilacion))}',   
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -755,7 +765,9 @@ class Planilla extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'S/.${dosdecimales(double.parse(snapshot.data[0].multa))}',
+                              ('${snapshot.data[0].multa}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].multa))}',   
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -773,7 +785,9 @@ class Planilla extends StatelessWidget {
                               ),
                             ),
                             Text(
-                             'S/.${dosdecimales(double.parse(snapshot.data[0].apr))}',
+                               ('${snapshot.data[0].apr}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].apr))}', 
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -803,7 +817,10 @@ class Planilla extends StatelessWidget {
                               color: Colors.green,
                             ),
                             Text(
-                              'S/.${dosdecimales(double.parse(snapshot.data[0].garantizado))}',
+
+                               ('${snapshot.data[0].garantizado}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].garantizado))}',  
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -821,7 +838,10 @@ class Planilla extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'S/.${dosdecimales(double.parse(snapshot.data[0].descuento))}',
+
+                               ('${snapshot.data[0].descuento}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].descuento))}',  
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: responsive.ip(1.4),
@@ -839,7 +859,9 @@ class Planilla extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'S/.${dosdecimales(double.parse(snapshot.data[0].total))}',
+                                 ('${snapshot.data[0].total}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].total))}',   
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.red,
@@ -863,6 +885,6 @@ class Planilla extends StatelessWidget {
               child: CupertinoActivityIndicator(),
             );
           }
-        });
+        },);
   }
 }

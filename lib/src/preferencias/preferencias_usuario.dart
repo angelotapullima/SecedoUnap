@@ -228,4 +228,37 @@ class Preferences {
   set fechaDesafiliacion(String value) {
     _prefs.setString('fechaDesafiliacion', value);
   }
+  
+  
+  get yearAfiliacion {
+    return _prefs.getString('yearAfiliacion');
+  }
+
+  set yearAfiliacion(String value) {
+    _prefs.setString('yearAfiliacion', value);
+  }
+
+  get mesAfiliacion {
+    return _prefs.getString('mesAfiliacion');
+  }
+
+  set mesAfiliacion(String value) {
+    _prefs.setString('mesAfiliacion', value);
+  }
+
+  get diaAfiliacion {
+    return _prefs.getString('diaAfiliacion');
+  }
+
+  set diaAfiliacion(String value) {
+    _prefs.setString('diaAfiliacion', value);
+  }
+
+  get yearNacimiento {
+    return _prefs.getString('yearNacimiento');
+  }
+
+  set yearNacimiento(String value) {
+    _prefs.setString('yearNacimiento', value);
+  }
 }
