@@ -471,7 +471,7 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                         );
                       } else {
                         return Center(
-                          child: CupertinoActivityIndicator(),
+                          child: Text('No existen beneficiarios'),
                         );
                       }
                     } else {

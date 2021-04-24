@@ -112,6 +112,25 @@ class DatabaseProvider {
           ' total TEXT'
           ')');
 
+
+          await db.execute('CREATE TABLE Deudas ('
+          ' idPersona TEXT  PRIMARY KEY,'
+          ' idAfiliacion TEXT,'
+          ' codigo TEXT,'
+          ' nombre TEXT,'
+          ' cesantia TEXT,'
+          ' funeral TEXT,'
+          ' jubilacion TEXT,'
+          ' multa TEXT,'
+          ' apr TEXT,'
+          ' capital TEXT,'
+          ' interes TEXT,'
+          ' garantizado TEXT,'
+          ' fechaAtual TEXT,'
+          ' descuento TEXT'
+          ')');
+
+          
            await db.execute('CREATE TABLE Afiliados ('
           ' idPersona TEXT  PRIMARY KEY,'
           ' idTipoPersonaDtipoPersona TEXT,'

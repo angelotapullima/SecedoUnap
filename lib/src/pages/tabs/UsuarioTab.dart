@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:secedo_unap/src/database/beneficiarios_database.dart';
 import 'package:secedo_unap/src/database/cuotas_prestamos_database.dart';
 import 'package:secedo_unap/src/database/descuento_planilla_database.dart';
+import 'package:secedo_unap/src/database/deudas_database.dart';
 import 'package:secedo_unap/src/database/planilla_enviada_database.dart';
 import 'package:secedo_unap/src/database/prestamos_database.dart';
 import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
@@ -334,6 +335,8 @@ class UsuarioTab extends StatelessWidget {
                             onPressed: () async {
                               final preferences = Preferences();
                               preferences.clearPreferences();
+
+                              final deudasDatabase = DeudasDatabase();
                               final beneficiariosDatabase =
                                   BeneficiariosDatabase();
                               final cuotasPrestamosDatabase =
@@ -345,13 +348,11 @@ class UsuarioTab extends StatelessWidget {
                               final prestamosDatabase = PrestamosDatabase();
 
                               await beneficiariosDatabase.deleteBeneficiarios();
-                              await cuotasPrestamosDatabase
-                                  .deleteCuotasPrestamos();
-                              await descuentoPlanillaDatabase
-                                  .deleteDescuentoPlanilla();
-                              await planillaEnviadaDatabase
-                                  .deletePlanillaEnviada();
+                              await cuotasPrestamosDatabase.deleteCuotasPrestamos();
+                              await descuentoPlanillaDatabase.deleteDescuentoPlanilla();
+                              await planillaEnviadaDatabase.deletePlanillaEnviada();
                               await prestamosDatabase.deletePrestamos();
+                              await deudasDatabase.deleteDeudas();
 
                               Navigator.of(context).pushNamedAndRemoveUntil(
                                   'login', (Route<dynamic> route) => false);

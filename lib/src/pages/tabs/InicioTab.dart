@@ -3,10 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
+import 'package:secedo_unap/src/model/deudas_model.dart';
 import 'package:secedo_unap/src/model/prestamos_model.dart';
 import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
+import 'package:secedo_unap/src/utils/utils.dart';
 
 class InicioTab extends StatefulWidget {
   const InicioTab({Key key}) : super(key: key);
@@ -23,6 +25,9 @@ class _InicioTabState extends State<InicioTab> {
     final responsive = Responsive.of(context);
     final prestamosBloc = ProviderBloc.prestamos(context);
     prestamosBloc.obtenerPrestamos();
+
+    final deudasBloc = ProviderBloc.deudas(context);
+    deudasBloc.obtenerDeudas();
 
     final prefs = Preferences();
 
@@ -88,15 +93,36 @@ class _InicioTabState extends State<InicioTab> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      CardExpandable(
-                        color: Colors.green,
-                        texto: 'Está al día en sus pagos',
+                      StreamBuilder(
+                        stream: deudasBloc.deudaControllerStream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<DeudasModel>> deudasSnapshot) {
+                          if (deudasSnapshot.hasData) {
+                            if (deudasSnapshot.data.length > 0) {
+                              return CardExpandable(
+                                deudas: deudasSnapshot.data[0],
+                                color:
+                                    (deudasSnapshot.data[0].estadoDeuda == '1')
+                                        ? Colors.red
+                                        : Colors.green,
+                                texto: (deudasSnapshot.data[0].estadoDeuda ==
+                                        '1')
+                                    ? 'Tiene una deuda de S/.${deudasSnapshot.data[0].capital}'
+                                    : 'Felicitaciones!, Está al día en sus pagos',
+                              );
+                            } else {
+                              return Container();
+                            }
+                          } else {
+                            return Center(
+                              child: CupertinoActivityIndicator(),
+                            );
+                          }
+                        },
                       ),
-                      CardExpandable(
-                        color: Colors.red,
-                        texto: 'Tiene una deuda de S/ 3261.99',
+                      SizedBox(
+                        height: responsive.hp(2),
                       ),
-                      SizedBox(height: responsive.hp(2),),
                       StreamBuilder(
                         stream: prestamosBloc.prestamosStream,
                         builder: (BuildContext context,
@@ -165,11 +191,16 @@ class _InicioTabState extends State<InicioTab> {
 }
 
 class CardExpandable extends StatefulWidget {
-  const CardExpandable({Key key, @required this.color, @required this.texto})
+  const CardExpandable(
+      {Key key,
+      @required this.color,
+      @required this.texto,
+      @required this.deudas})
       : super(key: key);
 
   final Color color;
   final String texto;
+  final DeudasModel deudas;
 
   @override
   _CardExpandableState createState() => _CardExpandableState();
@@ -242,7 +273,10 @@ class _CardExpandableState extends State<CardExpandable> {
                               ),
                             ),
                             Text(
-                              'S/. 109.20',
+                              ('${widget.deudas.cesantia}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.cesantia))}',
+
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -262,7 +296,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               ),
                             ),
                             Text(
-                              'S/. 10.50',
+                              ('${widget.deudas.funeral}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.funeral))}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -286,7 +322,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               color: Colors.green,
                             ),
                             Text(
-                              'S/. 0.00',
+                              ('${widget.deudas.jubilacion}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.jubilacion))}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -314,7 +352,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               ),
                             ),
                             Text(
-                              'S/. 0.00',
+                               ('${widget.deudas.multa}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.multa))}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -334,7 +374,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               ),
                             ),
                             Text(
-                              'S/. 3230.99',
+                               ('${widget.deudas.apr}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.apr))}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -358,7 +400,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               color: Colors.green,
                             ),
                             Text(
-                              'S/. 0.00',
+                               ('${widget.deudas.garantizado}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.garantizado))}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -386,7 +430,9 @@ class _CardExpandableState extends State<CardExpandable> {
                               ),
                             ),
                             Text(
-                              'S/. 0.00',
+                               ('${widget.deudas.descuento}' == 'null')
+                                  ? '-'
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.descuento))}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -403,7 +449,7 @@ class _CardExpandableState extends State<CardExpandable> {
                     Row(
                       children: [
                         Text(
-                          'Actualizado al 21/05/2019',
+                          'Actualizado al ${widget.deudas.fechaAtual}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: responsive.ip(1.6),
@@ -632,7 +678,8 @@ class _PrestamosItemState extends State<PrestamosItem> {
                       ),
                       sectionsSpace: 4,
                       centerSpaceRadius: 10,
-                      sections: showingSections(responsive,widget.prestamoModel),
+                      sections:
+                          showingSections(responsive, widget.prestamoModel),
                     ),
                   ),
                 ),
@@ -655,12 +702,14 @@ class _PrestamosItemState extends State<PrestamosItem> {
     );
   }
 
-  List<PieChartSectionData> showingSections(Responsive responsive,PrestamosModel prestamosModel) {
+  List<PieChartSectionData> showingSections(
+      Responsive responsive, PrestamosModel prestamosModel) {
     return List.generate(
       2,
       (i) {
         final isTouched = i == touchedIndex;
-        final double fontSize = isTouched ? responsive.ip(1.8) : responsive.ip(1.6);
+        final double fontSize =
+            isTouched ? responsive.ip(1.8) : responsive.ip(1.6);
         final double radius = isTouched ? 60 : 50;
         switch (i) {
           case 0:
