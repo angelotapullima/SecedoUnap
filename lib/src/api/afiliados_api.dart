@@ -1,4 +1,4 @@
-//https://api.secedo-unap.com/api/Cuotas/9808
+
 
 import 'dart:convert';
 

@@ -277,7 +277,6 @@ class _CardExpandableState extends State<CardExpandable> {
                               ('${widget.deudas.cesantia}' == 'null')
                                   ? '-'
                                   : 'S/.${dosdecimales(double.parse(widget.deudas.cesantia))}',
-
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -353,7 +352,7 @@ class _CardExpandableState extends State<CardExpandable> {
                               ),
                             ),
                             Text(
-                               ('${widget.deudas.multa}' == 'null')
+                              ('${widget.deudas.multa}' == 'null')
                                   ? '-'
                                   : 'S/.${dosdecimales(double.parse(widget.deudas.multa))}',
                               style: TextStyle(
@@ -375,7 +374,7 @@ class _CardExpandableState extends State<CardExpandable> {
                               ),
                             ),
                             Text(
-                               ('${widget.deudas.apr}' == 'null')
+                              ('${widget.deudas.apr}' == 'null')
                                   ? '-'
                                   : 'S/.${dosdecimales(double.parse(widget.deudas.apr))}',
                               style: TextStyle(
@@ -401,7 +400,7 @@ class _CardExpandableState extends State<CardExpandable> {
                               color: Colors.green,
                             ),
                             Text(
-                               ('${widget.deudas.garantizado}' == 'null')
+                              ('${widget.deudas.garantizado}' == 'null')
                                   ? '-'
                                   : 'S/.${dosdecimales(double.parse(widget.deudas.garantizado))}',
                               style: TextStyle(
@@ -431,7 +430,7 @@ class _CardExpandableState extends State<CardExpandable> {
                               ),
                             ),
                             Text(
-                               ('${widget.deudas.descuento}' == 'null')
+                              ('${widget.deudas.descuento}' == 'null')
                                   ? '-'
                                   : 'S/.${dosdecimales(double.parse(widget.deudas.descuento))}',
                               style: TextStyle(
@@ -555,49 +554,30 @@ class _PrestamosItemState extends State<PrestamosItem> {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     return InkWell(
-      onTap: (){
-         Navigator.of(context)
-                                                            .push(
-                                                          PageRouteBuilder(
-                                                            opaque: false,
-                                                            pageBuilder: (context,
-                                                                animation,
-                                                                secondaryAnimation) {
-                                                              return DetailsPrestamos(
-                                                                  prestamo: widget.prestamoModel);
-                                                            },
-                                                            transitionsBuilder:
-                                                                (context,
-                                                                    animation,
-                                                                    secondaryAnimation,
-                                                                    child) {
-                                                              var begin =
-                                                                  Offset(
-                                                                      0.0, 1.0);
-                                                              var end =
-                                                                  Offset.zero;
-                                                              var curve =
-                                                                  Curves.ease;
+      onTap: () {
+        Navigator.of(context).push(
+          PageRouteBuilder(
+            opaque: false,
+            pageBuilder: (context, animation, secondaryAnimation) {
+              return DetailsPrestamos(prestamo: widget.prestamoModel);
+            },
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              var begin = Offset(0.0, 1.0);
+              var end = Offset.zero;
+              var curve = Curves.ease;
 
-                                                              var tween = Tween(
-                                                                      begin:
-                                                                          begin,
-                                                                      end: end)
-                                                                  .chain(
-                                                                CurveTween(
-                                                                    curve:
-                                                                        curve),
-                                                              );
+              var tween = Tween(begin: begin, end: end).chain(
+                CurveTween(curve: curve),
+              );
 
-                                                              return SlideTransition(
-                                                                position: animation
-                                                                    .drive(
-                                                                        tween),
-                                                                child: child,
-                                                              );
-                                                            },
-                                                          ),
-                                                        );
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          ),
+        );
       },
       child: Container(
         padding: EdgeInsets.symmetric(

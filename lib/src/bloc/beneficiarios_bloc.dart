@@ -7,9 +7,9 @@ class BeneficiariosBloc {
   final beneficiariosDatabase = BeneficiariosDatabase();
   final beneficiariosApi = BeneficiariosApi();
 
-  final _beneficiariosController = BehaviorSubject<List<BeneficiariosList>>();
+  final _beneficiariosController = BehaviorSubject<List<BeneficiariosGeneral>>();
 
-  Stream<List<BeneficiariosList>> get beneficiariosControllerStream =>
+  Stream<List<BeneficiariosGeneral>> get beneficiariosControllerStream =>
       _beneficiariosController.stream;
 
   dispose() {
@@ -22,8 +22,9 @@ class BeneficiariosBloc {
     _beneficiariosController.sink.add(await benefis());
   }
 
-  Future<List<BeneficiariosList>> benefis() async {
-    final List<BeneficiariosList> listGeneral = [];
+  Future<List<BeneficiariosGeneral>> benefis() async {
+    final List<BeneficiariosGeneral> listBeneficiariosGeneral = [];
+    final List<BeneficiariosGeneral> listGeneral = [];
 
     final todosBeneficiarios =
         await beneficiariosDatabase.cargarBeneficiarios();
@@ -100,15 +101,76 @@ class BeneficiariosBloc {
         }
       }
 
-      BeneficiariosList beneficiariosList = BeneficiariosList();
+      
+      if (listBeneficioFallecido.length > 0) {
+        BeneficiariosGeneral beneficiariosGeneral = BeneficiariosGeneral();
+        beneficiariosGeneral.tipo = '1';
+        beneficiariosGeneral.texto = 'Beneficiarios con derecho al fondo de cesantía y bolsa de jubulación';
+
+        final List<Beneficiarios> beneAlgo = [];
+
+        for (var i = 0; i < listBeneficioFallecido.length; i++) {
+          Beneficiarios bene = Beneficiarios();
+          bene.nombre = listBeneficioFallecido[i].nombre;
+          bene.parentesco = listBeneficioFallecido[i].gradoParentesco;
+          bene.porcentaje = double.parse(listBeneficioFallecido[i].porcentaje).toInt().toString();
+          bene.observacion = listBeneficioFallecido[i].observaciones;
+
+          beneAlgo.add(bene);
+        }
+        beneficiariosGeneral.beneficiarios =beneAlgo;
+        listBeneficiariosGeneral.add(beneficiariosGeneral);
+      }
+
+      if (listFallecido.length > 0) {
+        BeneficiariosGeneral beneficiariosGeneral = BeneficiariosGeneral();
+        beneficiariosGeneral.tipo = '0';
+        beneficiariosGeneral.texto = 'Derecho como afiliado al cobro del fondo de funerales';
+
+        final List<Beneficiarios> beneAlgo = [];
+
+        for (var i = 0; i < listFallecido.length; i++) {
+          Beneficiarios bene = Beneficiarios();
+          bene.nombre = listFallecido[i].nombre;
+          bene.parentesco = listFallecido[i].gradoParentesco;
+          bene.porcentaje = double.parse(listFallecido[i].porcentaje).toInt().toString();
+          bene.observacion = listFallecido[i].observaciones;
+
+          beneAlgo.add(bene);
+        }
+        beneficiariosGeneral.beneficiarios =beneAlgo;
+        listBeneficiariosGeneral.add(beneficiariosGeneral);
+      }
+
+      if (listFuneral.length > 0) {
+        BeneficiariosGeneral beneficiariosGeneral = BeneficiariosGeneral();
+        beneficiariosGeneral.tipo = '0';
+        beneficiariosGeneral.texto = 'A mi fallecimiento el fondo de funerales debe entregarse a:';
+
+        final List<Beneficiarios> beneAlgo = [];
+
+        for (var i = 0; i < listFuneral.length; i++) {
+          Beneficiarios bene = Beneficiarios();
+          bene.nombre = listFuneral[i].nombre;
+          bene.parentesco = listFuneral[i].gradoParentesco;
+          bene.porcentaje = double.parse(listFuneral[i].porcentaje).toInt().toString();
+          bene.observacion = listFallecido[i].observaciones;
+
+          beneAlgo.add(bene);
+        }
+        beneficiariosGeneral.beneficiarios =beneAlgo;
+        listBeneficiariosGeneral.add(beneficiariosGeneral);
+      }
+
+      /* BeneficiariosList beneficiariosList = BeneficiariosList();
       beneficiariosList.funeral = listFuneral;
       beneficiariosList.fallecido = listFallecido;
-      beneficiariosList.beneficioFallecido = listBeneficioFallecido;
+      beneficiariosList.beneficioFallecido = listBeneficioFallecido; */
 
-      listGeneral.add(beneficiariosList);
+      //listGeneral.add(listBeneficiariosGeneral);
     }
 
-    return listGeneral;
+    return listBeneficiariosGeneral;
   }
 }
 
@@ -116,6 +178,25 @@ class BeneficiariosList {
   List<BeneficiariosModel> funeral;
   List<BeneficiariosModel> fallecido;
   List<BeneficiariosModel> beneficioFallecido;
+  List<BeneficiariosGeneral> beneficiariosGeneral;
 
   BeneficiariosList({this.funeral, this.fallecido, this.beneficioFallecido});
+}
+
+class BeneficiariosGeneral {
+  String tipo;
+  String texto;
+  List<Beneficiarios> beneficiarios;
+
+  BeneficiariosGeneral({this.tipo, this.beneficiarios, this.texto});
+}
+
+class Beneficiarios {
+  Beneficiarios({this.porcentaje, this.nombre, this.parentesco,this.observacion});
+
+  String porcentaje;
+  String nombre;
+  String parentesco;
+  String observacion;
+  
 }

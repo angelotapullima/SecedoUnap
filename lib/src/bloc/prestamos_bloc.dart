@@ -71,8 +71,8 @@ class PrestamosBloc {
 
         prestamosModel.montoPagado = dosdecimales(montoPagado);
         prestamosModel.montoPorPagar = dosdecimales(montoPorPagar);
-        prestamosModel.porcentajePagado = dosdecimales(porcentajePagado);
-        prestamosModel.porcentajeSinPagar = dosdecimales(porcentajeSinPagar);
+        prestamosModel.porcentajePagado = porcentajePagado.toInt().toString();
+        prestamosModel.porcentajeSinPagar = porcentajeSinPagar.toInt().toString();
 
         listGeneral.add(prestamosModel);
       }

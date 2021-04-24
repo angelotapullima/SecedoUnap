@@ -203,6 +203,7 @@ class _CardExpandableState extends State<CardExpandable> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
+                      width: responsive.wp(29),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -227,7 +228,9 @@ class _CardExpandableState extends State<CardExpandable> {
                         ],
                       ),
                     ),
+                    SizedBox(width: responsive.wp(2),),
                     Container(
+                      width: responsive.wp(29),
                       child: Column(
                         children: [
                           Text(
@@ -251,7 +254,8 @@ class _CardExpandableState extends State<CardExpandable> {
                         ],
                       ),
                     ),
-                    Container(
+                    SizedBox(width: responsive.wp(2),),Container(
+                      width: responsive.wp(29),
                       child: Column(
                         children: [
                           Text(
