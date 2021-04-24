@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
 import 'package:secedo_unap/src/model/deudas_model.dart';
 import 'package:secedo_unap/src/model/prestamos_model.dart';
+import 'package:secedo_unap/src/pages/details_prestamos.dart';
 import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
@@ -553,151 +554,197 @@ class _PrestamosItemState extends State<PrestamosItem> {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: responsive.wp(2),
-        vertical: responsive.hp(1),
-      ),
-      margin: EdgeInsets.only(
-        right: responsive.wp(3),
-        top: responsive.hp(1),
-        bottom: responsive.hp(1),
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        //border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.blue.withOpacity(0.2),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3), // changes position of shadow
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /*  Text(
-            'APR',
-            style: TextStyle(
-              color: Colors.blue[900],
-              fontWeight: FontWeight.bold,
-              fontSize: responsive.ip(3),
+    return InkWell(
+      onTap: (){
+         Navigator.of(context)
+                                                            .push(
+                                                          PageRouteBuilder(
+                                                            opaque: false,
+                                                            pageBuilder: (context,
+                                                                animation,
+                                                                secondaryAnimation) {
+                                                              return DetailsPrestamos(
+                                                                  prestamo: widget.prestamoModel);
+                                                            },
+                                                            transitionsBuilder:
+                                                                (context,
+                                                                    animation,
+                                                                    secondaryAnimation,
+                                                                    child) {
+                                                              var begin =
+                                                                  Offset(
+                                                                      0.0, 1.0);
+                                                              var end =
+                                                                  Offset.zero;
+                                                              var curve =
+                                                                  Curves.ease;
+
+                                                              var tween = Tween(
+                                                                      begin:
+                                                                          begin,
+                                                                      end: end)
+                                                                  .chain(
+                                                                CurveTween(
+                                                                    curve:
+                                                                        curve),
+                                                              );
+
+                                                              return SlideTransition(
+                                                                position: animation
+                                                                    .drive(
+                                                                        tween),
+                                                                child: child,
+                                                              );
+                                                            },
+                                                          ),
+                                                        );
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: responsive.wp(2),
+          vertical: responsive.hp(1),
+        ),
+        margin: EdgeInsets.only(
+          right: responsive.wp(3),
+          top: responsive.hp(1),
+          bottom: responsive.hp(1),
+        ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          //border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.blue.withOpacity(0.2),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
             ),
-          ), */
-          Center(
-            child: Column(
-              children: [
-                Text(
-                  'S/. ${widget.prestamoModel.aprobado}',
-                  style: TextStyle(
-                    color: Colors.blue[900],
-                    fontWeight: FontWeight.bold,
-                    fontSize: responsive.ip(2.5),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /*  Text(
+              'APR',
+              style: TextStyle(
+                color: Colors.blue[900],
+                fontWeight: FontWeight.bold,
+                fontSize: responsive.ip(3),
+              ),
+            ), */
+            Center(
+              child: Column(
+                children: [
+                  Text(
+                    'S/. ${widget.prestamoModel.aprobado}',
+                    style: TextStyle(
+                      color: Colors.blue[900],
+                      fontWeight: FontWeight.bold,
+                      fontSize: responsive.ip(2.5),
+                    ),
+                  ),
+                  Text(
+                    'Monto total del prestamo',
+                    style: TextStyle(
+                      color: Colors.blue[900],
+                      fontWeight: FontWeight.bold,
+                      fontSize: responsive.ip(1.5),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: responsive.hp(2),
+            ),
+            Row(
+              children: <Widget>[
+                SizedBox(
+                  height: responsive.hp(2),
+                ),
+                Container(
+                  width: responsive.wp(38),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Indicator(
+                        size: responsive.ip(1.8),
+                        color: Color(0xFF218A07),
+                        text:
+                            'Monto Pagado S/.${widget.prestamoModel.montoPagado}',
+                        isSquare: true,
+                      ),
+                      SizedBox(
+                        height: responsive.hp(2),
+                      ),
+                      Indicator(
+                        color: Color(0xFFEE0221),
+                        text:
+                            'Monto Por pagar S/.${widget.prestamoModel.montoPorPagar}',
+                        isSquare: true,
+                      ),
+                      SizedBox(
+                        height: 4,
+                      ),
+                    ],
                   ),
                 ),
+                SizedBox(
+                  width: responsive.wp(10),
+                ),
+                Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: PieChart(
+                      PieChartData(
+                        pieTouchData: PieTouchData(
+                          touchCallback: (pieTouchResponse) {
+                            setState(
+                              () {
+                                final desiredTouch = pieTouchResponse.touchInput
+                                        is! PointerExitEvent &&
+                                    pieTouchResponse.touchInput
+                                        is! PointerUpEvent;
+                                if (desiredTouch &&
+                                    pieTouchResponse.touchedSection != null) {
+                                  touchedIndex =
+                                      pieTouchResponse.touchedSectionIndex;
+                                } else {
+                                  touchedIndex = -1;
+                                }
+                              },
+                            );
+                          },
+                        ),
+                        borderData: FlBorderData(
+                          show: false,
+                        ),
+                        sectionsSpace: 4,
+                        centerSpaceRadius: 10,
+                        sections:
+                            showingSections(responsive, widget.prestamoModel),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
                 Text(
-                  'Monto total del prestamo',
+                  'Actualizado al ${widget.prestamoModel.fechaActualizado}',
                   style: TextStyle(
-                    color: Colors.blue[900],
-                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                     fontSize: responsive.ip(1.5),
                   ),
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: responsive.hp(2),
-          ),
-          Row(
-            children: <Widget>[
-              SizedBox(
-                height: responsive.hp(2),
-              ),
-              Container(
-                width: responsive.wp(38),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Indicator(
-                      size: responsive.ip(1.8),
-                      color: Color(0xFF218A07),
-                      text:
-                          'Monto Pagado S/.${widget.prestamoModel.montoPagado}',
-                      isSquare: true,
-                    ),
-                    SizedBox(
-                      height: responsive.hp(2),
-                    ),
-                    Indicator(
-                      color: Color(0xFFEE0221),
-                      text:
-                          'Monto Por pagar S/.${widget.prestamoModel.montoPorPagar}',
-                      isSquare: true,
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                width: responsive.wp(10),
-              ),
-              Expanded(
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: PieChart(
-                    PieChartData(
-                      pieTouchData: PieTouchData(
-                        touchCallback: (pieTouchResponse) {
-                          setState(
-                            () {
-                              final desiredTouch = pieTouchResponse.touchInput
-                                      is! PointerExitEvent &&
-                                  pieTouchResponse.touchInput
-                                      is! PointerUpEvent;
-                              if (desiredTouch &&
-                                  pieTouchResponse.touchedSection != null) {
-                                touchedIndex =
-                                    pieTouchResponse.touchedSectionIndex;
-                              } else {
-                                touchedIndex = -1;
-                              }
-                            },
-                          );
-                        },
-                      ),
-                      borderData: FlBorderData(
-                        show: false,
-                      ),
-                      sectionsSpace: 4,
-                      centerSpaceRadius: 10,
-                      sections:
-                          showingSections(responsive, widget.prestamoModel),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Text(
-                'Actualizado al ${widget.prestamoModel.fechaActualizado}',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: responsive.ip(1.5),
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

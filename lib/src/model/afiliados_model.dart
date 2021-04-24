@@ -28,6 +28,7 @@ class AfiliadosModel {
   String fechaCesantia;
   String nveces;
   String fechaDesafiliacion;
+  String nombreCompleto;
 
   AfiliadosModel({
     this.idPersona,
@@ -56,6 +57,7 @@ class AfiliadosModel {
     this.fechaCesantia,
     this.nveces,
     this.fechaDesafiliacion,
+    this.nombreCompleto,
   });
 
   factory AfiliadosModel.fromJson(Map<String, dynamic> json) => AfiliadosModel(
@@ -85,5 +87,6 @@ class AfiliadosModel {
         fechaCesantia: json["fechaCesantia"],
         nveces: json["nveces"],
         fechaDesafiliacion: json["fechaDesafiliacion"],
+        nombreCompleto: json["nombreCompleto"],
       );
 }

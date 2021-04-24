@@ -338,13 +338,13 @@ class _CardExpandableState extends State<CardExpandable> {
                           ? _datosRow(
                               responsive,
                               'Importe:',
-                              'S/.${widget.prestamo.cuota}',
+                              'S/.${widget.prestamo.monto}',
                               'Vencimiento:',
-                              'S/.${widget.prestamo.vencimiento}')
+                              '${widget.prestamo.vencimiento}')
                           : _datosRow(
                               responsive,
                               'Importe:',
-                              'S/.${widget.prestamo.pagado}',
+                              'S/.${widget.prestamo.cuota}',
                               'Fecha de pago:',
                               '${widget.prestamo.fpago}'),
                     ),
@@ -386,7 +386,13 @@ class _CardExpandableState extends State<CardExpandable> {
                           SizedBox(
                             height: responsive.hp(1),
                           ),
+                           (widget.prestamo.estadoPagado == '0')?
                           _datosRow3(
+                              responsive,
+                              'Principal:',
+                              'S/. ${widget.prestamo.principal}',
+                              'Monto:',
+                              'S/. ${widget.prestamo.cuota}'):_datosRow3(
                               responsive,
                               'Principal:',
                               'S/. ${widget.prestamo.principal}',

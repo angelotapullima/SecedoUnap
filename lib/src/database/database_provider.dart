@@ -157,6 +157,7 @@ class DatabaseProvider {
           ' fechaAfiliacion TEXT,'
           ' fechaCesantia TEXT,'
           ' nveces TEXT,'
+          ' nombreCompleto TEXT,'
           ' fechaDesafiliacion TEXT'
           ')');
 

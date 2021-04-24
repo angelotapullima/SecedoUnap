@@ -31,7 +31,7 @@ class CuotasPrestamosDatabase{
   Future<List<CuotasPrestamosModel>> obtenerCuotasPorPrestamo(String idPrestamo) async {
     final db = await dbprovider.database; 
     final res =
-    await db.rawQuery("SELECT * FROM CuotasPrestamo where idPrestamo='$idPrestamo' order by CAST(posicion AS INT)");
+    await db.rawQuery("SELECT * FROM CuotasPrestamo where idPrestamo='$idPrestamo' order by CAST(idCuota AS INT)");
 
     List<CuotasPrestamosModel> list = res.isNotEmpty
         ? res.map((c) => CuotasPrestamosModel.fromJson(c)).toList()

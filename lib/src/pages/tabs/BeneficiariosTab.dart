@@ -72,11 +72,11 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                             SizedBox(
                               height: responsive.hp(2),
                             ),
-                            (snapshot.data[0].funeral.length > 0)
+                            (snapshot.data[0].beneficioFallecido.length > 0)
                                 ? ListView.builder(
                                     physics: ClampingScrollPhysics(),
                                     itemCount:
-                                        snapshot.data[0].funeral.length + 1,
+                                        snapshot.data[0].beneficioFallecido.length + 1,
                                     shrinkWrap: true,
                                     itemBuilder: (context, indexFune) {
                                       final letras = Random()
@@ -138,7 +138,7 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    '${snapshot.data[0].funeral[indexFuneral].nombre}',
+                                                    '${snapshot.data[0].beneficioFallecido[indexFuneral].nombre}',
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -169,7 +169,7 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                                                   .circular(15),
                                                         ),
                                                         child: Text(
-                                                          '${snapshot.data[0].funeral[indexFuneral].gradoParentesco}',
+                                                          '${snapshot.data[0].beneficioFallecido[indexFuneral].gradoParentesco}',
                                                           style: TextStyle(
                                                               fontSize:
                                                                   responsive
@@ -189,7 +189,7 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        '${snapshot.data[0].funeral[indexFuneral].porcentaje}%',
+                                                        '${snapshot.data[0].beneficioFallecido[indexFuneral].porcentaje}%',
                                                         style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.w600,
@@ -224,7 +224,7 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                               horizontal: responsive.wp(3),
                                               vertical: responsive.hp(1)),
                                           child: Text(
-                                            'Beneficiarios con derecho a fondo de cesantía y bolsa de jubilación',
+                                            'Derecho como afiliado al cobro del fondo funeral',
                                             style: TextStyle(
                                                 fontSize: responsive.ip(2)),
                                           ),
@@ -326,7 +326,7 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                     },
                                   )
                                 : Container(),
-                            (snapshot.data[0].beneficioFallecido.length > 0)
+                            (snapshot.data[0].funeral.length > 0)
                                 ? ListView.builder(
                                     itemCount:
                                         snapshot.data[0].funeral.length + 1,
@@ -392,13 +392,16 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    '${snapshot.data[0].funeral[indexFuneral].nombre}',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize:
-                                                          responsive.ip(1.7),
+                                                  Expanded(
+                                                    child: Text(
+                                                      '${snapshot.data[0].funeral[indexFuneral].nombre}',
+                                                      maxLines: 2,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize:
+                                                            responsive.ip(1.7),
+                                                      ),
                                                     ),
                                                   ),
                                                   SizedBox(
