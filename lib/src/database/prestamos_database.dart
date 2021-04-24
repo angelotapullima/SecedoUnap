@@ -51,5 +51,14 @@ class PrestamosDatabase{
   }
  
 
+
+  deletePrestamos() async {
+    final db = await dbprovider.database;
+
+    final res = await db.rawDelete("DELETE FROM Prestamos");
+
+    return res;
+  }
+
  
 }

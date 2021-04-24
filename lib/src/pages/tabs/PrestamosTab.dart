@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
 import 'package:secedo_unap/src/model/prestamos_model.dart';
 import 'package:secedo_unap/src/pages/details_prestamos.dart';
+import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
 
@@ -20,6 +21,8 @@ class PrestamosTab extends StatelessWidget {
 
     final prestamosBloc = ProviderBloc.prestamos(context);
     prestamosBloc.obtenerPrestamos();
+
+    final prefs = Preferences();
 
     return Scaffold(
       body: Stack(
@@ -195,7 +198,7 @@ class PrestamosTab extends StatelessWidget {
                                                 _datosRow(
                                                     responsive,
                                                     'Codigo:',
-                                                    '--AC005--',
+                                                    '${prefs.codigo}',
                                                     'N° de Cheque:',
                                                     '${prestamos.data[valor.data].cheque}'),
                                                 SizedBox(
@@ -205,7 +208,7 @@ class PrestamosTab extends StatelessWidget {
                                                 _datosRow(
                                                     responsive,
                                                     'Nombre:',
-                                                    '--Acosta Diaz, Arturo--',
+                                                    '${prefs.nombrePersona} ${prefs.apellidoPaterno} ${prefs.apellidoMaterno}',
                                                     'Prioridad:',
                                                     '${prestamos.data[valor.data].prioridad}'),
                                                 SizedBox(

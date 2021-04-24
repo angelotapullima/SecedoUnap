@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
 import 'package:secedo_unap/src/pages/homeComercial.dart';
+import 'package:secedo_unap/src/pages/login_page.dart';
+import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 
-void main() {
+void main()async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = new Preferences();
+  await prefs.initPrefs();
   runApp(MyApp());
 }
 
@@ -11,6 +17,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    final prefs = Preferences();
     return ProviderBloc(
       child: MaterialApp(
           title: 'Secedo Unap',
@@ -19,9 +27,10 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: HomeComercialPage(),
+          initialRoute: (prefs.idPersona=="" || prefs.idPersona==null)?'login':'home',
           routes: {
-            //"login": (BuildContext context) => LoginPage(),
+            "home": (BuildContext context) => HomeComercialPage(),
+            "login": (BuildContext context) => LoginPage(),
 
             // "inicioFundo": (BuildContext context) => InicioFundoPage(),
           }),

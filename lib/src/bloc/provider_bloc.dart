@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:secedo_unap/src/bloc/afiliados_bloc.dart';
 import 'package:secedo_unap/src/bloc/beneficiarios_bloc.dart';
 import 'package:secedo_unap/src/bloc/cuotas_prestamos_bloc.dart';
 import 'package:secedo_unap/src/bloc/descuento_planilla_bloc.dart';
 import 'package:secedo_unap/src/bloc/home_comercial_bloc.dart';
+import 'package:secedo_unap/src/bloc/login_bloc.dart';
 import 'package:secedo_unap/src/bloc/planilla_enviada_bloc.dart';
 import 'package:secedo_unap/src/bloc/prestamos_bloc.dart';
 import 'package:secedo_unap/src/bloc/prestamos_item_bloc.dart';
@@ -18,6 +20,8 @@ class ProviderBloc extends InheritedWidget {
   final descuentoPlanillaBloc = DescuentoPlanillaBloc();
   final beneficiariosBloc = BeneficiariosBloc();
   final planillaEnviadaBloc = PlanillaEnviadaBloc();
+  final loginBloc = LoginBloc();
+  final afiliadosBloc = AfiliadosBloc();
 
   factory ProviderBloc({Key key, Widget child}) {
     if (_instancia == null) {
@@ -72,5 +76,17 @@ class ProviderBloc extends InheritedWidget {
   static PlanillaEnviadaBloc planillaEnviada(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
         .planillaEnviadaBloc;
+  }
+
+
+  static LoginBloc login(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .loginBloc;
+  }
+
+
+  static AfiliadosBloc afiliados(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+        .afiliadosBloc;
   }
 }

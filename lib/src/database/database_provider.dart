@@ -20,7 +20,7 @@ class DatabaseProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
-    final path = join(documentsDirectory.path, 'secedov1.db');
+    final path = join(documentsDirectory.path, 'secedo.db');
 
     Future _onConfigure(Database db) async {
       await db.execute('PRAGMA foreign_keys = ON');
@@ -111,6 +111,37 @@ class DatabaseProvider {
           ' descuento TEXT,'
           ' total TEXT'
           ')');
+
+           await db.execute('CREATE TABLE Afiliados ('
+          ' idPersona TEXT  PRIMARY KEY,'
+          ' idTipoPersonaDtipoPersona TEXT,'
+          ' idFacultadDfacultad TEXT,'
+          ' codigo TEXT,'
+          ' nombrePersona TEXT,'
+          ' apellidoPaterno TEXT,'
+          ' apellidoMaterno TEXT,'
+          ' direccion TEXT,'
+          ' telefono TEXT,'
+          ' celular TEXT,'
+          ' correo TEXT,'
+          ' imagen TEXT,'
+          ' nvecesPersona TEXT,'
+          ' fechaNombramiento TEXT,'
+          ' dni TEXT,'
+          ' cuentaBN TEXT,'
+          ' fechaNac TEXT,'
+          ' tipoPersona TEXT,'
+          ' tipoAfiliado TEXT,'
+          ' facultad TEXT,'
+          ' idAfiliacion TEXT,'
+          ' idPersonaDpersona TEXT,'
+          ' fechaAfiliacion TEXT,'
+          ' fechaCesantia TEXT,'
+          ' nveces TEXT,'
+          ' fechaDesafiliacion TEXT'
+          ')');
+
+       
     });
   }
 }

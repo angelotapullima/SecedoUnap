@@ -29,18 +29,17 @@ class BeneficiariosModel {
 
   factory BeneficiariosModel.fromJson(Map<String, dynamic> json) =>
       BeneficiariosModel(
-          idBeneficiario: json["idBeneficiario"],
-          idPersona: json["idPersona"],
-          nombre: json["nombre"],
-          gradoParentesco: json["gradoParentesco"],
-          porcentaje: json["porcentaje"],
-          funeral: json["funeral"],
-          beneficioFallecimiento: json["beneficioFallecimiento"],
-          fallecido: json["fallecido"],
-          idGradoParentesco: json["idGradoParentesco"],
-          defuncion: json["defuncion"],
-          cartaDeclaratoria: json["cartaDeclaratoria"],
-          observaciones: json["observaciones"],
-
-          );
+        idBeneficiario: json["idBeneficiario"],
+        idPersona: json["idPersona"],
+        nombre: json["nombre"],
+        gradoParentesco: json["gradoParentesco"],
+        porcentaje: json["porcentaje"],
+        funeral: json["funeral"],
+        beneficioFallecimiento: json["beneficioFallecimiento"],
+        fallecido: json["fallecido"],
+        idGradoParentesco: json["idGradoParentesco"],
+        defuncion: json["defuncion"],
+        cartaDeclaratoria: json["cartaDeclaratoria"],
+        observaciones: json["observaciones"],
+      );
 }

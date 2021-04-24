@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:secedo_unap/src/database/beneficiarios_database.dart';
+import 'package:secedo_unap/src/database/cuotas_prestamos_database.dart';
+import 'package:secedo_unap/src/database/descuento_planilla_database.dart';
+import 'package:secedo_unap/src/database/planilla_enviada_database.dart';
+import 'package:secedo_unap/src/database/prestamos_database.dart';
+import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 
 class UsuarioTab extends StatelessWidget {
@@ -7,6 +13,8 @@ class UsuarioTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
+    final preferences = Preferences();
+
     return Scaffold(
       body: Stack(
         children: [
@@ -36,8 +44,9 @@ class UsuarioTab extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: responsive.wp(2)),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: responsive.wp(2),
+                        ),
                         child: Text(
                           'Datos Personales',
                           style: TextStyle(
@@ -71,7 +80,7 @@ class UsuarioTab extends StatelessWidget {
                             ),
                           ],
                         ),
-                        height: responsive.hp(13),
+                        height: responsive.hp(15),
                         child: Row(
                           children: [
                             Container(
@@ -90,21 +99,23 @@ class UsuarioTab extends StatelessWidget {
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
-                                  _datos(responsive, 'Código:', 'AC005'),
+                                  _datos(responsive, 'Código:',
+                                      '${preferences.codigo}'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
-                                  _datos(responsive, 'Nombre:', 'Arturo'),
+                                  _datos(responsive, 'Nombre:',
+                                      '${preferences.nombrePersona}'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
                                   _datos(responsive, 'Apellido Paterno:',
-                                      'Acosta'),
+                                      '${preferences.apellidoPaterno}'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
-                                  _datos(
-                                      responsive, 'Apellido Materno:', 'Díaz'),
+                                  _datos(responsive, 'Apellido Materno:',
+                                      '${preferences.apellidoMaterno}'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
@@ -136,11 +147,12 @@ class UsuarioTab extends StatelessWidget {
                             ),
                           ],
                         ),
-                        height: responsive.hp(15),
+                        height: responsive.hp(18),
                         child: Row(
                           children: [
                             Container(
                               width: responsive.wp(2),
+                              height: double.infinity,
                               decoration: BoxDecoration(
                                 color: Colors.green,
                                 borderRadius: BorderRadius.circular(10),
@@ -152,26 +164,28 @@ class UsuarioTab extends StatelessWidget {
                             Expanded(
                               child: Column(
                                 children: [
-                                  _datos2(responsive, 'Dni:', '05200235'),
+                                  _datos2(
+                                      responsive, 'Dni:', '${preferences.dni}'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
                                   _datos2(responsive, 'Cuenta del BN:',
-                                      '04521409245'),
+                                      '${preferences.cuentaBN}'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
                                   _datos2(responsive, 'Fecha de Nacimiento:',
-                                      '6/01/1961'),
+                                      '${preferences.fechaNac}'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
-                                  _datos2(responsive, 'Edad:', '60'),
+                                  _datos2(responsive, 'Edad:',
+                                      '${preferences.codigo}'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
                                   _datos2(responsive, 'Fecha de Afiliación:',
-                                      '1/01/1990'),
+                                      '${preferences.fechaAfiliacion}'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
@@ -203,7 +217,7 @@ class UsuarioTab extends StatelessWidget {
                             ),
                           ],
                         ),
-                        height: responsive.hp(15),
+                        height: responsive.hp(18),
                         child: Row(
                           children: [
                             Container(
@@ -220,21 +234,22 @@ class UsuarioTab extends StatelessWidget {
                               child: Column(
                                 children: [
                                   _datos(responsive, 'Dirección:',
-                                      'Av del Ejercito N° 1731'),
+                                      '${preferences.direccion}'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
-                                  _datos(
-                                      responsive, 'Teléfono:', '04521409245'),
+                                  _datos(responsive, 'Teléfono:',
+                                      '${preferences.telefono}'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
-                                  _datos(responsive, 'Celular:', '978274125'),
+                                  _datos(responsive, 'Celular:',
+                                      '${preferences.celular}'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
                                   _datos(responsive, 'Correo electronico:',
-                                      'artacosdi2013@gmail.com'),
+                                      '${preferences.correo}'),
                                 ],
                               ),
                             ),
@@ -276,6 +291,50 @@ class UsuarioTab extends StatelessWidget {
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: responsive.hp(2),
+                          left: responsive.wp(6),
+                          right: responsive.wp(6),
+                        ),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: MaterialButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            padding: EdgeInsets.all(0.0),
+                            child: Text('Cerrar Sesión'),
+                            color: Color(0xFFF93963),
+                            textColor: Colors.white,
+                            onPressed: () async {
+                              final preferences = Preferences();
+                              preferences.clearPreferences();
+                              final beneficiariosDatabase =
+                                  BeneficiariosDatabase();
+                              final cuotasPrestamosDatabase =
+                                  CuotasPrestamosDatabase();
+                              final descuentoPlanillaDatabase =
+                                  DescuentoPlanillaDatabase();
+                              final planillaEnviadaDatabase =
+                                  PlanillaEnviadaDatabase();
+                              final prestamosDatabase = PrestamosDatabase();
+
+                              await beneficiariosDatabase.deleteBeneficiarios();
+                              await cuotasPrestamosDatabase
+                                  .deleteCuotasPrestamos();
+                              await descuentoPlanillaDatabase
+                                  .deleteDescuentoPlanilla();
+                              await planillaEnviadaDatabase
+                                  .deletePlanillaEnviada();
+                              await prestamosDatabase.deletePrestamos();
+
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  'login', (Route<dynamic> route) => false);
+                            },
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -293,17 +352,18 @@ class UsuarioTab extends StatelessWidget {
         Container(
           width: responsive.wp(40),
           child: Text(
-            dato,
+            ('$dato' == 'null') ? '-' : '$dato',
             style: TextStyle(
                 fontSize: responsive.ip(1.6), fontWeight: FontWeight.w600),
           ),
         ),
         Expanded(
-            child: Text(
-          contenido,
-          style: TextStyle(
-              fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
-        )),
+          child: Text(
+              ('$contenido' == 'null') ? '-' : '$contenido',
+            style: TextStyle(
+                fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
+          ),
+        ),
       ],
     );
   }
@@ -314,14 +374,14 @@ class UsuarioTab extends StatelessWidget {
         Container(
           width: responsive.wp(50),
           child: Text(
-            dato,
+            ('$dato' == 'null') ? '-' : '$dato',
             style: TextStyle(
                 fontSize: responsive.ip(1.6), fontWeight: FontWeight.w600),
           ),
         ),
         Expanded(
           child: Text(
-            contenido,
+              ('$contenido' == 'null') ? '-' : '$contenido',
             style: TextStyle(
                 fontSize: responsive.ip(1.8), fontWeight: FontWeight.bold),
           ),

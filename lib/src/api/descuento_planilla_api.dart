@@ -15,17 +15,19 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:secedo_unap/src/database/descuento_planilla_database.dart';
 import 'package:secedo_unap/src/model/descuento_planilla_model.dart';
+import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/constants.dart'; 
  
 
 class DescuentoPlanillaApi { 
   final descuentoPlanillaDatabase = DescuentoPlanillaDatabase();
+  final preferences = Preferences();
 
   Future<bool> obtenerDescuentoPlanilla() async {
     try {
 
       //id es el id del usuario
-      final url = Uri.parse('$apiBaseURL/api/Descuento_planilla/$idUsuario');
+      final url = Uri.parse('$apiBaseURL/api/Descuento_planilla/${preferences.idPersona}');
 
       final resp = await http.get(url);//(url, body: {'id_empresa': id, 'app': 'true', 'tn': prefs.token});
 

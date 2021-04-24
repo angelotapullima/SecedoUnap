@@ -23,18 +23,20 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:secedo_unap/src/database/planilla_enviada_database.dart';
 import 'package:secedo_unap/src/model/planilla_enviada_model.dart';
+import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 
 import 'package:secedo_unap/src/utils/constants.dart'; 
  
 
 class PlanillaEnviadaApi { 
   final planillaEnviadaDatabase = PlanillaEnviadaDatabase();
+  final preferences = Preferences();
 
   Future<bool> obtenerPlanillaEnviada() async {
     try {
 
       //id es el id del usuario
-      final url = Uri.parse('$apiBaseURL/api/Planilla_enviada/$idAfiliacion');
+      final url = Uri.parse('$apiBaseURL/api/Planilla_enviada/${preferences.idAfiliacion}');
 
       final resp = await http.get(url);//(url, body: {'id_empresa': id, 'app': 'true', 'tn': prefs.token});
 

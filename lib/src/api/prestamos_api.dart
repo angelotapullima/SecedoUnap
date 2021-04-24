@@ -9,18 +9,20 @@ import 'package:http/http.dart' as http;
 import 'package:secedo_unap/src/api/cuotas_prestamo_api.dart';
 import 'package:secedo_unap/src/database/prestamos_database.dart';
 import 'package:secedo_unap/src/model/prestamos_model.dart';
+import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/constants.dart'; 
  
 
 class PrestamosApi { 
   final prestamosDatabase = PrestamosDatabase();
   final cuotasPrestamosApi = CuotasPrestamosApi();
+  final preferences = Preferences();
 
   Future<bool> obtenerPrestamos(String idUsuario) async {
     try {
 
       //id es el id del usuario
-      final url = Uri.parse('$apiBaseURL/api/Prestamoes/$idUsuario');
+      final url = Uri.parse('$apiBaseURL/api/Prestamoes/${preferences.idPersona}');
 
       final resp = await http.get(url);//(url, body: {'id_empresa': id, 'app': 'true', 'tn': prefs.token});
 

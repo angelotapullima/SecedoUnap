@@ -17,18 +17,20 @@ import 'dart:convert';
   
 import 'package:http/http.dart' as http;
 import 'package:secedo_unap/src/database/beneficiarios_database.dart';
-import 'package:secedo_unap/src/model/beneficiarios_model.dart'; 
+import 'package:secedo_unap/src/model/beneficiarios_model.dart';
+import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart'; 
 import 'package:secedo_unap/src/utils/constants.dart'; 
  
 
 class BeneficiariosApi { 
   final beneficiariosDatabase = BeneficiariosDatabase();
+  final preferences = Preferences();
 
   Future<bool> obtenerBeneficiarios() async {
     try {
 
       //id es el id del usuario
-      final url = Uri.parse('$apiBaseURL/api/Beneficiarios/$idUsuario');
+      final url = Uri.parse('$apiBaseURL/api/Beneficiarios/${preferences.idPersona}');
 
       final resp = await http.get(url);//(url, body: {'id_empresa': id, 'app': 'true', 'tn': prefs.token});
 
