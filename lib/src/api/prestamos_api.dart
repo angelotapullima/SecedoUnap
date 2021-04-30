@@ -18,7 +18,7 @@ class PrestamosApi {
   final cuotasPrestamosApi = CuotasPrestamosApi();
   final preferences = Preferences();
 
-  Future<bool> obtenerPrestamos(String idUsuario) async {
+  Future<bool> obtenerPrestamos() async {
     try {
 
       //id es el id del usuario

@@ -208,7 +208,7 @@ class CardExpandable extends StatefulWidget {
 }
 
 class _CardExpandableState extends State<CardExpandable> {
-  bool expandFlag = false;
+  bool expandFlag = true;
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
@@ -240,18 +240,25 @@ class _CardExpandableState extends State<CardExpandable> {
             children: [
               Container(
                 width: double.infinity,
-                height: responsive.hp(6),
+                height: responsive.hp(8),
                 padding: EdgeInsets.symmetric(
                   horizontal: responsive.wp(2),
                   vertical: responsive.hp(.5),
                 ),
-                child: Text(
-                  widget.texto,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: responsive.ip(2),
-                  ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.texto,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: responsive.ip(2),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: responsive.wp(10),)
+                  ],
                 ),
               ),
               ExpandableContainer(
@@ -553,13 +560,17 @@ class _PrestamosItemState extends State<PrestamosItem> {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
+
+    final prefs = Preferences();
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
           PageRouteBuilder(
             opaque: false,
             pageBuilder: (context, animation, secondaryAnimation) {
-              return DetailsPrestamos(prestamo: widget.prestamoModel);
+              return DetailsPrestamos(
+                prestamo: widget.prestamoModel,
+              );
             },
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
@@ -580,240 +591,326 @@ class _PrestamosItemState extends State<PrestamosItem> {
         );
       },
       child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: responsive.wp(2),
-          vertical: responsive.hp(1),
-        ),
-        margin: EdgeInsets.only(
-          right: responsive.wp(3),
-          top: responsive.hp(1),
-          bottom: responsive.hp(1),
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          //border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.blue.withOpacity(0.2),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        margin: EdgeInsets.only(bottom: responsive.hp(2)),
+        child: Stack(
           children: [
-            /*  Text(
-              'APR',
-              style: TextStyle(
-                color: Colors.blue[900],
-                fontWeight: FontWeight.bold,
-                fontSize: responsive.ip(3),
+            Container(
+              margin: EdgeInsets.only(
+                top: responsive.hp(.2),
+                left: responsive.wp(4),
+                right: responsive.wp(2),
               ),
-            ), */
-            Center(
-              child: Column(
-                children: [
-                  Text(
-                    'S/. ${widget.prestamoModel.aprobado}',
-                    style: TextStyle(
-                      color: Colors.blue[900],
-                      fontWeight: FontWeight.bold,
-                      fontSize: responsive.ip(2.5),
-                    ),
-                  ),
-                  Text(
-                    'Monto total del prestamo',
-                    style: TextStyle(
-                      color: Colors.blue[900],
-                      fontWeight: FontWeight.bold,
-                      fontSize: responsive.ip(1.5),
-                    ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                //border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.blue.withOpacity(0.2),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
                   ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: responsive.hp(2),
-            ),
-            Row(
-              children: <Widget>[
-                SizedBox(
-                  height: responsive.hp(2),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: responsive.wp(2),
+                  vertical: responsive.hp(1),
                 ),
-                Container(
-                  width: responsive.wp(38),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Indicator(
-                        size: responsive.ip(1.8),
-                        color: Color(0xFF218A07),
-                        text:
-                            'Monto Pagado S/.${widget.prestamoModel.montoPagado}',
-                        isSquare: true,
-                      ),
-                      SizedBox(
-                        height: responsive.hp(2),
-                      ),
-                      Indicator(
-                        color: Color(0xFFEE0221),
-                        text:
-                            'Monto Por pagar S/.${widget.prestamoModel.montoPorPagar}',
-                        isSquare: true,
-                      ),
-                      SizedBox(
-                        height: 4,
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: responsive.wp(10),
-                ),
-                Expanded(
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: PieChart(
-                      PieChartData(
-                        pieTouchData: PieTouchData(
-                          touchCallback: (pieTouchResponse) {
-                            setState(
-                              () {
-                                final desiredTouch = pieTouchResponse.touchInput
-                                        is! PointerExitEvent &&
-                                    pieTouchResponse.touchInput
-                                        is! PointerUpEvent;
-                                if (desiredTouch &&
-                                    pieTouchResponse.touchedSection != null) {
-                                  touchedIndex =
-                                      pieTouchResponse.touchedSectionIndex;
-                                } else {
-                                  touchedIndex = -1;
-                                }
-                              },
-                            );
-                          },
-                        ),
-                        borderData: FlBorderData(
-                          show: false,
-                        ),
-                        sectionsSpace: 4,
-                        centerSpaceRadius: 10,
-                        sections:
-                            showingSections(responsive, widget.prestamoModel),
-                      ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: responsive.hp(5),
                     ),
-                  ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: responsive.wp(3),
+                        ),
+                        Text(
+                          'Código :',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          '${prefs.codigo}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        Spacer(),
+                        Text(
+                          'Prioridad :',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          '${widget.prestamoModel.prioridad}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1),
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: responsive.wp(3),
+                        ),
+                        Text(
+                          'Tipo :',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          '${widget.prestamoModel.tipo}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        Spacer(),
+                        Text(
+                          'Tasa de interes :',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          '${widget.prestamoModel.tInteres}%',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1),
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: responsive.wp(3),
+                        ),
+                        Text(
+                          'Fecha solicitada :',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          '${widget.prestamoModel.fSolicitud}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        Spacer(),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1),
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: responsive.wp(3),
+                        ),
+                        Text(
+                          'Fecha Aprobación :',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          '${widget.prestamoModel.fAprobado}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        Spacer(),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1),
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: responsive.wp(3),
+                        ),
+                        Text(
+                          'Cantidad Solicitada :',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          'S/. ${widget.prestamoModel.solicitado}',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                            fontSize: responsive.ip(2),
+                          ),
+                        ),
+                        Spacer(),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1),
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: responsive.wp(3),
+                        ),
+                        Text(
+                          'Cantidad Aprobada :',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          'S/. ${widget.prestamoModel.aprobado}',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                            fontSize: responsive.ip(2),
+                          ),
+                        ),
+                        Spacer(),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1),
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: responsive.wp(3),
+                        ),
+                        Text(
+                          'Monto Girado :',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: responsive.ip(1.8),
+                              fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          'S/. ${widget.prestamoModel.girar}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(1),
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: responsive.wp(3),
+                        ),
+                        Text(
+                          'Cuotas :',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        SizedBox(
+                          width: responsive.wp(2),
+                        ),
+                        Text(
+                          '${widget.prestamoModel.nCuotas}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: responsive.ip(1.8),
+                          ),
+                        ),
+                        Spacer(),
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(2),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-            Row(
-              children: [
-                Text(
-                  'Actualizado al ${widget.prestamoModel.fechaActualizado}',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: responsive.ip(1.5),
-                  ),
+            Positioned(
+              left: responsive.wp(1),
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: responsive.wp(3), vertical: responsive.hp(1)),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.blue[400]),
+                child: Text(
+                  'N° de Cheque ${widget.prestamoModel.cheque}',
+                  style: TextStyle(color: Colors.white),
                 ),
-              ],
+              ),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  List<PieChartSectionData> showingSections(
-      Responsive responsive, PrestamosModel prestamosModel) {
-    return List.generate(
-      2,
-      (i) {
-        final isTouched = i == touchedIndex;
-        final double fontSize =
-            isTouched ? responsive.ip(1.8) : responsive.ip(1.6);
-        final double radius = isTouched ? 60 : 50;
-        switch (i) {
-          case 0:
-            return PieChartSectionData(
-              color: const Color(0xFF218A07),
-              value: double.parse(prestamosModel.porcentajePagado),
-              title: '${prestamosModel.porcentajePagado}%',
-              radius: radius,
-              titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff),
-              ),
-            );
-          case 1:
-            return PieChartSectionData(
-              color: const Color(0xFFEE0221),
-              value: double.parse(prestamosModel.porcentajeSinPagar),
-              title: '${prestamosModel.porcentajeSinPagar}%',
-              radius: radius,
-              titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff),
-              ),
-            );
-
-          default:
-            return null;
-        }
-      },
-    );
-  }
-}
-
-class Indicator extends StatelessWidget {
-  final Color color;
-  final String text;
-  final bool isSquare;
-  final double size;
-  final Color textColor;
-
-  const Indicator({
-    Key key,
-    this.color,
-    this.text,
-    this.isSquare,
-    this.size = 16,
-    this.textColor = const Color(0xff505050),
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final responsive = Responsive.of(context);
-    return Row(
-      children: <Widget>[
-        Container(
-          width: size,
-          height: size,
-          decoration: BoxDecoration(
-            shape: isSquare ? BoxShape.rectangle : BoxShape.circle,
-            color: color,
-          ),
-        ),
-        SizedBox(
-          width: responsive.wp(1),
-        ),
-        Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-                fontSize: responsive.ip(1.5),
-                fontWeight: FontWeight.bold,
-                color: textColor),
-          ),
-        )
-      ],
     );
   }
 }

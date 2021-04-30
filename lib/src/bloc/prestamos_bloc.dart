@@ -12,8 +12,7 @@ class PrestamosBloc {
 
   final _prestamosController = BehaviorSubject<List<PrestamosModel>>();
 
-  Stream<List<PrestamosModel>> get prestamosStream =>
-      _prestamosController.stream;
+  Stream<List<PrestamosModel>> get prestamosStream => _prestamosController.stream;
 
   dispose() {
     _prestamosController?.close();
@@ -21,7 +20,7 @@ class PrestamosBloc {
 
   void obtenerPrestamos() async {
     _prestamosController.sink.add(await obtenerPrestamosDatos());
-    await prestamosApi.obtenerPrestamos('322');
+    await prestamosApi.obtenerPrestamos();
     _prestamosController.sink.add(await obtenerPrestamosDatos());
   }
 
@@ -47,14 +46,14 @@ class PrestamosBloc {
         prestamosModel.garante = prestamos[i].garante;
         prestamosModel.idPersona = prestamos[i].idPersona;
         prestamosModel.fechaActualizado = prestamos[i].fechaActualizado;
+
         double montoPagado = 0.0;
         double montoPorPagar = 0.0;
         double montoTotal = 0.0;
 
         double porcentajePagado = 0.0;
         double porcentajeSinPagar = 0.0;
-        final cuotas = await cuotasPrestamosDatabase
-            .obtenerCuotasPorPrestamo(prestamos[i].idPrestamo);
+        final cuotas = await cuotasPrestamosDatabase.obtenerCuotasPorPrestamo(prestamos[i].idPrestamo);
         if (cuotas.length > 0) {
           for (var x = 0; x < cuotas.length; x++) {
             if (cuotas[x].estadoPagado == '1') {

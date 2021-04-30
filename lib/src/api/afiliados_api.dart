@@ -16,6 +16,8 @@ class AfiliadosApi {
     if (afis.length > 0) {
       return true;
     } else {
+
+      //$apiBaseURL/api/Afiliados?dni=555555
       try {
         //id es el id del usuario
         final url = Uri.parse('$apiBaseURL/api/Afiliados');
@@ -30,27 +32,19 @@ class AfiliadosApi {
             AfiliadosModel afiliados = AfiliadosModel();
 
             afiliados.idPersona = decodedData[i]['id_persona'].toString();
-            afiliados.idTipoPersonaDtipoPersona = decodedData[i]
-                    ['id_tipo_de_persona_dtipo_de_persona']
-                .toString();
-            afiliados.idFacultadDfacultad =
-                decodedData[i]['id_facultad_dfacultad'].toString();
+            afiliados.idTipoPersonaDtipoPersona = decodedData[i]['id_tipo_de_persona_dtipo_de_persona'].toString();
+            afiliados.idFacultadDfacultad =decodedData[i]['id_facultad_dfacultad'].toString();
             afiliados.codigo = decodedData[i]['codigo'].toString();
-            afiliados.nombrePersona =
-                decodedData[i]['nombre_persona'].toString();
-            afiliados.apellidoPaterno =
-                decodedData[i]['apellido_paterno'].toString();
-            afiliados.apellidoMaterno =
-                decodedData[i]['apellido_materno'].toString();
+            afiliados.nombrePersona =decodedData[i]['nombre_persona'].toString();
+            afiliados.apellidoPaterno =decodedData[i]['apellido_paterno'].toString();
+            afiliados.apellidoMaterno = decodedData[i]['apellido_materno'].toString();
             afiliados.direccion = decodedData[i]['direccion'].toString();
             afiliados.telefono = decodedData[i]['telefono'].toString();
             afiliados.celular = decodedData[i]['celular'].toString();
             afiliados.correo = decodedData[i]['correo'].toString();
             afiliados.imagen = decodedData[i]['imagen'].toString();
-            afiliados.nvecesPersona =
-                decodedData[i]['nveces_persona'].toString();
-            afiliados.fechaNombramiento =
-                decodedData[i]['fecha_nombramiento'].toString();
+            afiliados.nvecesPersona =decodedData[i]['nveces_persona'].toString();
+            afiliados.fechaNombramiento =decodedData[i]['fecha_nombramiento'].toString();
             afiliados.dni = decodedData[i]['DNI'].toString();
             afiliados.cuentaBN = decodedData[i]['cuenta_BN'].toString();
             afiliados.fechaNac = decodedData[i]['fecha_nac'].toString();
@@ -58,17 +52,12 @@ class AfiliadosApi {
             afiliados.tipoAfiliado = decodedData[i]['tipo_afiliado'].toString();
             afiliados.facultad = decodedData[i]['facultad'].toString();
             afiliados.idAfiliacion = decodedData[i]['id_afiliacion'].toString();
-            afiliados.idPersonaDpersona =
-                decodedData[i]['id_persona_dpersona'].toString();
-            afiliados.fechaAfiliacion =
-                decodedData[i]['fecha_de_afiliacion'].toString();
-            afiliados.fechaCesantia =
-                decodedData[i]['fecha_de_cesantia'].toString();
+            afiliados.idPersonaDpersona =decodedData[i]['id_persona_dpersona'].toString();
+            afiliados.fechaAfiliacion =decodedData[i]['fecha_de_afiliacion'].toString();
+            afiliados.fechaCesantia =decodedData[i]['fecha_de_cesantia'].toString();
             afiliados.nveces = decodedData[i]['nveces'].toString();
-            afiliados.fechaDesafiliacion =
-                decodedData[i]['fecha_de_desafiliacion'].toString();
-            afiliados.nombreCompleto =
-                '${afiliados.nombrePersona} ${afiliados.apellidoPaterno} ${afiliados.apellidoMaterno}';
+            afiliados.fechaDesafiliacion =decodedData[i]['fecha_de_desafiliacion'].toString();
+            afiliados.nombreCompleto = '${afiliados.nombrePersona} ${afiliados.apellidoPaterno} ${afiliados.apellidoMaterno}';
 
             await afiliadosDatabase.insertarAfiliados(afiliados);
           }

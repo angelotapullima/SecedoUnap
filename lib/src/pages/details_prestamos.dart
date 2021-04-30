@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
 import 'package:secedo_unap/src/model/cuotas_prestamos_model.dart';
 import 'package:secedo_unap/src/model/prestamos_model.dart';
+import 'package:secedo_unap/src/pages/tabs/InicioTab.dart';
 import 'package:secedo_unap/src/pages/tabs/PrestamosTab.dart';
+import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
 
@@ -27,6 +29,7 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
     final cuotasPrestamosBloc = ProviderBloc.cuotasP(context);
     cuotasPrestamosBloc.obtenerPrestamos(widget.prestamo.idPrestamo);
 
+    final prefs = Preferences();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -67,143 +70,11 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
                       if (snapshot.data.length > 0) {
                         return Column(
                           children: [
-                            Container(
-                              color: Colors.white,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: responsive.wp(3),
-                                  vertical: responsive.hp(1.5),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'N° de Cheque',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: responsive.ip(1.8),
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Text(
-                                          '${widget.prestamo.cheque}',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: responsive.ip(1.7),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(height: responsive.hp(1)),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'S/. ${widget.prestamo.montoPorPagar}',
-                                              style: TextStyle(
-                                                color: Colors.blue[900],
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: responsive.ip(2),
-                                              ),
-                                            ),
-                                            Text(
-                                              'deuda por pagar',
-                                              style: TextStyle(
-                                                color: Colors.blue[900],
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: responsive.ip(1.5),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: responsive.hp(2),
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        SizedBox(
-                                          height: responsive.hp(2),
-                                        ),
-                                        Container(
-                                          width: responsive.wp(33),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Indicator(
-                                                size: responsive.ip(1.6),
-                                                color: Color(0xFF218A07),
-                                                text:
-                                                    'Monto Pagado    S/.${widget.prestamo.montoPagado}',
-                                                isSquare: true,
-                                              ),
-                                              SizedBox(
-                                                height: responsive.hp(1.6),
-                                              ),
-                                              Indicator(
-                                                color: Color(0xFFEE0221),
-                                                text:
-                                                    'Monto Por pagar S/.${widget.prestamo.montoPorPagar}',
-                                                isSquare: true,
-                                              ),
-                                              SizedBox(
-                                                height: 4,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: responsive.wp(15),
-                                        ),
-                                        Expanded(
-                                          child: AspectRatio(
-                                            aspectRatio: 1.2,
-                                            child: PieChart(
-                                              PieChartData(
-                                                borderData: FlBorderData(
-                                                  show: false,
-                                                ),
-                                                sectionsSpace: 4,
-                                                centerSpaceRadius: 10,
-                                                sections: showingSections(
-                                                    responsive,
-                                                    '${widget.prestamo.porcentajePagado}',
-                                                    '${widget.prestamo.porcentajeSinPagar}'),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                            'Actualizado al ${widget.prestamo.fechaActualizado}',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: responsive.ip(1.5),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: responsive.hp(1),
-                                    )
-                                  ],
-                                ),
-                              ),
+                            SizedBox(
+                              height: responsive.hp(2),
+                            ),
+                            PrestamosItem(
+                              prestamoModel: widget.prestamo,
                             ),
                             Container(
                               width: double.infinity,
@@ -386,18 +257,19 @@ class _CardExpandableState extends State<CardExpandable> {
                           SizedBox(
                             height: responsive.hp(1),
                           ),
-                           (widget.prestamo.estadoPagado == '0')?
-                          _datosRow3(
-                              responsive,
-                              'Principal:',
-                              'S/. ${widget.prestamo.principal}',
-                              'Monto:',
-                              'S/. ${widget.prestamo.cuota}'):_datosRow3(
-                              responsive,
-                              'Principal:',
-                              'S/. ${widget.prestamo.principal}',
-                              'Monto:',
-                              'S/. ${widget.prestamo.monto}'),
+                          (widget.prestamo.estadoPagado == '0')
+                              ? _datosRow3(
+                                  responsive,
+                                  'Principal:',
+                                  'S/. ${widget.prestamo.principal}',
+                                  'Monto:',
+                                  'S/. ${widget.prestamo.cuota}')
+                              : _datosRow3(
+                                  responsive,
+                                  'Principal:',
+                                  'S/. ${widget.prestamo.principal}',
+                                  'Monto:',
+                                  'S/. ${widget.prestamo.monto}'),
                         ],
                       ),
                     )
@@ -660,4 +532,3 @@ class ExpandableContainer extends StatelessWidget {
     );
   }
 }
-
