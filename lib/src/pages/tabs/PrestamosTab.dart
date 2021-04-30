@@ -82,6 +82,7 @@ class PrestamosTab extends StatelessWidget {
                                 itemBuilder: (_, index) {
                                   return PrestamosItem(
                                     prestamoModel: prestamos.data[index],
+                                    mostrarButton: true,
                                   );},
                               ),
                             );

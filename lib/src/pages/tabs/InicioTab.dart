@@ -149,13 +149,14 @@ class _InicioTabState extends State<InicioTab> {
                                     ],
                                   ),
                                   Container(
-                                    height: responsive.hp(40),
+                                    height: responsive.hp(43),
                                     child: PageView.builder(
                                       itemCount: prestamos.data.length,
                                       controller: _pageController,
                                       itemBuilder: (context, index) {
                                         return PrestamosItem(
                                           prestamoModel: prestamos.data[index],
+                                          mostrarButton: true,
                                         );
                                       },
                                     ),
@@ -257,7 +258,9 @@ class _CardExpandableState extends State<CardExpandable> {
                         ),
                       ),
                     ),
-                    SizedBox(width: responsive.wp(10),)
+                    SizedBox(
+                      width: responsive.wp(10),
+                    )
                   ],
                 ),
               ),
@@ -547,9 +550,12 @@ class ExpandableContainer extends StatelessWidget {
 }
 
 class PrestamosItem extends StatefulWidget {
-  PrestamosItem({Key key, @required this.prestamoModel}) : super(key: key);
+  PrestamosItem(
+      {Key key, @required this.prestamoModel, @required this.mostrarButton})
+      : super(key: key);
 
   final PrestamosModel prestamoModel;
+  final bool mostrarButton;
   @override
   _PrestamosItemState createState() => _PrestamosItemState();
 }
@@ -564,31 +570,33 @@ class _PrestamosItemState extends State<PrestamosItem> {
     final prefs = Preferences();
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
-          PageRouteBuilder(
-            opaque: false,
-            pageBuilder: (context, animation, secondaryAnimation) {
-              return DetailsPrestamos(
-                prestamo: widget.prestamoModel,
-              );
-            },
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              var begin = Offset(0.0, 1.0);
-              var end = Offset.zero;
-              var curve = Curves.ease;
+        if (widget.mostrarButton) {
+          Navigator.of(context).push(
+            PageRouteBuilder(
+              opaque: false,
+              pageBuilder: (context, animation, secondaryAnimation) {
+                return DetailsPrestamos(
+                  prestamo: widget.prestamoModel,
+                );
+              },
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                var begin = Offset(0.0, 1.0);
+                var end = Offset.zero;
+                var curve = Curves.ease;
 
-              var tween = Tween(begin: begin, end: end).chain(
-                CurveTween(curve: curve),
-              );
+                var tween = Tween(begin: begin, end: end).chain(
+                  CurveTween(curve: curve),
+                );
 
-              return SlideTransition(
-                position: animation.drive(tween),
-                child: child,
-              );
-            },
-          ),
-        );
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
+            ),
+          );
+        }
       },
       child: Container(
         margin: EdgeInsets.only(bottom: responsive.hp(2)),
@@ -887,6 +895,58 @@ class _PrestamosItemState extends State<PrestamosItem> {
                         Spacer(),
                       ],
                     ),
+                    (widget.mostrarButton)
+                        ? Row(
+                            children: [
+                              Spacer(),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: responsive.wp(3),
+                                  vertical: responsive.hp(.5),
+                                ),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.blue),
+                                child: Text(
+                                  'Ver detalles de cuotas',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: responsive.ip(2),
+                                  ),
+                                ),
+                              ).ripple(
+                                () {
+                                  Navigator.of(context).push(
+                                    PageRouteBuilder(
+                                      opaque: false,
+                                      pageBuilder: (context, animation,
+                                          secondaryAnimation) {
+                                        return DetailsPrestamos(
+                                            prestamo: widget.prestamoModel);
+                                      },
+                                      transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) {
+                                        var begin = Offset(0.0, 1.0);
+                                        var end = Offset.zero;
+                                        var curve = Curves.ease;
+
+                                        var tween =
+                                            Tween(begin: begin, end: end).chain(
+                                          CurveTween(curve: curve),
+                                        );
+
+                                        return SlideTransition(
+                                          position: animation.drive(tween),
+                                          child: child,
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                              )
+                            ],
+                          )
+                        : Container(),
                     SizedBox(
                       height: responsive.hp(2),
                     ),

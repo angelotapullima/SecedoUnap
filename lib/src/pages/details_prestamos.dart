@@ -75,6 +75,7 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
                             ),
                             PrestamosItem(
                               prestamoModel: widget.prestamo,
+                              mostrarButton: false,
                             ),
                             Container(
                               width: double.infinity,
