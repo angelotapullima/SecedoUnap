@@ -37,7 +37,7 @@ final _emailController = BehaviorSubject<String>();
   }
 
   
-  Future<int> login(String user, String pass) async {
+  Future<bool> login(String user, String pass) async {
     _cargandoLoginController.sink.add(true);
     final resp = await loginProviders.login(email, pass);
     _cargandoLoginController.sink.add(false);

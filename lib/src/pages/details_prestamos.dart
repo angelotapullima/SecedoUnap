@@ -1,12 +1,10 @@
-import 'package:fl_chart/fl_chart.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
 import 'package:secedo_unap/src/model/cuotas_prestamos_model.dart';
 import 'package:secedo_unap/src/model/prestamos_model.dart';
-import 'package:secedo_unap/src/pages/tabs/InicioTab.dart';
-import 'package:secedo_unap/src/pages/tabs/PrestamosTab.dart';
-import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
+import 'package:secedo_unap/src/pages/tabs/InicioTab.dart';  
 import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
 
@@ -28,8 +26,7 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
 
     final cuotasPrestamosBloc = ProviderBloc.cuotasP(context);
     cuotasPrestamosBloc.obtenerPrestamos(widget.prestamo.idPrestamo);
-
-    final prefs = Preferences();
+ 
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -127,53 +124,7 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
       ),
     );
   }
-
-  List<PieChartSectionData> showingSections(Responsive responsive,
-      String porcentajePagado, String porcentajeSinPagar) {
-    return List.generate(
-      2,
-      (i) {
-        final isTouched = i == touchedIndex;
-        final double fontSize =
-            isTouched ? responsive.ip(2) : responsive.ip(1.8);
-        final double radius = isTouched ? 60 : 50;
-        switch (i) {
-          case 0:
-            return PieChartSectionData(
-              color: const Color(0xFF218A07),
-              value: double.parse(porcentajePagado),
-              title: '$porcentajePagado%',
-              radius: radius,
-              titlePositionPercentageOffset: 0.5,
-              //badgeWidget: Text('hfhfhf'),
-              titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.w600,
-                color: const Color(0xffffffff),
-              ),
-            );
-          case 1:
-            return PieChartSectionData(
-              color: const Color(0xFFEE0221),
-              value: double.parse(porcentajeSinPagar),
-              title: '$porcentajeSinPagar%',
-              radius: radius,
-              titlePositionPercentageOffset: 0.5,
-              titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff),
-              ),
-            );
-
-          default:
-            return null;
-        }
-      },
-    );
-  }
 }
-
 class CardExpandable extends StatefulWidget {
   const CardExpandable({Key key, @required this.prestamo}) : super(key: key);
 

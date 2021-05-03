@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:secedo_unap/src/api/afiliados_api.dart';
 import 'package:secedo_unap/src/bloc/login_bloc.dart';
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
-import 'package:secedo_unap/src/database/afiliados_database.dart';
-import 'package:secedo_unap/src/pages/afiliadosPage.dart';
-import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/utils.dart';
 
@@ -18,14 +14,21 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _cargando = ValueNotifier<bool>(false);
+  bool _passwordVisible;
+
+  @override
+  void initState() {
+    _passwordVisible = true;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final loginBloc = ProviderBloc.login(context);
 
-    final api = AfiliadosApi();
-    api.obtenerAfiliados();
+    /* final api = AfiliadosApi();
+    api.obtenerAfiliados(); */
     return Scaffold(
       body: ValueListenableBuilder(
           valueListenable: _cargando,
@@ -71,8 +74,18 @@ class _LoginPageState extends State<LoginPage> {
         child: Container(
           child: Column(
             children: <Widget>[
-              FlutterLogo(
-                size: responsive.ip(20),
+              SizedBox(
+                height: responsive.hp(8),
+              ),
+              Container(
+                height: responsive.hp(25),
+                child: Image.asset(
+                  'assets/secedo.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+              SizedBox(
+                height: responsive.hp(5),
               ),
               Text(
                 "Bienvenido",
@@ -93,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
               _email(loginBloc, responsive),
               _pass(loginBloc, responsive),
               _botonLogin(context, loginBloc, responsive),
-              verAfiliados(responsive),
+              //verAfiliados(responsive),
             ],
           ),
         ),
@@ -155,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
             right: responsive.wp(6),
           ),
           child: TextField(
-            obscureText: true,
+            obscureText: _passwordVisible,
             textAlign: TextAlign.left,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
@@ -177,9 +190,25 @@ class _LoginPageState extends State<LoginPage> {
                 responsive.ip(2),
               ),
               errorText: snapshot.error,
-              suffixIcon: Icon(
-                Icons.lock_outline,
-                color: Color(0xFFF93963),
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    if (_passwordVisible) {
+                      _passwordVisible = false;
+                    } else {
+                      _passwordVisible = true;
+                    }
+                  });
+                },
+                icon: _passwordVisible
+                    ? Icon(
+                        Icons.visibility,
+                        color: Colors.pink,
+                      )
+                    : Icon(
+                        Icons.visibility_off,
+                        color: Colors.pink,
+                      ),
               ),
             ),
             onChanged: bloc.changePassword,
@@ -196,22 +225,23 @@ class _LoginPageState extends State<LoginPage> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return Padding(
           padding: EdgeInsets.only(
-            top: responsive.hp(2),
+            bottom: responsive.hp(2),
             left: responsive.wp(6),
             right: responsive.wp(6),
           ),
           child: SizedBox(
             width: double.infinity,
+            height: responsive.ip(5),
             child: RaisedButton(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
+                borderRadius: BorderRadius.circular(20.0),
               ),
               padding: EdgeInsets.all(0.0),
               child: Text('Iniciar Sesión'),
-              color: Color(0xFFF93963),
+              color: (snapshot.hasData) ? Colors.pink : Colors.grey,
               textColor: Colors.white,
               onPressed:
-                  (snapshot.hasData) ? () => _submit(context, bloc) : null,
+                  (snapshot.hasData) ? () => _submit(context, bloc) : () {},
             ),
           ),
         );
@@ -219,7 +249,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget verAfiliados(Responsive responsive) {
+  /* Widget verAfiliados(Responsive responsive) {
     return Padding(
       padding: EdgeInsets.only(
         top: responsive.hp(2),
@@ -266,8 +296,9 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  */
   _submit(BuildContext context, LoginBloc bloc) async {
-    final afiliadosDatabase = AfiliadosDatabase();
+    /*  final afiliadosDatabase = AfiliadosDatabase();
 
     final prefs = new Preferences();
     //final afiliadosApi = AfiliadosApi();
@@ -350,24 +381,22 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       showToast1('error', 5, ToastGravity.BOTTOM);
     }
+ */
+    _cargando.value = true;
+    final bool code = await bloc.login('${bloc.email}', '${bloc.password}');
 
-    /* final int code = await bloc.login('${bloc.email}', '${bloc.password}');
-
-    if (code == 1) {
+    if (code) {
       print(code);
 
       Navigator.of(context)
           .pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
 
       // Navigator.pushReplacementNamed(context, 'home');
-    } else if (code == 2) {
+    } else {
       print(code);
-      //showToast1('Ocurrio un error', 2, ToastGravity.CENTER);
-    } else if (code == 3) {
-      print(code);
-      //showToast1('Datos incorrectos', 2, ToastGravity.CENTER);
+      showToast1('Datos incorrectos', 2, ToastGravity.CENTER);
     }
- */
+
     _cargando.value = false;
   }
 }

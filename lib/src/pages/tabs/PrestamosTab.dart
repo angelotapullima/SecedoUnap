@@ -1,13 +1,9 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
 import 'package:secedo_unap/src/model/prestamos_model.dart';
-import 'package:secedo_unap/src/pages/details_prestamos.dart';
 import 'package:secedo_unap/src/pages/tabs/InicioTab.dart';
-import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 
 class PrestamosTab extends StatelessWidget {
@@ -21,8 +17,6 @@ class PrestamosTab extends StatelessWidget {
 
     final prestamosBloc = ProviderBloc.prestamos(context);
     prestamosBloc.obtenerPrestamos();
-
-    final prefs = Preferences();
 
     return Scaffold(
       body: Stack(
@@ -83,15 +77,30 @@ class PrestamosTab extends StatelessWidget {
                                   return PrestamosItem(
                                     prestamoModel: prestamos.data[index],
                                     mostrarButton: true,
-                                  );},
+                                  );
+                                },
                               ),
                             );
 /* 
 
                          */
                           } else {
-                            return Center(
-                              child: Text('No hay Prestamos'),
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: responsive.hp(50),
+                                  child:
+                                      Lottie.asset('assets/lottie/money.json'),
+                                ),
+                                Text(
+                                  'No tiene APR disponibles',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: responsive.ip(3),
+                                      fontWeight: FontWeight.w600),
+                                )
+                              ],
                             );
                           }
                         } else {

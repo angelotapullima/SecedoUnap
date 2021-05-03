@@ -23,8 +23,7 @@ class BeneficiariosBloc {
   }
 
   Future<List<BeneficiariosGeneral>> benefis() async {
-    final List<BeneficiariosGeneral> listBeneficiariosGeneral = [];
-    final List<BeneficiariosGeneral> listGeneral = [];
+    final List<BeneficiariosGeneral> listBeneficiariosGeneral = []; 
 
     final todosBeneficiarios =
         await beneficiariosDatabase.cargarBeneficiarios();

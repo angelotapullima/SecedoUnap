@@ -1,48 +1,68 @@
 import 'dart:convert';
 
-
 import 'package:http/http.dart' as http;
+import 'package:secedo_unap/src/api/afiliados_api.dart';
 import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/constants.dart';
 
 class LoginApi {
-  
   final prefs = new Preferences();
+  final afiliadosApi = AfiliadosApi();
 
-  Future<int> login(String user, String pass) async {
+  Future<bool> login(String user, String pass) async {
+    String accessToken = '';
+    String tokenType = '';
     try {
-      final url = '$apiBaseURL/api/Login/validar_sesion';
+      final url = '$apiBaseURL/token';
 
-      final resp = await http
-          .post(url, body: {'usuario_nickname': '$user', 'usuario_contrasenha': '$pass', 'app': 'true'});
+      final resp = await http.post(url, headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }, body: {
+        'grant_type': 'password',
+        'username': '$user',
+        'password': '$pass',
+      });
 
       final decodedData = json.decode(resp.body);
 
-      final int code = decodedData['result']['code'];
+      accessToken = decodedData['access_token'];
+      tokenType = decodedData['token_type'];
 
-      if (code == 1) {
-       /*  final prodTemp = Data.fromJson(decodedData['data']);
-
-        //agrego los datos de usuario al sharePreferences
-        prefs.idUser = decodedData['data']['c_u'];
-        prefs.idCity = prodTemp.idCity;
-        prefs.idPerson = prodTemp.idPerson;
-        prefs.userNickname = prodTemp.userNickname;
-        prefs.userEmail = prodTemp.userEmail;
-        prefs.userImage = prodTemp.userImage;
-        prefs.personName = prodTemp.personName;
-        prefs.personSurname = prodTemp.personSurname;
-        prefs.idRoleUser = prodTemp.idRoleUser;
-        prefs.roleName = prodTemp.roleName;
-        prefs.token =  decodedData['data']['tn']; */
-
+      if (accessToken.length > 0) {
+        final code = await token(accessToken, tokenType);
         return code;
       } else {
-        return code;
+        return false;
       }
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
-      return 0;
+      return false;
+    }
+  }
+
+  Future<bool> token(String accessToken, String tokenType) async {
+    try {
+      final url = '$apiBaseURL/api/Values';
+
+      final resp = await http.get(url, headers: {
+        'Authorization': '$tokenType $accessToken'
+      } /* , body: {
+        'grant_type': 'password',
+        'username': '05223782',
+        'password': '05223782DA026',
+      } */
+          );
+
+      final decodedData = json.decode(resp.body);
+      print(decodedData[4]);
+
+      final respuesta = await afiliadosApi.obtenerAfiliadosDni(decodedData[4]);
+      print(respuesta);
+
+      return respuesta;
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return false;
     }
   }
 }
