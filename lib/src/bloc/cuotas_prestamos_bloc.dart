@@ -20,20 +20,29 @@ class CuotasPrestamosBloc{
   final cuotasPrestamosApi = CuotasPrestamosApi();
   
 
-  final _cuotasPrestamosController  = BehaviorSubject<List<CuotasPrestamosModel>>();
+  final _cuotasPrestamosPagadosController  = BehaviorSubject<List<CuotasPrestamosModel>>();
+  final _cuotasPrestamosPendientesController  = BehaviorSubject<List<CuotasPrestamosModel>>();
 
-  Stream<List<CuotasPrestamosModel>> get cuotasPrestamosStream => _cuotasPrestamosController.stream;
+  Stream<List<CuotasPrestamosModel>> get cuotasPrestamosPagadosStream => _cuotasPrestamosPagadosController.stream;
+  Stream<List<CuotasPrestamosModel>> get cuotasPrestamosPendientesStream => _cuotasPrestamosPendientesController.stream;
 
   dispose(){
-    _cuotasPrestamosController?.close();
+    _cuotasPrestamosPagadosController?.close();
+    _cuotasPrestamosPendientesController?.close();
   }
-  void obtenerPrestamos(String idPrestamo)async{
-    _cuotasPrestamosController.sink.add(await cuotasPrestamosDatabase.obtenerCuotasPorPrestamo(idPrestamo));
+  void obtenerPrestamosPagados(String idPrestamo)async{
+    _cuotasPrestamosPagadosController.sink.add(await cuotasPrestamosDatabase.obtenerCuotasPorPrestamoPorEstado(idPrestamo,'1'));
     await cuotasPrestamosApi.obtenerCuotasPrestamos(idPrestamo);
-    _cuotasPrestamosController.sink.add(await cuotasPrestamosDatabase.obtenerCuotasPorPrestamo(idPrestamo));
+    _cuotasPrestamosPagadosController.sink.add(await cuotasPrestamosDatabase.obtenerCuotasPorPrestamoPorEstado(idPrestamo,'1'));
 
   }
 
+ void obtenerPrestamosPendientes(String idPrestamo)async{
+    _cuotasPrestamosPendientesController.sink.add(await cuotasPrestamosDatabase.obtenerCuotasPorPrestamoPorEstado(idPrestamo,'0'));
+    await cuotasPrestamosApi.obtenerCuotasPrestamos(idPrestamo);
+    _cuotasPrestamosPendientesController.sink.add(await cuotasPrestamosDatabase.obtenerCuotasPorPrestamoPorEstado(idPrestamo,'0'));
+
+  }
 
 
 }

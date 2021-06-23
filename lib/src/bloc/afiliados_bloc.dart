@@ -15,11 +15,11 @@ class AfiliadosBloc {
     _afiliadoController?.close();
   }
 
-  /* void obtenerAfiliados() async {
+   void obtenerAfiliados() async {
     _afiliadoController.sink.add(await afiliadosDatabase.cargarAfiliados());
     await afiliadosApi.obtenerAfiliados();
     _afiliadoController.sink.add(await afiliadosDatabase.cargarAfiliados());
-  } */
+  } 
 
   void consultaPersonal(String query) async {
     _afiliadoController.sink

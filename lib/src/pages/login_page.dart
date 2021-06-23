@@ -232,7 +232,7 @@ class _LoginPageState extends State<LoginPage> {
           child: SizedBox(
             width: double.infinity,
             height: responsive.ip(5),
-            child: RaisedButton(
+            child: MaterialButton(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0),
               ),

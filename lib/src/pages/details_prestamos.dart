@@ -1,10 +1,9 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
 import 'package:secedo_unap/src/model/cuotas_prestamos_model.dart';
 import 'package:secedo_unap/src/model/prestamos_model.dart';
-import 'package:secedo_unap/src/pages/tabs/InicioTab.dart';  
+import 'package:secedo_unap/src/pages/tabs/InicioTab.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
 
@@ -25,8 +24,9 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
     final responsive = Responsive.of(context);
 
     final cuotasPrestamosBloc = ProviderBloc.cuotasP(context);
-    cuotasPrestamosBloc.obtenerPrestamos(widget.prestamo.idPrestamo);
- 
+    cuotasPrestamosBloc.obtenerPrestamosPagados(widget.prestamo.idPrestamo);
+    cuotasPrestamosBloc.obtenerPrestamosPendientes(widget.prestamo.idPrestamo);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -45,51 +45,201 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
               ),
             ),
           ),
-          Positioned(
-            top: responsive.hp(11),
-            left: 0,
-            right: 0,
+          Container(
+            height: responsive.hp(89),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30),
+                topLeft: Radius.circular(30),
+              ),
+            ),
+            margin: EdgeInsets.only(top: responsive.hp(11)),
             child: ClipRRect(
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(30),
                 topLeft: Radius.circular(30),
               ),
-              child: Container(
-                height: responsive.hp(89),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: StreamBuilder(
-                  stream: cuotasPrestamosBloc.cuotasPrestamosStream,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<CuotasPrestamosModel>> snapshot) {
-                    if (snapshot.hasData) {
-                      if (snapshot.data.length > 0) {
-                        return Column(
-                          children: [
-                            SizedBox(
-                              height: responsive.hp(2),
-                            ),
-                            PrestamosItem(
-                              prestamoModel: widget.prestamo,
-                              mostrarButton: false,
-                            ),
-                            Container(
-                              width: double.infinity,
-                              color: Colors.grey[300],
-                              padding: EdgeInsets.symmetric(
-                                vertical: responsive.hp(.5),
-                              ),
-                              child: Text(
-                                'Cuotas según cronograma',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.blue[900],
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Expanded(
-                              child: ListView.builder(
+              child: DefaultTabController(
+                length: 2,
+                child: Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: Colors.white,
+                    toolbarHeight: responsive.hp(30),
+                    automaticallyImplyLeading: false,
+                    flexibleSpace: Container(
+                      padding: EdgeInsets.only(
+                        left: responsive.wp(2),
+                        right: responsive.wp(2),
+                        bottom: responsive.hp(4),
+                      ),
+                      child: PrestamosItem(
+                        prestamoModel: widget.prestamo,
+                        mostrarButton: false,
+                      ),
+                    ),
+                    bottom: TabBar(
+                      labelColor: Colors.black,
+                      tabs: [
+                        Tab(
+                          icon: null,
+                          text: 'Cuotas Pendientes',
+                        ),
+                        Tab(
+                          icon: null,
+                          text: 'Cuotas Canceladas',
+                        ),
+                      ],
+                    ),
+                  ),
+                  body: TabBarView(
+                    children: [
+                      StreamBuilder(
+                        stream:
+                            cuotasPrestamosBloc.cuotasPrestamosPendientesStream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<CuotasPrestamosModel>>
+                                snapshot) {
+                          if (snapshot.hasData) {
+                            if (snapshot.data.length > 0) {
+                              return ListView.builder(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: responsive.hp(1),
+                                ),
+                                shrinkWrap: true,
+                                physics: ClampingScrollPhysics(),
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (_, index) {
+                                  return Stack(
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                          top: responsive.hp(5),
+                                        ),
+                                        height: responsive.hp(14),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: responsive.wp(28),
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        ' Monto de pago',
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                responsive.ip(1.4),
+                                                            color: Colors.blue[900],
+                                                            fontWeight:
+                                                                FontWeight.bold),
+                                                      ),
+                                                      SizedBox(
+                                                        height: responsive.hp(1),
+                                                      ),
+                                                      Text(
+                                                        'S/. ${snapshot.data[index].cuota}',
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                responsive.ip(1.8),
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight.bold),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Spacer(),
+                                                Column(
+                                                  children: [ Text(
+                                                        'Monto',
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                responsive.ip(1.4),
+                                                            color: Colors.blue[900],
+                                                            fontWeight:
+                                                                FontWeight.bold),
+                                                      ),
+                                                    Text(
+                                                      'S/.${snapshot.data[index].monto}',
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w700,
+                                                          fontSize: responsive.ip(2),
+                                                          color: Colors.blue[900]),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            Divider(thickness: 1,)
+                                          ],
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 0,
+                                        left: responsive.wp(2),
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: responsive.wp(5),
+                                            vertical: responsive.hp(.5),
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: Colors.red,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: Text(
+                                            'Cuota N° ${snapshot.data[index].posicion}   -  ${snapshot.data[index].vencimiento}',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                  /* _datosRow(
+                              responsive,
+                              'Importe:',
+                              'S/.${widget.prestamo.monto}',
+                              'Vencimiento:',
+                              '${widget.prestamo.vencimiento}') */
+                                  /*  : _datosRow(
+                              responsive,
+                              'Importe:',
+                              'S/.${widget.prestamo.cuota}',
+                              'Fecha de pago:',
+                              '${widget.prestamo.fpago}'), */
+
+                                  /*  return CardExpandable(
+                                    prestamo: snapshot.data[index],
+                                  ); */
+                                },
+                              );
+                            } else {
+                              return Center(
+                                child: Text('No hay Cuotas'),
+                              );
+                            }
+                          } else {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
+                      ),
+                      StreamBuilder(
+                        stream:
+                            cuotasPrestamosBloc.cuotasPrestamosPagadosStream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<CuotasPrestamosModel>>
+                                snapshot) {
+                          if (snapshot.hasData) {
+                            if (snapshot.data.length > 0) {
+                              return ListView.builder(
                                 padding: EdgeInsets.symmetric(
                                   vertical: responsive.hp(1),
                                 ),
@@ -101,21 +251,21 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
                                     prestamo: snapshot.data[index],
                                   );
                                 },
-                              ),
-                            ),
-                          ],
-                        );
-                      } else {
-                        return Center(
-                          child: Text('No existen datos'),
-                        );
-                      }
-                    } else {
-                      return Center(
-                        child: CupertinoActivityIndicator(),
-                      );
-                    }
-                  },
+                              );
+                            } else {
+                              return Center(
+                                child: Text('No hay Cuotas'),
+                              );
+                            }
+                          } else {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -125,6 +275,7 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
     );
   }
 }
+
 class CardExpandable extends StatefulWidget {
   const CardExpandable({Key key, @required this.prestamo}) : super(key: key);
 
@@ -156,14 +307,49 @@ class _CardExpandableState extends State<CardExpandable> {
                       padding: EdgeInsets.only(
                         top: responsive.hp(5),
                       ),
-                      height: responsive.hp(12),
+                      height: responsive.hp(14),
                       child: (widget.prestamo.estadoPagado == '0')
-                          ? _datosRow(
+                          ? Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                  Container(
+                                    width: responsive.wp(25),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'Fecha de \nvencimiento',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: responsive.ip(1.2),
+                                              color: Colors.blue[900],
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(height: responsive.hp(1)),
+                                        Text(
+                                          '${widget.prestamo.vencimiento}',
+                                          style: TextStyle(
+                                              fontSize: responsive.ip(1.5),
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    'S/.${widget.prestamo.monto}',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: responsive.ip(2),
+                                        color: Colors.blue[900]),
+                                  ),
+                                ])
+                          /* _datosRow(
                               responsive,
                               'Importe:',
                               'S/.${widget.prestamo.monto}',
                               'Vencimiento:',
-                              '${widget.prestamo.vencimiento}')
+                              '${widget.prestamo.vencimiento}') */
                           : _datosRow(
                               responsive,
                               'Importe:',
@@ -179,7 +365,7 @@ class _CardExpandableState extends State<CardExpandable> {
                         physics: ClampingScrollPhysics(),
                         children: [
                           (widget.prestamo.estadoPagado == '0')
-                              ? _datosRow2(
+                              ? _datosRow3(
                                   responsive,
                                   'Pagado:',
                                   ('${widget.prestamo.pagado}' == 'null')
@@ -189,17 +375,13 @@ class _CardExpandableState extends State<CardExpandable> {
                                   ('${widget.prestamo.fpago}' == 'null')
                                       ? '-'
                                       : '${widget.prestamo.fpago}',
-                                  'Interes:',
-                                  'S/. ${widget.prestamo.interes}',
                                 )
-                              : _datosRow2(
+                              : _datosRow3(
                                   responsive,
                                   'Pagado:',
                                   'S/.${widget.prestamo.pagado}',
                                   'Vencimiento:',
                                   '${widget.prestamo.vencimiento}',
-                                  'Interes:',
-                                  'S/. ${widget.prestamo.interes}',
                                 ),
                           SizedBox(
                             height: responsive.hp(1),
@@ -209,7 +391,7 @@ class _CardExpandableState extends State<CardExpandable> {
                           SizedBox(
                             height: responsive.hp(1),
                           ),
-                          (widget.prestamo.estadoPagado == '0')
+                          /*   (widget.prestamo.estadoPagado == '0')
                               ? _datosRow3(
                                   responsive,
                                   'Principal:',
@@ -221,7 +403,7 @@ class _CardExpandableState extends State<CardExpandable> {
                                   'Principal:',
                                   'S/. ${widget.prestamo.principal}',
                                   'Monto:',
-                                  'S/. ${widget.prestamo.monto}'),
+                                  'S/. ${widget.prestamo.monto}'), */
                         ],
                       ),
                     )
@@ -390,7 +572,9 @@ class _CardExpandableState extends State<CardExpandable> {
       ],
     );
   }
+}
 
+/* 
   Widget _datosRow2(Responsive responsive, String title, String subtitle,
       String title2, String subtitle2, String title3, String subtitle3) {
     return Row(
@@ -457,7 +641,7 @@ class _CardExpandableState extends State<CardExpandable> {
     );
   }
 }
-
+ */
 class ExpandableContainer extends StatelessWidget {
   final bool expanded;
   final double collapsedHeight;

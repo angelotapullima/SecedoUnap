@@ -1,5 +1,6 @@
 
-import 'package:rxdart/subjects.dart';
+
+import 'package:rxdart/rxdart.dart';
 
 class HomeComercialBloc {
   //instancia que captura el ultimo elemento agregado al controlador

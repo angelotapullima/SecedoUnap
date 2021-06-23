@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:secedo_unap/src/bloc/beneficiarios_bloc.dart';
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
+import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 
 class BeneficiariosTab extends StatefulWidget {
@@ -17,9 +18,9 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
-
+    final preferences = Preferences();
     final beneficiariosBloc = ProviderBloc.beneficiarios(context);
-    beneficiariosBloc.obtenerBeneficiarios();
+    beneficiariosBloc.obtenerBeneficiariosPorIdPersona(preferences.idPersona);
 
     return Scaffold(
       body: Stack(

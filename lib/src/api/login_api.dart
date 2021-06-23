@@ -13,7 +13,7 @@ class LoginApi {
     String accessToken = '';
     String tokenType = '';
     try {
-      final url = '$apiBaseURL/token';
+      final url = Uri.parse('$apiBaseURL/token');
 
       final resp = await http.post(url, headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -42,7 +42,7 @@ class LoginApi {
 
   Future<bool> token(String accessToken, String tokenType) async {
     try {
-      final url = '$apiBaseURL/api/Values';
+      final url = Uri.parse('$apiBaseURL/api/Values');
 
       final resp = await http.get(url, headers: {
         'Authorization': '$tokenType $accessToken'
@@ -60,6 +60,29 @@ class LoginApi {
       print(respuesta);
 
       return respuesta;
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return false;
+    }
+  }
+
+  Future<bool> changePassword(
+      String oldPassWord, String newPassword, String confirmPassword) async {
+    try {
+      final url = Uri.parse('$apiBaseURL/api/Account/ChangePassword');
+
+      final resp = await http.post(url, body: {
+        'OldPassword': '$oldPassWord',
+        'NewPassword': '$newPassword',
+        'ConfirmPassword': '$confirmPassword',
+      });
+
+      final decodedData = json.decode(resp.body); 
+
+      
+      print(decodedData);
+
+      return true;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
       return false;

@@ -26,11 +26,11 @@ class BeneficiariosApi {
   final beneficiariosDatabase = BeneficiariosDatabase();
   final preferences = Preferences();
 
-  Future<bool> obtenerBeneficiarios() async {
+  Future<bool> obtenerBeneficiarios(String idPersona) async {
     try {
 
       //id es el id del usuario
-      final url = Uri.parse('$apiBaseURL/api/Beneficiarios/${preferences.idPersona}');
+      final url = Uri.parse('$apiBaseURL/api/Beneficiarios/$idPersona');
 
       final resp = await http.get(url);//(url, body: {'id_empresa': id, 'app': 'true', 'tn': prefs.token});
 

@@ -84,7 +84,7 @@ class AfiliadosDatabase{
     try{
     final db = await dbprovider.database;
     final res = await db.rawQuery(
-        "SELECT * FROM Afiliados WHERE nombreCompleto LIKE '%$query%'");
+        "SELECT * FROM Afiliados WHERE nombreCompleto LIKE '%$query%' or dni LIKE '%$query%'");
 
     List<AfiliadosModel> list = res.isNotEmpty
         ? res.map((c) => AfiliadosModel.fromJson(c)).toList()

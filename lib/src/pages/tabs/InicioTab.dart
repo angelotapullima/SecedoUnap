@@ -1,11 +1,12 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
 import 'package:secedo_unap/src/model/deudas_model.dart';
 import 'package:secedo_unap/src/model/prestamos_model.dart';
 import 'package:secedo_unap/src/pages/details_prestamos.dart';
+import 'package:secedo_unap/src/pages/pdf_viewer.dart';
 import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
@@ -83,7 +84,51 @@ class _InicioTabState extends State<InicioTab> {
                       SizedBox(
                         height: responsive.hp(3),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: responsive.hp(20),
+                            child: Image.asset(
+                              'assets/secedo.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: responsive.hp(3),
+                      ),
                       Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: responsive.wp(3),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Nosotros',
+                              style: TextStyle(
+                                  fontSize: responsive.ip(2),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: responsive.wp(3),
+                          vertical: responsive.hp(2),
+                        ),
+                        child: Text(
+                          'El Seguro de Cesantía de los Docentes de la Universidad de la Amazonía Peruana fue creado el 12 de agosto de 1986 por los docentes y jefes de prácticas nombrados y en actividad como asociación de ayuda mutua, ajena a toda actividad partidaria y religiosa, con personería jurídica de derecho privado y administración propia. \n\nSe encuentra inscrito en el Libro de Asociaciones del Registro de Personas Jurídicas de Loreto, ficha Nº 689 asiento 2, con Registro Único de Contribuyente – RUC Nº 20451305094. Su duración es indefinida.',
+                          style: TextStyle(
+                              fontSize: responsive.ip(1.5),
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+
+                      /*  Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: responsive.wp(3),
                         ),
@@ -94,7 +139,7 @@ class _InicioTabState extends State<InicioTab> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      StreamBuilder(
+                     StreamBuilder(
                         stream: deudasBloc.deudaControllerStream,
                         builder: (BuildContext context,
                             AsyncSnapshot<List<DeudasModel>> deudasSnapshot) {
@@ -175,9 +220,73 @@ class _InicioTabState extends State<InicioTab> {
                           }
                         },
                       ),
+                       */
                       Container(
                         child: Column(
-                          children: [],
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  PageRouteBuilder(
+                                    opaque: false,
+                                    pageBuilder: (context, animation,
+                                        secondaryAnimation) {
+                                      return PdfViewer();
+                                    },
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
+                                      var begin = Offset(0.0, 1.0);
+                                      var end = Offset.zero;
+                                      var curve = Curves.ease;
+
+                                      var tween =
+                                          Tween(begin: begin, end: end).chain(
+                                        CurveTween(curve: curve),
+                                      );
+
+                                      return SlideTransition(
+                                        position: animation.drive(tween),
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: responsive.wp(3),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                  vertical: responsive.hp(1),
+                                  horizontal: responsive.wp(3),
+                                ),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.blue),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'Reglamento para poder sacar un APR',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: responsive.ip(1.7),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: responsive.wp(5),
+                                    ),
+                                    Container(
+                                      height: responsive.hp(9),
+                                      child: Lottie.asset(
+                                          'assets/lottie/document.json'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       )
                     ],
@@ -631,52 +740,22 @@ class _PrestamosItemState extends State<PrestamosItem> {
                     SizedBox(
                       height: responsive.hp(5),
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: responsive.wp(3),
-                        ),
-                        Text(
-                          'Código :',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: responsive.ip(1.8),
-                          ),
-                        ),
-                        SizedBox(
-                          width: responsive.wp(2),
-                        ),
-                        Text(
-                          '${prefs.codigo}',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: responsive.ip(1.8),
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          'Prioridad :',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: responsive.ip(1.8),
-                          ),
-                        ),
-                        SizedBox(
-                          width: responsive.wp(2),
-                        ),
-                        Text(
-                          '${widget.prestamoModel.prioridad}',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: responsive.ip(1.8),
-                          ),
-                        ),
-                      ],
+                    Text(
+                      'S/.${widget.prestamoModel.montoPorPagar}',
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: responsive.ip(3.5),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'Deuda total al ${widget.prestamoModel.fechaActualizado}',
+                      style: TextStyle(
+                        color: Colors.blue[900],
+                        fontSize: responsive.ip(2),
+                      ),
                     ),
                     SizedBox(
-                      height: responsive.hp(1),
+                      height: responsive.hp(3),
                     ),
                     Row(
                       children: [
@@ -687,7 +766,7 @@ class _PrestamosItemState extends State<PrestamosItem> {
                           'Tipo :',
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: responsive.ip(1.8),
+                            fontSize: responsive.ip(1.5),
                           ),
                         ),
                         SizedBox(
@@ -698,26 +777,7 @@ class _PrestamosItemState extends State<PrestamosItem> {
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: responsive.ip(1.8),
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          'Tasa de interes :',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: responsive.ip(1.8),
-                          ),
-                        ),
-                        SizedBox(
-                          width: responsive.wp(2),
-                        ),
-                        Text(
-                          '${widget.prestamoModel.tInteres}%',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: responsive.ip(1.8),
+                            fontSize: responsive.ip(1.5),
                           ),
                         ),
                       ],
@@ -734,7 +794,7 @@ class _PrestamosItemState extends State<PrestamosItem> {
                           'Fecha solicitada :',
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: responsive.ip(1.8),
+                            fontSize: responsive.ip(1.5),
                           ),
                         ),
                         SizedBox(
@@ -745,125 +805,10 @@ class _PrestamosItemState extends State<PrestamosItem> {
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: responsive.ip(1.8),
+                            fontSize: responsive.ip(1.5),
                           ),
                         ),
                         Spacer(),
-                      ],
-                    ),
-                    SizedBox(
-                      height: responsive.hp(1),
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: responsive.wp(3),
-                        ),
-                        Text(
-                          'Fecha Aprobación :',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: responsive.ip(1.8),
-                          ),
-                        ),
-                        SizedBox(
-                          width: responsive.wp(2),
-                        ),
-                        Text(
-                          '${widget.prestamoModel.fAprobado}',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: responsive.ip(1.8),
-                          ),
-                        ),
-                        Spacer(),
-                      ],
-                    ),
-                    SizedBox(
-                      height: responsive.hp(1),
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: responsive.wp(3),
-                        ),
-                        Text(
-                          'Cantidad Solicitada :',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: responsive.ip(1.8),
-                          ),
-                        ),
-                        SizedBox(
-                          width: responsive.wp(2),
-                        ),
-                        Text(
-                          'S/. ${widget.prestamoModel.solicitado}',
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: responsive.ip(2),
-                          ),
-                        ),
-                        Spacer(),
-                      ],
-                    ),
-                    SizedBox(
-                      height: responsive.hp(1),
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: responsive.wp(3),
-                        ),
-                        Text(
-                          'Cantidad Aprobada :',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: responsive.ip(1.8),
-                          ),
-                        ),
-                        SizedBox(
-                          width: responsive.wp(2),
-                        ),
-                        Text(
-                          'S/. ${widget.prestamoModel.aprobado}',
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                            fontSize: responsive.ip(2),
-                          ),
-                        ),
-                        Spacer(),
-                      ],
-                    ),
-                    SizedBox(
-                      height: responsive.hp(1),
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: responsive.wp(3),
-                        ),
-                        Text(
-                          'Monto Girado :',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: responsive.ip(1.8),
-                              fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(
-                          width: responsive.wp(2),
-                        ),
-                        Text(
-                          'S/. ${widget.prestamoModel.girar}',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: responsive.ip(1.8),
-                          ),
-                        ),
                       ],
                     ),
                     SizedBox(
@@ -878,7 +823,7 @@ class _PrestamosItemState extends State<PrestamosItem> {
                           'Cuotas :',
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: responsive.ip(1.8),
+                            fontSize: responsive.ip(1.5),
                           ),
                         ),
                         SizedBox(
@@ -889,7 +834,7 @@ class _PrestamosItemState extends State<PrestamosItem> {
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: responsive.ip(1.8),
+                            fontSize: responsive.ip(1.5),
                           ),
                         ),
                         Spacer(),
@@ -947,9 +892,6 @@ class _PrestamosItemState extends State<PrestamosItem> {
                             ],
                           )
                         : Container(),
-                    SizedBox(
-                      height: responsive.hp(2),
-                    ),
                   ],
                 ),
               ),

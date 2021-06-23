@@ -6,8 +6,11 @@ import 'package:secedo_unap/src/database/descuento_planilla_database.dart';
 import 'package:secedo_unap/src/database/deudas_database.dart';
 import 'package:secedo_unap/src/database/planilla_enviada_database.dart';
 import 'package:secedo_unap/src/database/prestamos_database.dart';
+import 'package:secedo_unap/src/pages/afiliadosPage.dart';
+import 'package:secedo_unap/src/pages/change_password.dart';
 import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
+import 'package:secedo_unap/src/utils/extentions.dart';
 
 class UsuarioTab extends StatelessWidget {
   const UsuarioTab({Key key}) : super(key: key);
@@ -19,15 +22,15 @@ class UsuarioTab extends StatelessWidget {
     DateTime today = DateTime.now();
     AgeDuration age, ageAfiliacion;
 
-    String nacimientoValidacion='false';
-    String afiliacionValidacion='false';
+    String nacimientoValidacion = 'false';
+    String afiliacionValidacion = 'false';
 
     if (preferences.fechaNac != 'null') {
       DateTime birthday = DateTime(int.parse(preferences.yearNacimiento));
       age = Age.dateDifference(
           fromDate: birthday, toDate: today, includeToDate: false);
 
-          nacimientoValidacion = 'true';
+      nacimientoValidacion = 'true';
     }
     if (preferences.fechaAfiliacion != 'null') {
       DateTime timeAfiliacion = DateTime(
@@ -37,7 +40,7 @@ class UsuarioTab extends StatelessWidget {
 
       ageAfiliacion = Age.dateDifference(
           fromDate: timeAfiliacion, toDate: today, includeToDate: false);
-          afiliacionValidacion ='true';
+      afiliacionValidacion = 'true';
     }
 
     return Scaffold(
@@ -205,7 +208,11 @@ class UsuarioTab extends StatelessWidget {
                                     height: responsive.hp(.5),
                                   ),
                                   _datos2(
-                                      responsive, 'Edad:', (nacimientoValidacion=='false')?'-':'${age.years} Años'),
+                                      responsive,
+                                      'Edad:',
+                                      (nacimientoValidacion == 'false')
+                                          ? '-'
+                                          : '${age.years} Años'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
@@ -284,6 +291,157 @@ class UsuarioTab extends StatelessWidget {
                       SizedBox(
                         height: responsive.hp(1),
                       ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: responsive.wp(2),
+                          vertical: responsive.hp(1),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.12),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        height: responsive.hp(5),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: responsive.wp(2),
+                              decoration: BoxDecoration(
+                                color: Colors.teal,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            SizedBox(
+                              width: responsive.wp(2),
+                            ),
+                            Icon(
+                              Icons.lock,
+                              color: Colors.teal,
+                            ),
+                            SizedBox(
+                              width: responsive.wp(1),
+                            ),
+                            Text(
+                              'Cambiar contraseña',
+                              style: TextStyle(
+                                  fontSize: responsive.ip(1.6),
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ).ripple(
+                        () {
+
+                           Navigator.of(context).push(
+                                  PageRouteBuilder(
+                                    opaque: false,
+                                    pageBuilder: (context, animation,
+                                        secondaryAnimation) {
+                                      return ChangePassword();
+                                    },
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
+                                      var begin = Offset(0.0, 1.0);
+                                      var end = Offset.zero;
+                                      var curve = Curves.ease;
+
+                                      var tween =
+                                          Tween(begin: begin, end: end).chain(
+                                        CurveTween(curve: curve),
+                                      );
+
+                                      return SlideTransition(
+                                        position: animation.drive(tween),
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
+                        },
+                      ),
+
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: responsive.wp(2),
+                          vertical: responsive.hp(1),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.12),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        height: responsive.hp(5),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: responsive.wp(2),
+                              decoration: BoxDecoration(
+                                color: Colors.orange[600],
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            SizedBox(
+                              width: responsive.wp(2),
+                            ),
+                            Icon(
+                              Icons.person,
+                              color: Colors.orange[600],
+                            ),
+                            SizedBox(
+                              width: responsive.wp(1),
+                            ),
+                            Text(
+                              'Ver Afiliados ',
+                              style: TextStyle(
+                                  fontSize: responsive.ip(1.6),
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ).ripple(
+                        () {
+
+                           Navigator.of(context).push(
+              PageRouteBuilder(
+                opaque: false,
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return AfiliadosPage();
+                },
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  var begin = Offset(0.0, 1.0);
+                  var end = Offset.zero;
+                  var curve = Curves.ease;
+
+                  var tween = Tween(begin: begin, end: end).chain(
+                    CurveTween(curve: curve),
+                  );
+
+                  return SlideTransition(
+                    position: animation.drive(tween),
+                    child: child,
+                  );
+                },
+              ),
+            );
+                        },
+                      ),
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: responsive.wp(3)),
@@ -308,8 +466,10 @@ class UsuarioTab extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xff2ea2e8),
                         ),
-                        child: Text((afiliacionValidacion =='true')?
-                          '${ageAfiliacion.years} años , ${ageAfiliacion.months} meses y ${ageAfiliacion.days} días ':'-',
+                        child: Text(
+                          (afiliacionValidacion == 'true')
+                              ? '${ageAfiliacion.years} años , ${ageAfiliacion.months} meses y ${ageAfiliacion.days} días '
+                              : '-',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: responsive.ip(2.5),
@@ -348,9 +508,12 @@ class UsuarioTab extends StatelessWidget {
                               final prestamosDatabase = PrestamosDatabase();
 
                               await beneficiariosDatabase.deleteBeneficiarios();
-                              await cuotasPrestamosDatabase.deleteCuotasPrestamos();
-                              await descuentoPlanillaDatabase.deleteDescuentoPlanilla();
-                              await planillaEnviadaDatabase.deletePlanillaEnviada();
+                              await cuotasPrestamosDatabase
+                                  .deleteCuotasPrestamos();
+                              await descuentoPlanillaDatabase
+                                  .deleteDescuentoPlanilla();
+                              await planillaEnviadaDatabase
+                                  .deletePlanillaEnviada();
                               await prestamosDatabase.deletePrestamos();
                               await deudasDatabase.deleteDeudas();
 

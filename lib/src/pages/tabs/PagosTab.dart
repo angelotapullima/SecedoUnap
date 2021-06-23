@@ -49,16 +49,13 @@ class PagosTab extends StatelessWidget {
                         horizontal: responsive.wp(3),
                         vertical: responsive.hp(1),
                       ),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Descuentos por Planilla',
-                            style: TextStyle(
-                                fontSize: responsive.ip(3),
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                      child: Text(
+                        'Descuentos por Planilla',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: responsive.ip(2.5),
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                     Expanded(
@@ -198,12 +195,12 @@ class _CardExpandableState extends State<CardExpandable> {
                 padding: EdgeInsets.only(
                   top: responsive.hp(5),
                 ),
-                height: responsive.hp(10),
+                height: responsive.hp(12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
-                      width: responsive.wp(29),
+                    Flexible(
+                      flex:3, 
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -228,10 +225,11 @@ class _CardExpandableState extends State<CardExpandable> {
                         ],
                       ),
                     ),
-                    SizedBox(width: responsive.wp(2),),
-                    Container(
-                      width: responsive.wp(29),
+                    
+                    Flexible( 
+                      flex:3,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             'Descontado (UNAP)',
@@ -254,9 +252,10 @@ class _CardExpandableState extends State<CardExpandable> {
                         ],
                       ),
                     ),
-                    SizedBox(width: responsive.wp(2),),Container(
-                      width: responsive.wp(29),
+                     
+                    Flexible(flex:3,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             'Diferencia:',
@@ -281,232 +280,7 @@ class _CardExpandableState extends State<CardExpandable> {
                   ],
                 ),
               ),
-              ExpandableContainer(
-                expanded: expandFlag,
-                child: ListView(
-                  shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
-                  children: [
-                    SizedBox(
-                      height: responsive.hp(2),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              'Fecha:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                            Container(
-                              height: responsive.hp(.5),
-                              color: Colors.green,
-                            ),
-                            Text(
-                              ('${widget.planillaModel.fecha}' == 'null')
-                                  ? '-'
-                                  : '${widget.planillaModel.fecha}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Cesantía:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                            Text(
-                              ('${widget.planillaModel.cesantia}' == 'null')
-                                  ? '-'
-                                  : 'S/.${dosdecimales(double.parse(widget.planillaModel.cesantia))}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Funeral:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                            Text(
-                              ('${widget.planillaModel.funeral}' == 'null')
-                                  ? '-'
-                                  : 'S/.${dosdecimales(double.parse(widget.planillaModel.funeral))}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: responsive.hp(2),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              'Jubilación:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                            Container(
-                              height: responsive.hp(.5),
-                              color: Colors.green,
-                            ),
-                            Text(
-                              ('${widget.planillaModel.jubilacion}' == 'null')
-                                  ? '-'
-                                  : '${dosdecimales(double.parse(widget.planillaModel.jubilacion))}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Multa:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                            Text(
-                              ('${widget.planillaModel.multa}' == 'null')
-                                  ? '-'
-                                  : '${dosdecimales(double.parse(widget.planillaModel.jubilacion))}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'APR:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                            Text(
-                              ('${widget.planillaModel.apr}' == 'null')
-                                  ? '-'
-                                  : 'S/.${dosdecimales(double.parse(widget.planillaModel.apr))}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: responsive.hp(2),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              'Garantizado:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                            Container(
-                              height: responsive.hp(.5),
-                              color: Colors.green,
-                            ),
-                            Text(
-                              ('${widget.planillaModel.garantizado}' == 'null')
-                                  ? '-'
-                                  : '${dosdecimales(double.parse(widget.planillaModel.garantizado))}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Descuento:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                            Text(
-                              ('${widget.planillaModel.descuento}' == 'null')
-                                  ? '-'
-                                  : '${dosdecimales(double.parse(widget.planillaModel.descuento))}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                        /* Column(
-                            children: [
-                              Text(
-                                'Total:',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: responsive.ip(1.8),
-                                ),
-                              ),
-                              Text(
-                                '3350.00',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.red,
-                                  fontSize: responsive.ip(2),
-                                ),
-                              ),
-                            ],
-                          ),
-                         */
-                      ],
-                    ),
-                  ],
-                ),
-              )
-            ],
+             ],
           ),
         ).ripple(
           () {
@@ -533,39 +307,7 @@ class _CardExpandableState extends State<CardExpandable> {
             ),
           ),
         ),
-        Positioned(
-          top: 0,
-          right: responsive.wp(2),
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: responsive.wp(2),
-              vertical: responsive.hp(0),
-            ),
-            child: IconButton(
-                icon: Container(
-                  height: responsive.ip(8),
-                  width: responsive.ip(8),
-                  decoration: BoxDecoration(
-                    color: Colors.blue[900],
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Icon(
-                      expandFlag
-                          ? Icons.keyboard_arrow_up
-                          : Icons.keyboard_arrow_down,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  setState(() {
-                    expandFlag = !expandFlag;
-                  });
-                }),
-          ),
-        ),
-      ],
+       ],
     );
   }
 }
@@ -610,285 +352,215 @@ class Planilla extends StatelessWidget {
     final planillaEnviadaBloc = ProviderBloc.planillaEnviada(context);
     planillaEnviadaBloc.obtenerPlanillaEnviada();
     return StreamBuilder(
-        stream: planillaEnviadaBloc.planillaEnviadaControllerStream,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<PlanillaEnviadaModel>> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data.length > 0) {
-              return Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: responsive.wp(2),
-                  vertical: responsive.hp(.5),
-                ),
-                margin: EdgeInsets.symmetric(
-                  horizontal: responsive.wp(2),
-                  vertical: responsive.hp(.5),
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3), // changes position of shadow
+      stream: planillaEnviadaBloc.planillaEnviadaControllerStream,
+      builder: (BuildContext context,
+          AsyncSnapshot<List<PlanillaEnviadaModel>> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data.length > 0) {
+            return Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: responsive.wp(2),
+                vertical: responsive.hp(1),
+              ),
+              margin: EdgeInsets.symmetric(
+                horizontal: responsive.wp(2),
+                vertical: responsive.hp(.5),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+                color: Color(0xFFF6F7F8),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    'Planilla enviada hacia la Unap',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                      fontSize: responsive.ip(1.8),
                     ),
-                  ],
-                  color: Color(0xFFF6F7F8),
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      'Planilla enviada hacia la Unap',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
-                        fontSize: responsive.ip(1.8),
+                  ),
+                  Text(
+                    ('${snapshot.data[0].fechaOriginal}' == 'null')
+                        ? '-'
+                        : '${snapshot.data[0].fechaOriginal}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                      fontSize: responsive.ip(1.8),
+                    ),
+                  ),
+                  SizedBox(
+                    height: responsive.hp(1),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            'Cesantía:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: responsive.ip(1.4),
+                            ),
+                          ),
+                          Text(
+                            ('${snapshot.data[0].cesantia}' == 'null')
+                                ? '-'
+                                : 'S/.${dosdecimales(double.parse(snapshot.data[0].cesantia))}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: responsive.ip(1.4),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Text(
-                      ('${snapshot.data[0].fechaOriginal}' == 'null')
-                                  ? '-'
-                                  : '${snapshot.data[0].fechaOriginal}', 
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
-                        fontSize: responsive.ip(1.8),
+                      Column(
+                        children: [
+                          Text(
+                            'Garantizado:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: responsive.ip(1.4),
+                            ),
+                          ),
+                          Container(
+                            height: responsive.hp(.5),
+                            color: Colors.green,
+                          ),
+                          Text(
+                            ('${snapshot.data[0].garantizado}' == 'null')
+                                ? '-'
+                                : 'S/.${dosdecimales(double.parse(snapshot.data[0].garantizado))}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: responsive.ip(1.4),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(
-                      height: responsive.hp(1),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              'Fecha:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: responsive.hp(1.5),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            'Funeral:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: responsive.ip(1.4),
                             ),
-                            Container(
-                              height: responsive.hp(.5),
-                              color: Colors.green,
+                          ),
+                          Text(
+                            ('${snapshot.data[0].funeral}' == 'null')
+                                ? '-'
+                                : 'S/.${dosdecimales(double.parse(snapshot.data[0].funeral))}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: responsive.ip(1.4),
                             ),
-                            Text( ('${snapshot.data[0].fecha}' == 'null')
-                                  ? '-'
-                                  : '${snapshot.data[0].fecha}',  
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red,
-                                fontSize: responsive.ip(1.4),
-                              ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            'Multa:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: responsive.ip(1.4),
                             ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Cesantía:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
+                          ),
+                          Text(
+                            ('${snapshot.data[0].multa}' == 'null')
+                                ? '-'
+                                : 'S/.${dosdecimales(double.parse(snapshot.data[0].multa))}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: responsive.ip(1.4),
                             ),
-                            Text(
-                              ('${snapshot.data[0].cesantia}' == 'null')
-                                  ? '-'
-                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].cesantia))}',  
-
-                                
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: responsive.hp(1.5),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            'APR:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: responsive.ip(1.4),
                             ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Funeral:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
+                          ),
+                          Text(
+                            ('${snapshot.data[0].apr}' == 'null')
+                                ? '-'
+                                : 'S/.${dosdecimales(double.parse(snapshot.data[0].apr))}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: responsive.ip(1.4),
                             ),
-                            Text(
-                                ('${snapshot.data[0].funeral}' == 'null')
-                                  ? '-'
-                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].funeral))}',   
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            'Total:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: responsive.ip(1.4),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: responsive.hp(1.5),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              'Jubilación:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
+                          ),
+                          Text(
+                            ('${snapshot.data[0].total}' == 'null')
+                                ? '-'
+                                : 'S/.${dosdecimales(double.parse(snapshot.data[0].total))}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                              fontSize: responsive.ip(1.7),
                             ),
-                            Container(
-                              height: responsive.hp(.5),
-                              color: Colors.green,
-                            ),
-                            Text( ('${snapshot.data[0].jubilacion}' == 'null')
-                                  ? '-'
-                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].jubilacion))}',   
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Multa:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                            Text(
-                              ('${snapshot.data[0].multa}' == 'null')
-                                  ? '-'
-                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].multa))}',   
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'APR:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                            Text(
-                               ('${snapshot.data[0].apr}' == 'null')
-                                  ? '-'
-                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].apr))}', 
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: responsive.hp(1.5),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              'Garantizado:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                            Container(
-                              height: responsive.hp(.5),
-                              color: Colors.green,
-                            ),
-                            Text(
-
-                               ('${snapshot.data[0].garantizado}' == 'null')
-                                  ? '-'
-                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].garantizado))}',  
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Descuento:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                            Text(
-
-                               ('${snapshot.data[0].descuento}' == 'null')
-                                  ? '-'
-                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].descuento))}',  
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Total:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: responsive.ip(1.4),
-                              ),
-                            ),
-                            Text(
-                                 ('${snapshot.data[0].total}' == 'null')
-                                  ? '-'
-                                  : 'S/.${dosdecimales(double.parse(snapshot.data[0].total))}',   
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red,
-                                fontSize: responsive.ip(1.7),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            } else {
-              return Center(
-                child: CupertinoActivityIndicator(),
-              );
-            }
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
           } else {
             return Center(
               child: CupertinoActivityIndicator(),
             );
           }
-        },);
+        } else {
+          return Center(
+            child: CupertinoActivityIndicator(),
+          );
+        }
+      },
+    );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 extension OnPressed on Widget {
-  Widget ripple(
+  Widget ripple  (
     Function onPressed, {
     BorderRadiusGeometry borderRadius = const BorderRadius.all(
       Radius.circular(5),

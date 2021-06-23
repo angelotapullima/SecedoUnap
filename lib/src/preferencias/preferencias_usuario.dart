@@ -21,6 +21,17 @@ class Preferences {
     await _prefs.clear();
   }
 
+  get directorio {
+    return _prefs.getString('directorio');
+  }
+
+  set directorio(String value) {
+    _prefs.setString('directorio', value);
+  }
+
+
+
+
   get idPersona {
     return _prefs.getString('idPersona');
   }

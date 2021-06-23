@@ -42,10 +42,10 @@ class BeneficiariosDatabase{
     }
   }
 
-  Future<List<BeneficiariosModel>> cargarBeneficiarios() async {
+  Future<List<BeneficiariosModel>> cargarBeneficiariosPorIdPersona(String idPersona) async {
     final db = await dbprovider.database; 
     final res =
-    await db.rawQuery("SELECT * FROM Beneficiarios");
+    await db.rawQuery("SELECT * FROM Beneficiarios where idPersona='$idPersona'");
 
     List<BeneficiariosModel> list = res.isNotEmpty
         ? res.map((c) => BeneficiariosModel.fromJson(c)).toList()

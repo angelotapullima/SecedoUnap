@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:secedo_unap/src/database/afiliados_database.dart';
+import 'package:secedo_unap/src/model/afiliados_model.dart';
 import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/constants.dart';
 
@@ -9,7 +10,7 @@ class AfiliadosApi {
   final afiliadosDatabase = AfiliadosDatabase();
   final prefs = Preferences();
 
-  /* Future<bool> obtenerAfiliados() async {
+   Future<bool> obtenerAfiliados() async {
     final afis = await afiliadosDatabase.cargarAfiliados();
 
     if (afis.length > 0) {
@@ -72,13 +73,12 @@ class AfiliadosApi {
       }
     }
   }
-
- */
+ 
   Future<bool> obtenerAfiliadosDni(String dni) async {
     //$apiBaseURL/api/Afiliados?dni=555555
     try {
       //id es el id del usuario
-      final url = Uri.parse('$apiBaseURL/api/Afiliados?$dni');
+      final url = Uri.parse('$apiBaseURL/api/Afiliados?dni=$dni');
 
       final resp = await http.get(
           url); //(url, body: {'id_empresa': id, 'app': 'true', 'tn': prefs.token});
@@ -147,6 +147,7 @@ class AfiliadosApi {
           prefs.idPersonaDpersona = decodedData[0]['id_persona_dpersona'].toString();
           prefs.fechaAfiliacion = fechaAfiliacion;
           prefs.fechaCesantia = decodedData[0]['fecha_de_cesantia'].toString();
+          prefs.directorio = decodedData[0]['Directorio'].toString();
           prefs.nveces = decodedData[0]['nveces'].toString();
           prefs.fechaDesafiliacion = fechaDesafiliacion;
         

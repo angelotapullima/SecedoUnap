@@ -8,25 +8,33 @@ class BeneficiariosBloc {
   final beneficiariosApi = BeneficiariosApi();
 
   final _beneficiariosController = BehaviorSubject<List<BeneficiariosGeneral>>();
+  final _beneficiariosAfiliadosController = BehaviorSubject<List<BeneficiariosGeneral>>();
 
-  Stream<List<BeneficiariosGeneral>> get beneficiariosControllerStream =>
-      _beneficiariosController.stream;
+  Stream<List<BeneficiariosGeneral>> get beneficiariosControllerStream => _beneficiariosController.stream;
+  Stream<List<BeneficiariosGeneral>> get beneficiariosAfiliadosControllerStream => _beneficiariosAfiliadosController.stream;
 
   dispose() {
     _beneficiariosController?.close();
+    _beneficiariosAfiliadosController?.close();
   }
 
-  void obtenerBeneficiarios() async {
-    _beneficiariosController.sink.add(await benefis());
-    await beneficiariosApi.obtenerBeneficiarios();
-    _beneficiariosController.sink.add(await benefis());
+  void obtenerBeneficiariosPorIdPersona(String idPersona) async {
+    _beneficiariosController.sink.add(await benefis(idPersona));
+    await beneficiariosApi.obtenerBeneficiarios(idPersona);
+    _beneficiariosController.sink.add(await benefis(idPersona));
   }
 
-  Future<List<BeneficiariosGeneral>> benefis() async {
+   void obtenerBeneficiariosAfiliadosPorIdPersona(String idPersona) async {
+    _beneficiariosAfiliadosController.sink.add(await benefis(idPersona));
+    await beneficiariosApi.obtenerBeneficiarios(idPersona);
+    _beneficiariosAfiliadosController.sink.add(await benefis(idPersona));
+  }
+
+  Future<List<BeneficiariosGeneral>> benefis(String idPersona) async {
     final List<BeneficiariosGeneral> listBeneficiariosGeneral = []; 
 
     final todosBeneficiarios =
-        await beneficiariosDatabase.cargarBeneficiarios();
+        await beneficiariosDatabase.cargarBeneficiariosPorIdPersona(idPersona);
 
     if (todosBeneficiarios.length > 0) {
       final List<BeneficiariosModel> listFuneral = [];

@@ -47,14 +47,14 @@ class PrestamosBloc {
         prestamosModel.idPersona = prestamos[i].idPersona;
         prestamosModel.fechaActualizado = prestamos[i].fechaActualizado;
 
-        double montoPagado = 0.0;
+        /*double montoPagado = 0.0;
         double montoPorPagar = 0.0;
         double montoTotal = 0.0;
 
         double porcentajePagado = 0.0;
-        double porcentajeSinPagar = 0.0;
-        final cuotas = await cuotasPrestamosDatabase.obtenerCuotasPorPrestamo(prestamos[i].idPrestamo);
-        if (cuotas.length > 0) {
+        double porcentajeSinPagar = 0.0;*/
+        final cuotas = await cuotasPrestamosDatabase.obtenerCuotasPorPrestamoPorEstado(prestamos[i].idPrestamo,'0');
+        /* if (cuotas.length > 0) {
           for (var x = 0; x < cuotas.length; x++) {
             if (cuotas[x].estadoPagado == '1') {
               montoPagado = montoPagado + double.parse(cuotas[x].cuota);
@@ -63,15 +63,15 @@ class PrestamosBloc {
             }
             montoTotal = montoTotal + double.parse(cuotas[x].cuota);
           }
-        }
+        } */
 
-        porcentajePagado = (montoPagado*100)/montoTotal;
+        prestamosModel.montoPorPagar = cuotas[0].monto;
+        /*porcentajePagado = (montoPagado*100)/montoTotal;
         porcentajeSinPagar = (montoPorPagar*100)/montoTotal;
 
         prestamosModel.montoPagado = dosdecimales(montoPagado);
-        prestamosModel.montoPorPagar = dosdecimales(montoPorPagar);
         prestamosModel.porcentajePagado = porcentajePagado.toInt().toString();
-        prestamosModel.porcentajeSinPagar = porcentajeSinPagar.toInt().toString();
+        prestamosModel.porcentajeSinPagar = porcentajeSinPagar.toInt().toString();*/
 
         listGeneral.add(prestamosModel);
       }
