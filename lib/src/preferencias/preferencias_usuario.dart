@@ -29,9 +29,6 @@ class Preferences {
     _prefs.setString('directorio', value);
   }
 
-
-
-
   get idPersona {
     return _prefs.getString('idPersona');
   }
@@ -239,8 +236,7 @@ class Preferences {
   set fechaDesafiliacion(String value) {
     _prefs.setString('fechaDesafiliacion', value);
   }
-  
-  
+
   get yearAfiliacion {
     return _prefs.getString('yearAfiliacion');
   }
@@ -271,5 +267,21 @@ class Preferences {
 
   set yearNacimiento(String value) {
     _prefs.setString('yearNacimiento', value);
+  }
+
+  get accessToken {
+    return _prefs.getString('accessToken');
+  }
+
+  set accessToken(String value) {
+    _prefs.setString('accessToken', value);
+  }
+
+  get tokenType {
+    return _prefs.getString('tokenType');
+  }
+
+  set tokenType(String value) {
+    _prefs.setString('tokenType', value);
   }
 }

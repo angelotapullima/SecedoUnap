@@ -107,7 +107,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   Spacer(),
                                   InkWell(
                                     onTap: () async {
-                                      if (_newController.text.length <= 0) {
+                                      if (_newController.text.length <= 5) {
                                         validateNewPass = true;
                                       } else {
                                         validateNewPass = false;
@@ -119,7 +119,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                         validateOldPass = false;
                                       }
 
-                                      if (_confirmController.text.length <= 0) {
+                                      if (_confirmController.text.length <= 5) {
                                         validateConfirm = true;
                                       } else {
                                         validateConfirm = false;
@@ -260,7 +260,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
           errorText:
-              validateNewPass ? 'Por favor ingrese la nueva contraseña' : null,
+              validateNewPass ? 'la nueva contraseña debe tener mas de 6 dígitos' : null,
           contentPadding: EdgeInsets.symmetric(
             vertical: responsive.hp(1),
             horizontal: responsive.wp(4),
@@ -286,7 +286,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
           errorText:
-              validateConfirm ? 'Por favor confirme la contraseña nueva' : null,
+              validateConfirm ? 'la nueva contraseña debe tener mas de 6 dígitos' : null,
           contentPadding: EdgeInsets.symmetric(
             vertical: responsive.hp(1),
             horizontal: responsive.wp(4),

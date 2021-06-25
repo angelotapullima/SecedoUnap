@@ -27,6 +27,8 @@ class LoginApi {
 
       accessToken = decodedData['access_token'];
       tokenType = decodedData['token_type'];
+      prefs.accessToken = accessToken;
+      prefs.tokenType = tokenType;
 
       if (accessToken.length > 0) {
         final code = await token(accessToken, tokenType);
@@ -68,21 +70,31 @@ class LoginApi {
 
   Future<bool> changePassword(
       String oldPassWord, String newPassword, String confirmPassword) async {
+    print('tokenType ${prefs.tokenType}');
+    print('t-------------------------------');
+    print('accessToken${prefs.accessToken}');
     try {
       final url = Uri.parse('$apiBaseURL/api/Account/ChangePassword');
 
-      final resp = await http.post(url, body: {
+      final resp = await http.post(url, headers: {
+        'Authorization': '${prefs.tokenType} ${prefs.accessToken}'
+      }, body: {
         'OldPassword': '$oldPassWord',
         'NewPassword': '$newPassword',
         'ConfirmPassword': '$confirmPassword',
       });
 
-      final decodedData = json.decode(resp.body); 
+      var res = resp.body.toString();
 
-      
-      print(decodedData);
+      if (res.length > 0) {
+        final decodedData = json.decode(resp.body);
 
-      return true;
+        print(decodedData);
+        
+        return false;
+      } else {
+        return true;
+      }
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
       return false;
