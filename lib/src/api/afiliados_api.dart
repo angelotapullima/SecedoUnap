@@ -150,6 +150,8 @@ class AfiliadosApi {
           prefs.directorio = decodedData[0]['Directorio'].toString();
           prefs.nveces = decodedData[0]['nveces'].toString();
           prefs.fechaDesafiliacion = fechaDesafiliacion;
+
+          print('directorio ${prefs.directorio}');
         
 
         return true;

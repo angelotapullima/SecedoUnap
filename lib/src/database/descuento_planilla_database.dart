@@ -48,7 +48,7 @@ class DescuentoPlanillaDatabase{
   Future<List<DescuentoPlanillaModel>> cargarDescuentosPlanillas() async {
     final db = await dbprovider.database; 
     final res =
-    await db.rawQuery("SELECT * FROM DescuentoPlanilla order by posicion desc");
+    await db.rawQuery("SELECT * FROM DescuentoPlanilla order by idDescuentoPlanilla desc");
 
     List<DescuentoPlanillaModel> list = res.isNotEmpty
         ? res.map((c) => DescuentoPlanillaModel.fromJson(c)).toList()

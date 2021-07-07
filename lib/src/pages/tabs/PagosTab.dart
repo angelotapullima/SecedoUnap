@@ -302,7 +302,7 @@ class _CardExpandableState extends State<CardExpandable> {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
-              'N° ${widget.index}',
+              '${widget.planillaModel.fecha}',
               style: TextStyle(color: Colors.white),
             ),
           ),

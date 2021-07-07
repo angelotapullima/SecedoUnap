@@ -20,8 +20,6 @@ class InicioTab extends StatefulWidget {
 }
 
 class _InicioTabState extends State<InicioTab> {
-  final _pageController =
-      PageController(viewportFraction: 0.92, initialPage: 0);
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
@@ -57,6 +55,7 @@ class _InicioTabState extends State<InicioTab> {
               height: responsive.hp(92.5),
               color: Colors.white,
               child: SafeArea(
+                bottom: false,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -288,7 +287,83 @@ class _InicioTabState extends State<InicioTab> {
                             )
                           ],
                         ),
-                      )
+                      ),
+                      SizedBox(
+                        height: responsive.hp(2),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: responsive.wp(3),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          vertical: responsive.hp(1),
+                          horizontal: responsive.wp(3),
+                        ),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.red),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text('Correo electrónico :  ',
+                                    style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),)),
+                                Expanded(
+                                  child: Text(
+                                    'secedo_unap@yahoo.es',
+                                    style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Teléfono fijo :  ',
+                                  style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    '065233300',
+                                    style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'WhatsApp :  ',
+                                  style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    '951014918',
+                                    style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Dirección :  ',
+                                  style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    'JR. Alférez West 553 (ex calle Nanay)',
+                                    style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: responsive.hp(5),
+                      ),
                     ],
                   ),
                 ),

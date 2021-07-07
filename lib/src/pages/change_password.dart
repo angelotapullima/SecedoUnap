@@ -3,7 +3,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:secedo_unap/src/api/login_api.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
-import 'package:secedo_unap/src/utils/extentions.dart';
 import 'package:secedo_unap/src/utils/utils.dart';
 
 class ChangePassword extends StatefulWidget {
@@ -100,6 +99,14 @@ class _ChangePasswordState extends State<ChangePassword> {
                               ),
                               _confirmPass(responsive),
                               SizedBox(
+                                height: responsive.hp(2),
+                              ),
+                              Text(
+                                'La contraseña debe tener mínimo 6 caracteres mayúsculas minúsculas y números',
+                                style: TextStyle(
+                                  fontSize: responsive.ip(1.6),
+                                ),
+                              ),SizedBox(
                                 height: responsive.hp(2),
                               ),
                               Row(
@@ -259,8 +266,9 @@ class _ChangePasswordState extends State<ChangePassword> {
       cursorColor: Colors.transparent,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
-          errorText:
-              validateNewPass ? 'la nueva contraseña debe tener mas de 6 dígitos' : null,
+          errorText: validateNewPass
+              ? 'la nueva contraseña debe tener mas de 6 dígitos'
+              : null,
           contentPadding: EdgeInsets.symmetric(
             vertical: responsive.hp(1),
             horizontal: responsive.wp(4),
@@ -285,8 +293,9 @@ class _ChangePasswordState extends State<ChangePassword> {
       cursorColor: Colors.transparent,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
-          errorText:
-              validateConfirm ? 'la nueva contraseña debe tener mas de 6 dígitos' : null,
+          errorText: validateConfirm
+              ? 'la nueva contraseña debe tener mas de 6 dígitos'
+              : null,
           contentPadding: EdgeInsets.symmetric(
             vertical: responsive.hp(1),
             horizontal: responsive.wp(4),

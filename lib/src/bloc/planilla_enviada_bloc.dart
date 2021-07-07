@@ -63,6 +63,8 @@ class PlanillaEnviadaBloc {
         planillaEnviadaModel.total = planillas[0].total;
         planillaEnviadaModel.fechaOriginal = fechaCompleta;
 
+        print('${planillaEnviadaModel.fecha}');
+
         listGeneral.add(planillaEnviadaModel);
       }
     }
