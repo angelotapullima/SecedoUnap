@@ -15,7 +15,7 @@ class PlanillaEnviadaBloc {
       _planillaEnviadaController.stream;
 
   dispose() {
-    _planillaEnviadaController?.close();
+    _planillaEnviadaController.close();
   }
 
   void obtenerPlanillaEnviada() async {
@@ -31,21 +31,18 @@ class PlanillaEnviadaBloc {
 
     if (planillas.length > 0) {
       for (var i = 0; i < planillas.length; i++) {
- 
+        String fechaCompleta;
+        String mes;
+        String ano;
 
-          String fechaCompleta;
-          String mes;
-          String ano;
-        
-          String fechex =  planillas[0].fecha;
-          List partesfechex = fechex.split('-'); 
-          mes = partesfechex[1].trim();
-          ano = partesfechex[0].trim();
+        String fechex = planillas[0].fecha ?? '';
+        List partesfechex = fechex.split('-');
+        mes = partesfechex[1].trim();
+        ano = partesfechex[0].trim();
 
-          String mesCompleto = obtenerMes(int.parse(mes));
+        String mesCompleto = obtenerMes(int.parse(mes));
 
-          fechaCompleta = '$mesCompleto  $ano';
-
+        fechaCompleta = '$mesCompleto  $ano';
 
         PlanillaEnviadaModel planillaEnviadaModel = PlanillaEnviadaModel();
 

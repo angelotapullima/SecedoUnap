@@ -1,5 +1,3 @@
-
-
 import 'package:rxdart/rxdart.dart';
 
 class HomeComercialBloc {
@@ -13,6 +11,6 @@ class HomeComercialBloc {
   int get page => selectTab.value;
 
   dispose() {
-    selectTab?.close();
+    selectTab.close();
   }
 }

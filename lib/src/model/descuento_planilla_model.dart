@@ -1,26 +1,22 @@
-
-
-
-
 class DescuentoPlanillaModel {
-  String idDescuentoPlanilla;
-  String idAfiliacion;
-  String codigo;
-  String nombre;
-  String fecha;
-  String cesantia;
-  String funeral;
-  String jubilacion;
-  String otros;
-  String multa;
-  String apr;
-  String garantizado;
-  String descuento;
-  String ntotal;
-  String aplicado;
-  String diferencia;
-  String idPersona;
-  String posicion;
+  String? idDescuentoPlanilla;
+  String? idAfiliacion;
+  String? codigo;
+  String? nombre;
+  String? fecha;
+  String? cesantia;
+  String? funeral;
+  String? jubilacion;
+  String? otros;
+  String? multa;
+  String? apr;
+  String? garantizado;
+  String? descuento;
+  String? ntotal;
+  String? aplicado;
+  String? diferencia;
+  String? idPersona;
+  String? posicion;
 
   DescuentoPlanillaModel(
       {this.idDescuentoPlanilla,
@@ -39,9 +35,11 @@ class DescuentoPlanillaModel {
       this.ntotal,
       this.aplicado,
       this.diferencia,
-      this.idPersona,this.posicion});
+      this.idPersona,
+      this.posicion});
 
-  factory DescuentoPlanillaModel.fromJson(Map<String, dynamic> json) => DescuentoPlanillaModel(
+  factory DescuentoPlanillaModel.fromJson(Map<String, dynamic> json) =>
+      DescuentoPlanillaModel(
         idDescuentoPlanilla: json["idDescuentoPlanilla"],
         idAfiliacion: json["idAfiliacion"],
         codigo: json["codigo"],

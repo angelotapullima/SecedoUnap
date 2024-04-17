@@ -1,34 +1,31 @@
-
-
-
 class AfiliadosModel {
-  String idPersona;
-  String idTipoPersonaDtipoPersona;
-  String idFacultadDfacultad;
-  String codigo;
-  String nombrePersona;
-  String apellidoPaterno;
-  String apellidoMaterno;
-  String direccion;
-  String telefono;
-  String celular;
-  String correo;
-  String imagen;
-  String nvecesPersona;
-  String fechaNombramiento;
-  String dni;
-  String cuentaBN;
-  String fechaNac;
-  String tipoPersona;
-  String tipoAfiliado;
-  String facultad;
-  String idAfiliacion;
-  String idPersonaDpersona;
-  String fechaAfiliacion;
-  String fechaCesantia;
-  String nveces;
-  String fechaDesafiliacion;
-  String nombreCompleto;
+  String? idPersona;
+  String? idTipoPersonaDtipoPersona;
+  String? idFacultadDfacultad;
+  String? codigo;
+  String? nombrePersona;
+  String? apellidoPaterno;
+  String? apellidoMaterno;
+  String? direccion;
+  String? telefono;
+  String? celular;
+  String? correo;
+  String? imagen;
+  String? nvecesPersona;
+  String? fechaNombramiento;
+  String? dni;
+  String? cuentaBN;
+  String? fechaNac;
+  String? tipoPersona;
+  String? tipoAfiliado;
+  String? facultad;
+  String? idAfiliacion;
+  String? idPersonaDpersona;
+  String? fechaAfiliacion;
+  String? fechaCesantia;
+  String? nveces;
+  String? fechaDesafiliacion;
+  String? nombreCompleto;
 
   AfiliadosModel({
     this.idPersona,

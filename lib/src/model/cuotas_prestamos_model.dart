@@ -1,16 +1,16 @@
 class CuotasPrestamosModel {
-  String idCuota;
-  String idPrestamo;
-  String vencimiento;
-  String monto;
-  String fpago;
-  String pagado;
-  String principal;
-  String interes;
-  String cuota;
+  String? idCuota;
+  String? idPrestamo;
+  String? vencimiento;
+  String? monto;
+  String? fpago;
+  String? pagado;
+  String? principal;
+  String? interes;
+  String? cuota;
 
-  String posicion;
-  String estadoPagado;
+  String? posicion;
+  String? estadoPagado;
 
   CuotasPrestamosModel({
     this.idCuota,

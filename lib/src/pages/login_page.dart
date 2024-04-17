@@ -6,7 +6,7 @@ import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/utils.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -14,7 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _cargando = ValueNotifier<bool>(false);
-  bool _passwordVisible;
+  bool? _passwordVisible;
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: ValueListenableBuilder(
           valueListenable: _cargando,
-          builder: (BuildContext context, bool dataToque, Widget child) {
+          builder: (BuildContext context, bool dataToque, Widget? child) {
             return Stack(
               children: [
                 _form(context, responsive, loginBloc),
@@ -145,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                 contentPadding: EdgeInsets.all(
                   responsive.ip(2),
                 ),
-                errorText: snapshot.error,
+                errorText: snapshot.error.toString(),
                 suffixIcon: Icon(
                   Icons.alternate_email,
                   color: Color(0xFFF93963),
@@ -168,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
             right: responsive.wp(6),
           ),
           child: TextField(
-            obscureText: _passwordVisible,
+            obscureText: _passwordVisible ?? false,
             textAlign: TextAlign.left,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
@@ -189,18 +189,18 @@ class _LoginPageState extends State<LoginPage> {
               contentPadding: EdgeInsets.all(
                 responsive.ip(2),
               ),
-              errorText: snapshot.error,
+              errorText: snapshot.error.toString(),
               suffixIcon: IconButton(
                 onPressed: () {
                   setState(() {
-                    if (_passwordVisible) {
+                    if (_passwordVisible ?? false) {
                       _passwordVisible = false;
                     } else {
                       _passwordVisible = true;
                     }
                   });
                 },
-                icon: _passwordVisible
+                icon: _passwordVisible ?? false
                     ? Icon(
                         Icons.visibility,
                         color: Colors.pink,

@@ -14,7 +14,7 @@ class DescuentoPlanillaBloc {
       _descuentoPlanillaController.stream;
 
   dispose() {
-    _descuentoPlanillaController?.close();
+    _descuentoPlanillaController.close();
   }
 
   void obtenerDescuentoPlanilla() async {

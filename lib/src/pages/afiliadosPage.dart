@@ -4,13 +4,10 @@ import 'package:secedo_unap/src/bloc/provider_bloc.dart';
 import 'package:secedo_unap/src/database/afiliados_database.dart';
 import 'package:secedo_unap/src/model/afiliados_model.dart';
 import 'package:secedo_unap/src/pages/beneficiarios_afiliado.dart';
-import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 
 class AfiliadosPage extends StatefulWidget {
-  const AfiliadosPage({
-    Key key,
-  }) : super(key: key);
+  const AfiliadosPage({super.key});
 
   @override
   _AfiliadosPageState createState() => _AfiliadosPageState();
@@ -57,13 +54,13 @@ class _AfiliadosPageState extends State<AfiliadosPage> {
                         filled: true,
                         contentPadding: EdgeInsets.all(12),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.green[300]),
+                          borderSide: BorderSide(color: Colors.green[300]!),
                           borderRadius: BorderRadius.all(
                             Radius.circular(15),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.green[300]),
+                          borderSide: BorderSide(color: Colors.green[300]!),
                           borderRadius: BorderRadius.all(
                             Radius.circular(15),
                           ),
@@ -104,13 +101,13 @@ class _AfiliadosPageState extends State<AfiliadosPage> {
                 builder: (BuildContext context,
                     AsyncSnapshot<List<AfiliadosModel>> snapshot) {
                   if (snapshot.hasData) {
-                    if (snapshot.data.length > 0) {
+                    if (snapshot.data!.length > 0) {
                       return ListView.builder(
-                        itemCount: snapshot.data.length,
+                        itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
-                              _submit('${snapshot.data[index].dni}');
+                              _submit('${snapshot.data?[index].dni}');
                             },
                             child: Column(
                               children: [
@@ -131,9 +128,9 @@ class _AfiliadosPageState extends State<AfiliadosPage> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                    '${snapshot.data[index].nombrePersona} ${snapshot.data[index].apellidoPaterno} ${snapshot.data[index].apellidoMaterno}'),
+                                                    '${snapshot.data?[index].nombrePersona} ${snapshot.data?[index].apellidoPaterno} ${snapshot.data?[index].apellidoMaterno}'),
                                                 Text(
-                                                    'Dni: ${snapshot.data[index].dni}'),
+                                                    'Dni: ${snapshot.data?[index].dni}'),
                                               ],
                                             ),
                                             Spacer(),
@@ -184,7 +181,8 @@ class _AfiliadosPageState extends State<AfiliadosPage> {
         PageRouteBuilder(
           opaque: false,
           pageBuilder: (context, animation, secondaryAnimation) {
-            return BeneficiariosAfiliados(idPersona: usuario[0].idPersona);
+            return BeneficiariosAfiliados(
+                idPersona: usuario[0].idPersona ?? '');
           },
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             var begin = Offset(0.0, 1.0);
@@ -203,7 +201,5 @@ class _AfiliadosPageState extends State<AfiliadosPage> {
         ),
       );
     }
-
-  
   }
 }

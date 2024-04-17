@@ -1,8 +1,8 @@
-import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:flutter/material.dart';
+import 'package:pdfx/pdfx.dart';
 
 class PdfViewer extends StatefulWidget {
-  const PdfViewer({Key key}) : super(key: key);
+  const PdfViewer({super.key});
 
   @override
   _PdfViewerState createState() => _PdfViewerState();
@@ -10,7 +10,7 @@ class PdfViewer extends StatefulWidget {
 
 class _PdfViewerState extends State<PdfViewer> {
   bool _isLoading = true;
-  PDFDocument document;
+  late PdfController _pdfController;
 
   @override
   void initState() {
@@ -20,7 +20,9 @@ class _PdfViewerState extends State<PdfViewer> {
   }
 
   loadDocument() async {
-    document = await PDFDocument.fromAsset('assets/reglamento.pdf');
+    _pdfController = PdfController(
+      document: PdfDocument.openAsset('assets/hello.pdf'),
+    );
 
     setState(() => _isLoading = false);
   }
@@ -29,14 +31,20 @@ class _PdfViewerState extends State<PdfViewer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-          body: Center(
+      body: Center(
         child: _isLoading
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : PDFViewer(
-                document: document,
-                showPicker: false,
+            : PdfView(
+                builders: PdfViewBuilders<DefaultBuilderOptions>(
+                  options: const DefaultBuilderOptions(),
+                  documentLoaderBuilder: (_) =>
+                      const Center(child: CircularProgressIndicator()),
+                  pageLoaderBuilder: (_) =>
+                      const Center(child: CircularProgressIndicator()),
+                ),
+                controller: _pdfController,
               ),
       ),
     );

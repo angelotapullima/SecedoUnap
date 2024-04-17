@@ -4,18 +4,12 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseProvider {
-  static Database _database;
-  static final DatabaseProvider db = DatabaseProvider._();
+  DatabaseProvider._privateConstructor();
+  static final DatabaseProvider instance =
+      DatabaseProvider._privateConstructor();
 
-  DatabaseProvider._();
-
-  Future<Database> get database async {
-    if (_database != null) return _database;
-
-    _database = await initDB();
-
-    return _database;
-  }
+  static Database? _database;
+  Future<Database> get database async => _database ??= await initDB();
 
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
@@ -112,8 +106,7 @@ class DatabaseProvider {
           ' total TEXT'
           ')');
 
-
-          await db.execute('CREATE TABLE Deudas ('
+      await db.execute('CREATE TABLE Deudas ('
           ' idPersona TEXT  PRIMARY KEY,'
           ' idAfiliacion TEXT,'
           ' codigo TEXT,'
@@ -130,8 +123,7 @@ class DatabaseProvider {
           ' descuento TEXT'
           ')');
 
-          
-           await db.execute('CREATE TABLE Afiliados ('
+      await db.execute('CREATE TABLE Afiliados ('
           ' idPersona TEXT  PRIMARY KEY,'
           ' idTipoPersonaDtipoPersona TEXT,'
           ' idFacultadDfacultad TEXT,'
@@ -160,8 +152,6 @@ class DatabaseProvider {
           ' nombreCompleto TEXT,'
           ' fechaDesafiliacion TEXT'
           ')');
-
-       
     });
   }
 }

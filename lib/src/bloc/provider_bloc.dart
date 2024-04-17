@@ -11,8 +11,6 @@ import 'package:secedo_unap/src/bloc/prestamos_bloc.dart';
 import 'package:secedo_unap/src/bloc/prestamos_item_bloc.dart';
 
 class ProviderBloc extends InheritedWidget {
-  static ProviderBloc _instancia;
-
   final homeComercialBloc = HomeComercialBloc();
   final prestamosItemBloc = PrestamosItemBloc();
 
@@ -25,75 +23,65 @@ class ProviderBloc extends InheritedWidget {
   final afiliadosBloc = AfiliadosBloc();
   final deudasBloc = DeudasBloc();
 
-  factory ProviderBloc({Key key, Widget child}) {
-    if (_instancia == null) {
-      _instancia = new ProviderBloc._internal(key: key, child: child);
-    }
+  ProviderBloc({required Widget child}) : super(child: child);
 
-    return _instancia;
-  }
-
-  ProviderBloc._internal({Key key, Widget child})
-      : super(key: key, child: child);
   @override
   bool updateShouldNotify(ProviderBloc oldWidget) => true;
 
   //tab
   static HomeComercialBloc homeComercial(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!
         .homeComercialBloc;
   }
 
   //tab
   static PrestamosItemBloc presta(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!
         .prestamosItemBloc;
   }
 
   //tab
   static PrestamosBloc prestamos(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!
         .prestasmosBloc;
   }
 
   //tab
   static CuotasPrestamosBloc cuotasP(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!
         .cuotasPrestamosBloc;
   }
 
   //tab
   static DescuentoPlanillaBloc descuentoP(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!
         .descuentoPlanillaBloc;
   }
 
   //tab
   static BeneficiariosBloc beneficiarios(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!
         .beneficiariosBloc;
   }
 
   //tab
   static PlanillaEnviadaBloc planillaEnviada(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!
         .planillaEnviadaBloc;
   }
 
-
   static LoginBloc login(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!
         .loginBloc;
   }
 
-
   static AfiliadosBloc afiliados(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!
         .afiliadosBloc;
   }
 
   static DeudasBloc deudas(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!
         .deudasBloc;
   }
 }

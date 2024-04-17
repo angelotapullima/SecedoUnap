@@ -8,7 +8,7 @@ import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 
 class BeneficiariosTab extends StatefulWidget {
-  const BeneficiariosTab({Key key}) : super(key: key);
+  const BeneficiariosTab({super.key});
 
   @override
   _BeneficiariosTabState createState() => _BeneficiariosTabState();
@@ -73,154 +73,152 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                             AsyncSnapshot<List<BeneficiariosGeneral>>
                                 snapshot) {
                           if (snapshot.hasData) {
-                            if (snapshot.data.length > 0) {
+                            if (snapshot.data!.length > 0) {
                               return Expanded(
                                 child: ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: ClampingScrollPhysics(),
-                                    itemCount: snapshot.data.length + 2,
-                                    itemBuilder: (_, index1) {
-                                      if (index1 == snapshot.data.length + 1) {
-                                        return Padding(
-                                          padding: EdgeInsets.only(
-                                            top: responsive.hp(2),
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  SizedBox(
-                                                    width: responsive.wp(2),
-                                                  ),
-                                                  Container(
-                                                    height: responsive.ip(4),
-                                                    width: responsive.ip(4),
-                                                    child: Stack(
-                                                      children: [
-                                                       
-                                                        
-                                                        Center(
-                                                          child: Icon(Icons.add_alert_sharp,color: Colors.red,),
+                                  shrinkWrap: true,
+                                  physics: ClampingScrollPhysics(),
+                                  itemCount: snapshot.data!.length + 2,
+                                  itemBuilder: (_, index1) {
+                                    if (index1 == snapshot.data!.length + 1) {
+                                      return Padding(
+                                        padding: EdgeInsets.only(
+                                          top: responsive.hp(2),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: responsive.wp(2),
+                                                ),
+                                                Container(
+                                                  height: responsive.ip(4),
+                                                  width: responsive.ip(4),
+                                                  child: Stack(
+                                                    children: [
+                                                      Center(
+                                                        child: Icon(
+                                                          Icons.add_alert_sharp,
+                                                          color: Colors.red,
                                                         ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  SizedBox(
-                                                    width: responsive.wp(2),
+                                                ),
+                                                SizedBox(
+                                                  width: responsive.wp(2),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    '${snapshot.data?[0].beneficiarios?[0].observacion} ',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            responsive.ip(1.8),
+                                                        fontWeight:
+                                                            FontWeight.w600),
                                                   ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      '${snapshot.data[0].beneficiarios[0].observacion} ',
-                                                      style: TextStyle(
-                                                          fontSize: responsive
-                                                              .ip(1.8),
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: responsive.wp(2),
-                                                  ),
-                                                ],
+                                                ),
+                                                SizedBox(
+                                                  width: responsive.wp(2),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              height: responsive.hp(8),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                    if (index1 == snapshot.data!.length) {
+                                      return Container(
+                                        height: responsive.hp(2),
+                                      );
+                                    }
+
+                                    return ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: ClampingScrollPhysics(),
+                                      itemCount: snapshot.data![index1]
+                                              .beneficiarios!.length +
+                                          1,
+                                      itemBuilder: (_, index2) {
+                                        if (index2 == 0) {
+                                          return Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: responsive.wp(3),
+                                              vertical: responsive.hp(1.5),
+                                            ),
+                                            child: Text(
+                                              '${snapshot.data![index1].texto}',
+                                              style: TextStyle(
+                                                fontSize: responsive.ip(1.8),
                                               ),
-                                              Container(
-                                                height: responsive.hp(8),
-                                              )
+                                            ),
+                                          );
+                                        }
+
+                                        final letras = Random()
+                                            .nextInt(Colors.primaries.length);
+                                        return Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: responsive.wp(3),
+                                              vertical: responsive.hp(.8)),
+                                          padding: EdgeInsets.only(
+                                              right: responsive.wp(2)),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.4),
+                                                spreadRadius: 5,
+                                                blurRadius: 7,
+                                                offset: Offset(0,
+                                                    3), // changes position of shadow
+                                              ),
                                             ],
                                           ),
-                                        );
-                                      }
-                                      if (index1 == snapshot.data.length) {
-                                        return Container(
-                                          height: responsive.hp(2),
-                                        );
-                                      }
-
-                                      return ListView.builder(
-                                          shrinkWrap: true,
-                                          physics: ClampingScrollPhysics(),
-                                          itemCount: snapshot.data[index1]
-                                                  .beneficiarios.length +
-                                              1,
-                                          itemBuilder: (_, index2) {
-                                            if (index2 == 0) {
-                                              return Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: responsive.wp(3),
-                                                  vertical: responsive.hp(1.5),
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      Colors.primaries[letras],
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
                                                 ),
-                                                child: Text(
-                                                  '${snapshot.data[index1].texto}',
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        responsive.ip(1.8),
-                                                  ),
-                                                ),
-                                              );
-                                            }
-
-                                            final letras = Random().nextInt(
-                                                Colors.primaries.length);
-                                            return Container(
-                                              margin: EdgeInsets.symmetric(
-                                                  horizontal: responsive.wp(3),
-                                                  vertical: responsive.hp(.8)),
-                                              padding: EdgeInsets.only(
-                                                  right: responsive.wp(2)),
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.grey
-                                                        .withOpacity(0.4),
-                                                    spreadRadius: 5,
-                                                    blurRadius: 7,
-                                                    offset: Offset(0,
-                                                        3), // changes position of shadow
-                                                  ),
-                                                ],
+                                                width: responsive.wp(2),
+                                                height: responsive.hp(7),
                                               ),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                      color: Colors
-                                                          .primaries[letras],
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15),
+                                              SizedBox(
+                                                width: responsive.wp(2),
+                                              ),
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '${snapshot.data?[index1].beneficiarios?[index2 - 1].nombre} ',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize:
+                                                            responsive.ip(1.7),
+                                                      ),
                                                     ),
-                                                    width: responsive.wp(2),
-                                                    height: responsive.hp(7),
-                                                  ),
-                                                  SizedBox(
-                                                    width: responsive.wp(2),
-                                                  ),
-                                                  Expanded(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                    SizedBox(
+                                                      height: responsive.hp(.5),
+                                                    ),
+                                                    Row(
                                                       children: [
-                                                        Text(
-                                                          '${snapshot.data[index1].beneficiarios[index2 - 1].nombre} ',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: responsive
-                                                                .ip(1.7),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height:
-                                                              responsive.hp(.5),
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Container(
-                                                              padding: EdgeInsets.symmetric(
+                                                        Container(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
                                                                   horizontal:
                                                                       responsive
                                                                           .wp(
@@ -228,67 +226,70 @@ class _BeneficiariosTabState extends State<BeneficiariosTab> {
                                                                   vertical:
                                                                       responsive
                                                                           .hp(.5)),
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors
-                                                                          .primaries[
-                                                                      letras],
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              15)),
-                                                              child: Text(
-                                                                '${snapshot.data[index1].beneficiarios[index2 - 1].parentesco} ',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        responsive.ip(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors
+                                                                      .primaries[
+                                                                  letras],
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          15)),
+                                                          child: Text(
+                                                            '${snapshot.data?[index1].beneficiarios?[index2 - 1].parentesco} ',
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    responsive
+                                                                        .ip(
                                                                             1.5),
-                                                                    color: Colors
-                                                                        .white),
-                                                              ),
-                                                            ),
-                                                            Spacer(),
-                                                            (snapshot.data[index1]
-                                                                        .tipo ==
-                                                                    '1')
-                                                                ? Text(
-                                                                    'Porcentaje : ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontSize:
-                                                                          responsive
-                                                                              .ip(1.6),
-                                                                    ),
-                                                                  )
-                                                                : Container(),
-                                                            (snapshot.data[index1]
-                                                                        .tipo ==
-                                                                    '1')
-                                                                ? Text(
-                                                                    '${snapshot.data[index1].beneficiarios[index2 - 1].porcentaje}%',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontSize:
-                                                                          responsive
-                                                                              .ip(1.6),
-                                                                    ),
-                                                                  )
-                                                                : Container(),
-                                                          ],
-                                                        )
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                        ),
+                                                        Spacer(),
+                                                        (snapshot.data![index1]
+                                                                    .tipo ==
+                                                                '1')
+                                                            ? Text(
+                                                                'Porcentaje : ',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      responsive
+                                                                          .ip(1.6),
+                                                                ),
+                                                              )
+                                                            : Container(),
+                                                        (snapshot.data![index1]
+                                                                    .tipo ==
+                                                                '1')
+                                                            ? Text(
+                                                                '${snapshot.data?[index1].beneficiarios?[index2 - 1].porcentaje}%',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      responsive
+                                                                          .ip(1.6),
+                                                                ),
+                                                              )
+                                                            : Container(),
                                                       ],
-                                                    ),
-                                                  ),
-                                                ],
+                                                    )
+                                                  ],
+                                                ),
                                               ),
-                                            );
-                                          },);
-                                    },),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
                               );
                             } else {
                               return Center(

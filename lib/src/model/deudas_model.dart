@@ -1,25 +1,20 @@
-
-
-
-
-
 class DeudasModel {
-  String idPersona;
-  String idAfiliacion;
-  String codigo;
-  String nombre;
-  String cesantia;
-  String funeral;
-  String jubilacion;
-  String multa;
-  String apr;
-  String capital;
-  String interes;
-  String garantizado;
-  String descuento;
+  String? idPersona;
+  String? idAfiliacion;
+  String? codigo;
+  String? nombre;
+  String? cesantia;
+  String? funeral;
+  String? jubilacion;
+  String? multa;
+  String? apr;
+  String? capital;
+  String? interes;
+  String? garantizado;
+  String? descuento;
 
-  String estadoDeuda;
-  String fechaAtual;
+  String? estadoDeuda;
+  String? fechaAtual;
 
   DeudasModel({
     this.idPersona,
@@ -39,8 +34,6 @@ class DeudasModel {
     this.fechaAtual,
   });
 
-
-
   factory DeudasModel.fromJson(Map<String, dynamic> json) => DeudasModel(
         idPersona: json["idPersona"],
         idAfiliacion: json["idAfiliacion"],
@@ -54,7 +47,7 @@ class DeudasModel {
         capital: json["capital"],
         interes: json["interes"],
         garantizado: json["garantizado"],
-        descuento: json["descuento"], 
-        fechaAtual: json["fechaAtual"], 
+        descuento: json["descuento"],
+        fechaAtual: json["fechaAtual"],
       );
 }

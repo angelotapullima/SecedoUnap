@@ -12,10 +12,11 @@ class PrestamosBloc {
 
   final _prestamosController = BehaviorSubject<List<PrestamosModel>>();
 
-  Stream<List<PrestamosModel>> get prestamosStream => _prestamosController.stream;
+  Stream<List<PrestamosModel>> get prestamosStream =>
+      _prestamosController.stream;
 
   dispose() {
-    _prestamosController?.close();
+    _prestamosController.close();
   }
 
   void obtenerPrestamos() async {
@@ -35,10 +36,13 @@ class PrestamosBloc {
         prestamosModel.idPrestamo = prestamos[i].idPrestamo;
         prestamosModel.cheque = prestamos[i].cheque;
         prestamosModel.fSolicitud = prestamos[i].fSolicitud;
-        prestamosModel.solicitado = dosdecimales(double.parse(prestamos[i].solicitado));
+        prestamosModel.solicitado =
+            dosdecimales(double.parse(prestamos[i].solicitado ?? ''));
         prestamosModel.fAprobado = prestamos[i].fAprobado;
-        prestamosModel.aprobado = dosdecimales(double.parse(prestamos[i].aprobado));
-        prestamosModel.girar = dosdecimales(double.parse(prestamos[i].girar));
+        prestamosModel.aprobado =
+            dosdecimales(double.parse(prestamos[i].aprobado ?? ''));
+        prestamosModel.girar =
+            dosdecimales(double.parse(prestamos[i].girar ?? ''));
         prestamosModel.tInteres = prestamos[i].tInteres;
         prestamosModel.nCuotas = prestamos[i].nCuotas;
         prestamosModel.tipo = prestamos[i].tipo;
@@ -53,7 +57,9 @@ class PrestamosBloc {
 
         double porcentajePagado = 0.0;
         double porcentajeSinPagar = 0.0;*/
-        final cuotas = await cuotasPrestamosDatabase.obtenerCuotasPorPrestamoPorEstado(prestamos[i].idPrestamo,'0');
+        final cuotas =
+            await cuotasPrestamosDatabase.obtenerCuotasPorPrestamoPorEstado(
+                prestamos[i].idPrestamo ?? '', '0');
         /* if (cuotas.length > 0) {
           for (var x = 0; x < cuotas.length; x++) {
             if (cuotas[x].estadoPagado == '1') {

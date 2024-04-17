@@ -8,7 +8,7 @@ import 'package:secedo_unap/src/utils/extentions.dart';
 import 'package:secedo_unap/src/utils/utils.dart';
 
 class PagosTab extends StatelessWidget {
-  const PagosTab({Key key}) : super(key: key);
+  const PagosTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -111,13 +111,13 @@ class PagosTab extends StatelessWidget {
                                               List<DescuentoPlanillaModel>>
                                           snapshot) {
                                     if (snapshot.hasData) {
-                                      if (snapshot.data.length > 0) {
+                                      if (snapshot.data!.length > 0) {
                                         return ListView.builder(
-                                          itemCount: snapshot.data.length,
+                                          itemCount: snapshot.data!.length,
                                           itemBuilder: (_, index) {
                                             return CardExpandable(
                                                 planillaModel:
-                                                    snapshot.data[index],
+                                                    snapshot.data![index],
                                                 index: index + 1);
                                           },
                                         );
@@ -150,8 +150,7 @@ class PagosTab extends StatelessWidget {
 
 class CardExpandable extends StatefulWidget {
   const CardExpandable(
-      {Key key, @required this.planillaModel, @required this.index})
-      : super(key: key);
+      {super.key, required this.planillaModel, required this.index});
 
   final DescuentoPlanillaModel planillaModel;
   final int index;
@@ -200,7 +199,7 @@ class _CardExpandableState extends State<CardExpandable> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Flexible(
-                      flex:3, 
+                      flex: 3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -215,7 +214,7 @@ class _CardExpandableState extends State<CardExpandable> {
                           Text(
                             ('${widget.planillaModel.ntotal}' == 'null')
                                 ? '-'
-                                : 'S/.${dosdecimales(double.parse(widget.planillaModel.ntotal))}',
+                                : 'S/.${dosdecimales(double.parse(widget.planillaModel.ntotal ?? ''))}',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
@@ -225,9 +224,8 @@ class _CardExpandableState extends State<CardExpandable> {
                         ],
                       ),
                     ),
-                    
-                    Flexible( 
-                      flex:3,
+                    Flexible(
+                      flex: 3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -242,7 +240,7 @@ class _CardExpandableState extends State<CardExpandable> {
                           Text(
                             ('${widget.planillaModel.aplicado}' == 'null')
                                 ? '-'
-                                : 'S/.${dosdecimales(double.parse(widget.planillaModel.aplicado))}',
+                                : 'S/.${dosdecimales(double.parse(widget.planillaModel.aplicado ?? ''))}',
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
                               color: Colors.green,
@@ -252,8 +250,8 @@ class _CardExpandableState extends State<CardExpandable> {
                         ],
                       ),
                     ),
-                     
-                    Flexible(flex:3,
+                    Flexible(
+                      flex: 3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -267,7 +265,7 @@ class _CardExpandableState extends State<CardExpandable> {
                           Text(
                             ('${widget.planillaModel.diferencia}' == 'null')
                                 ? '-'
-                                : 'S/.${dosdecimales(double.parse(widget.planillaModel.diferencia))}',
+                                : 'S/.${dosdecimales(double.parse(widget.planillaModel.diferencia ?? ''))}',
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
                               color: Colors.red,
@@ -280,7 +278,7 @@ class _CardExpandableState extends State<CardExpandable> {
                   ],
                 ),
               ),
-             ],
+            ],
           ),
         ).ripple(
           () {
@@ -307,7 +305,7 @@ class _CardExpandableState extends State<CardExpandable> {
             ),
           ),
         ),
-       ],
+      ],
     );
   }
 }
@@ -317,11 +315,11 @@ class ExpandableContainer extends StatelessWidget {
   final double collapsedHeight;
   final Widget child;
 
-  ExpandableContainer({
-    @required this.child,
-    this.collapsedHeight = 0.0,
-    this.expanded = true,
-  });
+  ExpandableContainer(
+      {super.key,
+      required this.expanded,
+      required this.collapsedHeight,
+      required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -340,10 +338,7 @@ class ExpandableContainer extends StatelessWidget {
 }
 
 class Planilla extends StatelessWidget {
-  const Planilla({
-    Key key,
-    @required this.responsive,
-  }) : super(key: key);
+  const Planilla({super.key, required this.responsive});
 
   final Responsive responsive;
 
@@ -356,7 +351,7 @@ class Planilla extends StatelessWidget {
       builder: (BuildContext context,
           AsyncSnapshot<List<PlanillaEnviadaModel>> snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data.length > 0) {
+          if (snapshot.data!.length > 0) {
             return Container(
               padding: EdgeInsets.symmetric(
                 horizontal: responsive.wp(2),
@@ -389,9 +384,9 @@ class Planilla extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    ('${snapshot.data[0].fechaOriginal}' == 'null')
+                    ('${snapshot.data![0].fechaOriginal}' == 'null')
                         ? '-'
-                        : '${snapshot.data[0].fechaOriginal}',
+                        : '${snapshot.data![0].fechaOriginal}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.red,
@@ -414,9 +409,9 @@ class Planilla extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            ('${snapshot.data[0].cesantia}' == 'null')
+                            ('${snapshot.data![0].cesantia}' == 'null')
                                 ? '-'
-                                : 'S/.${dosdecimales(double.parse(snapshot.data[0].cesantia))}',
+                                : 'S/.${dosdecimales(double.parse(snapshot.data![0].cesantia ?? ''))}',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: responsive.ip(1.4),
@@ -438,9 +433,9 @@ class Planilla extends StatelessWidget {
                             color: Colors.green,
                           ),
                           Text(
-                            ('${snapshot.data[0].garantizado}' == 'null')
+                            ('${snapshot.data![0].garantizado}' == 'null')
                                 ? '-'
-                                : 'S/.${dosdecimales(double.parse(snapshot.data[0].garantizado))}',
+                                : 'S/.${dosdecimales(double.parse(snapshot.data![0].garantizado ?? ''))}',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: responsive.ip(1.4),
@@ -466,9 +461,9 @@ class Planilla extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            ('${snapshot.data[0].funeral}' == 'null')
+                            ('${snapshot.data![0].funeral}' == 'null')
                                 ? '-'
-                                : 'S/.${dosdecimales(double.parse(snapshot.data[0].funeral))}',
+                                : 'S/.${dosdecimales(double.parse(snapshot.data![0].funeral ?? ''))}',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: responsive.ip(1.4),
@@ -486,9 +481,9 @@ class Planilla extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            ('${snapshot.data[0].multa}' == 'null')
+                            ('${snapshot.data![0].multa}' == 'null')
                                 ? '-'
-                                : 'S/.${dosdecimales(double.parse(snapshot.data[0].multa))}',
+                                : 'S/.${dosdecimales(double.parse(snapshot.data![0].multa ?? ''))}',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: responsive.ip(1.4),
@@ -514,9 +509,9 @@ class Planilla extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            ('${snapshot.data[0].apr}' == 'null')
+                            ('${snapshot.data![0].apr}' == 'null')
                                 ? '-'
-                                : 'S/.${dosdecimales(double.parse(snapshot.data[0].apr))}',
+                                : 'S/.${dosdecimales(double.parse(snapshot.data![0].apr ?? ''))}',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: responsive.ip(1.4),
@@ -534,9 +529,9 @@ class Planilla extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            ('${snapshot.data[0].total}' == 'null')
+                            ('${snapshot.data![0].total}' == 'null')
                                 ? '-'
-                                : 'S/.${dosdecimales(double.parse(snapshot.data[0].total))}',
+                                : 'S/.${dosdecimales(double.parse(snapshot.data![0].total ?? ''))}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.red,

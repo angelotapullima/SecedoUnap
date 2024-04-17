@@ -6,7 +6,7 @@ import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/utils.dart';
 
 class ChangePassword extends StatefulWidget {
-  const ChangePassword({Key key}) : super(key: key);
+  const ChangePassword({super.key});
 
   @override
   _ChangePasswordState createState() => _ChangePasswordState();
@@ -31,7 +31,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     return Scaffold(
       body: ValueListenableBuilder(
           valueListenable: _cargando,
-          builder: (BuildContext context, bool dataToque, Widget child) {
+          builder: (BuildContext context, bool dataToque, Widget? child) {
             return Stack(
               children: [
                 SafeArea(
@@ -106,7 +106,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                                 style: TextStyle(
                                   fontSize: responsive.ip(1.6),
                                 ),
-                              ),SizedBox(
+                              ),
+                              SizedBox(
                                 height: responsive.hp(2),
                               ),
                               Row(

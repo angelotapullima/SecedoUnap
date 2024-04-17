@@ -1,16 +1,16 @@
 class BeneficiariosModel {
-  String idBeneficiario;
-  String idPersona;
-  String nombre;
-  String gradoParentesco;
-  String porcentaje;
-  String funeral;
-  String beneficioFallecimiento;
-  String fallecido;
-  String idGradoParentesco;
-  String defuncion;
-  String cartaDeclaratoria;
-  String observaciones;
+  String? idBeneficiario;
+  String? idPersona;
+  String? nombre;
+  String? gradoParentesco;
+  String? porcentaje;
+  String? funeral;
+  String? beneficioFallecimiento;
+  String? fallecido;
+  String? idGradoParentesco;
+  String? defuncion;
+  String? cartaDeclaratoria;
+  String? observaciones;
 
   BeneficiariosModel({
     this.idBeneficiario,

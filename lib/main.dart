@@ -21,13 +21,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           title: 'Secedo Unap',
           debugShowCheckedModeBanner: false,
-          builder: (BuildContext context, Widget child) {
+          builder: (BuildContext context, Widget? child) {
             final MediaQueryData data = MediaQuery.of(context);
             return MediaQuery(
               data: data.copyWith(
                   textScaleFactor:
                       data.textScaleFactor > 2.0 ? 1.2 : data.textScaleFactor),
-              child: child,
+              child: child ?? Container(),
             );
           },
           theme: ThemeData(

@@ -12,14 +12,14 @@ class AfiliadosBloc {
   Stream<List<AfiliadosModel>> get afiliadoStream => _afiliadoController.stream;
 
   dispose() {
-    _afiliadoController?.close();
+    _afiliadoController.close();
   }
 
-   void obtenerAfiliados() async {
+  void obtenerAfiliados() async {
     _afiliadoController.sink.add(await afiliadosDatabase.cargarAfiliados());
     await afiliadosApi.obtenerAfiliados();
     _afiliadoController.sink.add(await afiliadosDatabase.cargarAfiliados());
-  } 
+  }
 
   void consultaPersonal(String query) async {
     _afiliadoController.sink

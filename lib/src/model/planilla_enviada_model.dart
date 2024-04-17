@@ -1,18 +1,18 @@
 class PlanillaEnviadaModel {
-  String idPlanillaEnviada;
-  String idAfiliacion;
-  String tipoPlanilla;
-  String fecha;
-  String cesantia;
-  String funeral;
-  String jubilacion;
-  String multa;
-  String apr;
-  String garantizado;
-  String descuento;
-  String total;
+  String? idPlanillaEnviada;
+  String? idAfiliacion;
+  String? tipoPlanilla;
+  String? fecha;
+  String? cesantia;
+  String? funeral;
+  String? jubilacion;
+  String? multa;
+  String? apr;
+  String? garantizado;
+  String? descuento;
+  String? total;
 
-  String fechaOriginal;
+  String? fechaOriginal;
 
   PlanillaEnviadaModel({
     this.idPlanillaEnviada,
@@ -30,8 +30,8 @@ class PlanillaEnviadaModel {
     this.fechaOriginal,
   });
 
-
-  factory PlanillaEnviadaModel.fromJson(Map<String, dynamic> json) => PlanillaEnviadaModel(
+  factory PlanillaEnviadaModel.fromJson(Map<String, dynamic> json) =>
+      PlanillaEnviadaModel(
         idPlanillaEnviada: json["idPlanillaEnviada"],
         idAfiliacion: json["idAfiliacion"],
         tipoPlanilla: json["tipoPlanilla"],

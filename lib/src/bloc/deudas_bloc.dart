@@ -14,7 +14,7 @@ class DeudasBloc {
       _deudasController.stream;
 
   dispose() {
-    _deudasController?.close();
+    _deudasController.close();
   }
 
   void obtenerDeudas() async {
@@ -30,8 +30,8 @@ class DeudasBloc {
 
     if (deudasList.length > 0) {
       for (var i = 0; i < deudasList.length; i++) {
-
-        String estadoDeuda = (double.parse(deudasList[0].capital)>0)?'1':'0';
+        String estadoDeuda =
+            (double.parse(deudasList[0].capital ?? '') > 0) ? '1' : '0';
         DeudasModel deudas = DeudasModel();
 
         deudas.idPersona = deudasList[0].idPersona;

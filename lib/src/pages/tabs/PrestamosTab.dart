@@ -7,7 +7,7 @@ import 'package:secedo_unap/src/pages/tabs/InicioTab.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 
 class PrestamosTab extends StatelessWidget {
-  const PrestamosTab({Key key}) : super(key: key);
+  const PrestamosTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,14 +68,14 @@ class PrestamosTab extends StatelessWidget {
                       builder: (BuildContext context,
                           AsyncSnapshot<List<PrestamosModel>> prestamos) {
                         if (prestamos.hasData) {
-                          if (prestamos.data.length > 0) {
+                          if (prestamos.data!.length > 0) {
                             return Expanded(
                               child: ListView.builder(
-                                itemCount: prestamos.data.length,
+                                itemCount: prestamos.data!.length,
                                 shrinkWrap: true,
                                 itemBuilder: (_, index) {
                                   return PrestamosItem(
-                                    prestamoModel: prestamos.data[index],
+                                    prestamoModel: prestamos.data![index],
                                     mostrarButton: true,
                                   );
                                 },

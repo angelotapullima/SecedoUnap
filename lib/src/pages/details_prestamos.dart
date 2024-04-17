@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
 import 'package:secedo_unap/src/model/cuotas_prestamos_model.dart';
@@ -8,7 +7,7 @@ import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
 
 class DetailsPrestamos extends StatefulWidget {
-  const DetailsPrestamos({Key key, @required this.prestamo}) : super(key: key);
+  const DetailsPrestamos({super.key, required this.prestamo});
 
   final PrestamosModel prestamo;
 
@@ -24,8 +23,10 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
     final responsive = Responsive.of(context);
 
     final cuotasPrestamosBloc = ProviderBloc.cuotasP(context);
-    cuotasPrestamosBloc.obtenerPrestamosPagados(widget.prestamo.idPrestamo);
-    cuotasPrestamosBloc.obtenerPrestamosPendientes(widget.prestamo.idPrestamo);
+    cuotasPrestamosBloc
+        .obtenerPrestamosPagados(widget.prestamo.idPrestamo ?? '');
+    cuotasPrestamosBloc
+        .obtenerPrestamosPendientes(widget.prestamo.idPrestamo ?? '');
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -101,14 +102,14 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
                             AsyncSnapshot<List<CuotasPrestamosModel>>
                                 snapshot) {
                           if (snapshot.hasData) {
-                            if (snapshot.data.length > 0) {
+                            if (snapshot.data!.length > 0) {
                               return ListView.builder(
                                 padding: EdgeInsets.symmetric(
                                   vertical: responsive.hp(1),
                                 ),
                                 shrinkWrap: true,
                                 physics: ClampingScrollPhysics(),
-                                itemCount: snapshot.data.length,
+                                itemCount: snapshot.data!.length,
                                 itemBuilder: (_, index) {
                                   return Stack(
                                     children: [
@@ -129,53 +130,66 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
                                                     children: [
                                                       Text(
                                                         ' Monto de pago',
-                                                        textAlign: TextAlign.center,
+                                                        textAlign:
+                                                            TextAlign.center,
                                                         style: TextStyle(
-                                                            fontSize:
-                                                                responsive.ip(1.4),
-                                                            color: Colors.blue[900],
+                                                            fontSize: responsive
+                                                                .ip(1.4),
+                                                            color: Colors
+                                                                .blue[900],
                                                             fontWeight:
-                                                                FontWeight.bold),
+                                                                FontWeight
+                                                                    .bold),
                                                       ),
                                                       SizedBox(
-                                                        height: responsive.hp(1),
+                                                        height:
+                                                            responsive.hp(1),
                                                       ),
                                                       Text(
-                                                        'S/. ${snapshot.data[index].cuota}',
+                                                        'S/. ${snapshot.data?[index].cuota}',
                                                         style: TextStyle(
-                                                            fontSize:
-                                                                responsive.ip(1.8),
+                                                            fontSize: responsive
+                                                                .ip(1.8),
                                                             color: Colors.black,
                                                             fontWeight:
-                                                                FontWeight.bold),
+                                                                FontWeight
+                                                                    .bold),
                                                       ),
                                                     ],
                                                   ),
                                                 ),
                                                 Spacer(),
                                                 Column(
-                                                  children: [ Text(
-                                                        'Monto',
-                                                        textAlign: TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                responsive.ip(1.4),
-                                                            color: Colors.blue[900],
-                                                            fontWeight:
-                                                                FontWeight.bold),
-                                                      ),
+                                                  children: [
                                                     Text(
-                                                      'S/.${snapshot.data[index].monto}',
+                                                      'Monto',
+                                                      textAlign:
+                                                          TextAlign.center,
                                                       style: TextStyle(
-                                                          fontWeight: FontWeight.w700,
-                                                          fontSize: responsive.ip(2),
-                                                          color: Colors.blue[900]),
+                                                          fontSize: responsive
+                                                              .ip(1.4),
+                                                          color:
+                                                              Colors.blue[900],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      'S/.${snapshot.data?[index].monto}',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize:
+                                                              responsive.ip(2),
+                                                          color:
+                                                              Colors.blue[900]),
                                                     ),
                                                   ],
                                                 ),
                                               ],
                                             ),
-                                            Divider(thickness: 1,)
+                                            Divider(
+                                              thickness: 1,
+                                            )
                                           ],
                                         ),
                                       ),
@@ -193,7 +207,7 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
                                                 BorderRadius.circular(20),
                                           ),
                                           child: Text(
-                                            'Cuota N° ${snapshot.data[index].posicion}   -  ${snapshot.data[index].vencimiento}',
+                                            'Cuota N° ${snapshot.data?[index].posicion}   -  ${snapshot.data?[index].vencimiento}',
                                             style:
                                                 TextStyle(color: Colors.white),
                                           ),
@@ -238,17 +252,17 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
                             AsyncSnapshot<List<CuotasPrestamosModel>>
                                 snapshot) {
                           if (snapshot.hasData) {
-                            if (snapshot.data.length > 0) {
+                            if (snapshot.data!.length > 0) {
                               return ListView.builder(
                                 padding: EdgeInsets.symmetric(
                                   vertical: responsive.hp(1),
                                 ),
                                 shrinkWrap: true,
                                 physics: ClampingScrollPhysics(),
-                                itemCount: snapshot.data.length,
+                                itemCount: snapshot.data!.length,
                                 itemBuilder: (_, index) {
                                   return CardExpandable(
-                                    prestamo: snapshot.data[index],
+                                    prestamo: snapshot.data![index],
                                   );
                                 },
                               );
@@ -277,7 +291,7 @@ class _DetailsPrestamosState extends State<DetailsPrestamos> {
 }
 
 class CardExpandable extends StatefulWidget {
-  const CardExpandable({Key key, @required this.prestamo}) : super(key: key);
+  const CardExpandable({super.key, required this.prestamo});
 
   final CuotasPrestamosModel prestamo;
 
@@ -648,7 +662,7 @@ class ExpandableContainer extends StatelessWidget {
   final Widget child;
 
   ExpandableContainer({
-    @required this.child,
+    required this.child,
     this.collapsedHeight = 0.0,
     this.expanded = true,
   });

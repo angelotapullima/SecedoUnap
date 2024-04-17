@@ -6,9 +6,9 @@ class Responsive {
 
   //clase para hacer Responsive las Pantallas
   Responsive({
-    this.width,
-    this.height,
-    this.inch,
+    required this.width,
+    required this.height,
+    required this.inch,
   });
 
   factory Responsive.of(BuildContext context) {

@@ -1,24 +1,23 @@
 class PrestamosModel {
-  String cheque;
-  String fSolicitud;
-  String solicitado;
-  String fAprobado;
-  String aprobado;
-  String girar;
-  String tInteres;
-  String nCuotas;
-  String tipo;
-  String prioridad;
-  String garante;
-  String idPrestamo;
-  String idPersona;
+  String? cheque;
+  String? fSolicitud;
+  String? solicitado;
+  String? fAprobado;
+  String? aprobado;
+  String? girar;
+  String? tInteres;
+  String? nCuotas;
+  String? tipo;
+  String? prioridad;
+  String? garante;
+  String? idPrestamo;
+  String? idPersona;
 
-
-  String montoPagado;
-  String montoPorPagar;
-  String porcentajePagado;
-  String porcentajeSinPagar;
-  String fechaActualizado;
+  String? montoPagado;
+  String? montoPorPagar;
+  String? porcentajePagado;
+  String? porcentajeSinPagar;
+  String? fechaActualizado;
 
   PrestamosModel(
       {this.cheque,

@@ -1,58 +1,30 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import 'dart:convert';
-  
+
 import 'package:http/http.dart' as http;
 import 'package:secedo_unap/src/database/deudas_database.dart';
 import 'package:secedo_unap/src/model/deudas_model.dart';
 import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 
-import 'package:secedo_unap/src/utils/constants.dart'; 
- 
+import 'package:secedo_unap/src/utils/constants.dart';
 
-class DeudasApi { 
+class DeudasApi {
   final deudasDatabase = DeudasDatabase();
   final preferences = Preferences();
 
   Future<bool> obtenerDeudas() async {
     try {
-
       //id es el id del usuario
       final url = Uri.parse('$apiBaseURL/api/Deudas/${preferences.idPersona}');
 
-      final resp = await http.get(url);//(url, body: {'id_empresa': id, 'app': 'true', 'tn': prefs.token});
+      final resp = await http.get(
+          url); //(url, body: {'id_empresa': id, 'app': 'true', 'tn': prefs.token});
 
       final decodedData = json.decode(resp.body);
 
       if (decodedData.length > 0) {
-
         await deudasDatabase.deleteDeudas();
         for (int i = 0; i < decodedData.length; i++) {
-
-         
-         final date = DateTime.now();
+          final date = DateTime.now();
           String dia = date.day.toString();
           String mes = date.month.toString();
           String year = date.year.toString();
@@ -74,8 +46,6 @@ class DeudasApi {
           deudas.descuento = decodedData[i]['Descuento'].toString();
           deudas.fechaAtual = '$dia/$mes/$year';
           await deudasDatabase.insertarDeudas(deudas);
-
-
         }
 
         return true;

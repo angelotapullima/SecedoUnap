@@ -7,8 +7,7 @@ import 'package:secedo_unap/src/bloc/provider_bloc.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 
 class BeneficiariosAfiliados extends StatefulWidget {
-  const BeneficiariosAfiliados({Key key, @required this.idPersona})
-      : super(key: key);
+  const BeneficiariosAfiliados({super.key, required this.idPersona});
 
   final String idPersona;
 
@@ -21,7 +20,8 @@ class _BeneficiariosAfiliadosState extends State<BeneficiariosAfiliados> {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final beneficiariosBloc = ProviderBloc.beneficiarios(context);
-    beneficiariosBloc.obtenerBeneficiariosAfiliadosPorIdPersona(widget.idPersona);
+    beneficiariosBloc
+        .obtenerBeneficiariosAfiliadosPorIdPersona(widget.idPersona);
 
     return Scaffold(
       body: Stack(
@@ -70,18 +70,19 @@ class _BeneficiariosAfiliadosState extends State<BeneficiariosAfiliados> {
                       height: responsive.hp(2),
                     ),
                     StreamBuilder(
-                      stream: beneficiariosBloc.beneficiariosAfiliadosControllerStream,
+                      stream: beneficiariosBloc
+                          .beneficiariosAfiliadosControllerStream,
                       builder: (BuildContext context,
                           AsyncSnapshot<List<BeneficiariosGeneral>> snapshot) {
                         if (snapshot.hasData) {
-                          if (snapshot.data.length > 0) {
+                          if (snapshot.data!.length > 0) {
                             return Expanded(
                               child: ListView.builder(
                                 shrinkWrap: true,
                                 physics: ClampingScrollPhysics(),
-                                itemCount: snapshot.data.length + 2,
+                                itemCount: snapshot.data!.length + 2,
                                 itemBuilder: (_, index1) {
-                                  if (index1 == snapshot.data.length + 1) {
+                                  if (index1 == snapshot.data!.length + 1) {
                                     return Padding(
                                       padding: EdgeInsets.only(
                                         top: responsive.hp(2),
@@ -112,7 +113,7 @@ class _BeneficiariosAfiliadosState extends State<BeneficiariosAfiliados> {
                                               ),
                                               Expanded(
                                                 child: Text(
-                                                  '${snapshot.data[0].beneficiarios[0].observacion} ',
+                                                  '${snapshot.data?[0].beneficiarios?[0].observacion} ',
                                                   style: TextStyle(
                                                       fontSize:
                                                           responsive.ip(1.8),
@@ -132,7 +133,7 @@ class _BeneficiariosAfiliadosState extends State<BeneficiariosAfiliados> {
                                       ),
                                     );
                                   }
-                                  if (index1 == snapshot.data.length) {
+                                  if (index1 == snapshot.data!.length) {
                                     return Container(
                                       height: responsive.hp(2),
                                     );
@@ -141,8 +142,8 @@ class _BeneficiariosAfiliadosState extends State<BeneficiariosAfiliados> {
                                   return ListView.builder(
                                     shrinkWrap: true,
                                     physics: ClampingScrollPhysics(),
-                                    itemCount: snapshot
-                                            .data[index1].beneficiarios.length +
+                                    itemCount: snapshot.data![index1]
+                                            .beneficiarios!.length +
                                         1,
                                     itemBuilder: (_, index2) {
                                       if (index2 == 0) {
@@ -152,7 +153,7 @@ class _BeneficiariosAfiliadosState extends State<BeneficiariosAfiliados> {
                                             vertical: responsive.hp(1.5),
                                           ),
                                           child: Text(
-                                            '${snapshot.data[index1].texto}',
+                                            '${snapshot.data?[index1].texto}',
                                             style: TextStyle(
                                               fontSize: responsive.ip(1.8),
                                             ),
@@ -203,7 +204,7 @@ class _BeneficiariosAfiliadosState extends State<BeneficiariosAfiliados> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    '${snapshot.data[index1].beneficiarios[index2 - 1].nombre} ',
+                                                    '${snapshot.data?[index1].beneficiarios?[index2 - 1].nombre} ',
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -234,7 +235,7 @@ class _BeneficiariosAfiliadosState extends State<BeneficiariosAfiliados> {
                                                                     .circular(
                                                                         15)),
                                                         child: Text(
-                                                          '${snapshot.data[index1].beneficiarios[index2 - 1].parentesco} ',
+                                                          '${snapshot.data?[index1].beneficiarios?[index2 - 1].parentesco} ',
                                                           style: TextStyle(
                                                               fontSize:
                                                                   responsive
@@ -244,7 +245,7 @@ class _BeneficiariosAfiliadosState extends State<BeneficiariosAfiliados> {
                                                         ),
                                                       ),
                                                       Spacer(),
-                                                      (snapshot.data[index1]
+                                                      (snapshot.data?[index1]
                                                                   .tipo ==
                                                               '1')
                                                           ? Text(
@@ -259,11 +260,11 @@ class _BeneficiariosAfiliadosState extends State<BeneficiariosAfiliados> {
                                                               ),
                                                             )
                                                           : Container(),
-                                                      (snapshot.data[index1]
+                                                      (snapshot.data?[index1]
                                                                   .tipo ==
                                                               '1')
                                                           ? Text(
-                                                              '${snapshot.data[index1].beneficiarios[index2 - 1].porcentaje}%',
+                                                              '${snapshot.data?[index1].beneficiarios?[index2 - 1].porcentaje}%',
                                                               style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
@@ -289,7 +290,7 @@ class _BeneficiariosAfiliadosState extends State<BeneficiariosAfiliados> {
                             );
                           } else {
                             return Center(
-                               child: CupertinoActivityIndicator(),
+                              child: CupertinoActivityIndicator(),
                             );
                           }
                         } else {

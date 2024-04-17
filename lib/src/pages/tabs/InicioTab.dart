@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:secedo_unap/src/bloc/provider_bloc.dart';
@@ -13,7 +11,7 @@ import 'package:secedo_unap/src/utils/extentions.dart';
 import 'package:secedo_unap/src/utils/utils.dart';
 
 class InicioTab extends StatefulWidget {
-  const InicioTab({Key key}) : super(key: key);
+  const InicioTab({super.key});
 
   @override
   _InicioTabState createState() => _InicioTabState();
@@ -307,11 +305,17 @@ class _InicioTabState extends State<InicioTab> {
                             Row(
                               children: [
                                 Text('Correo electrónico :  ',
-                                    style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),)),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: responsive.ip(1.6),
+                                    )),
                                 Expanded(
                                   child: Text(
                                     'secedo_unap@yahoo.es',
-                                    style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: responsive.ip(1.6),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -320,12 +324,18 @@ class _InicioTabState extends State<InicioTab> {
                               children: [
                                 Text(
                                   'Teléfono fijo :  ',
-                                  style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: responsive.ip(1.6),
+                                  ),
                                 ),
                                 Expanded(
                                   child: Text(
                                     '065233300',
-                                    style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: responsive.ip(1.6),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -334,12 +344,18 @@ class _InicioTabState extends State<InicioTab> {
                               children: [
                                 Text(
                                   'WhatsApp :  ',
-                                  style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: responsive.ip(1.6),
+                                  ),
                                 ),
                                 Expanded(
                                   child: Text(
                                     '951014918',
-                                    style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: responsive.ip(1.6),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -348,12 +364,18 @@ class _InicioTabState extends State<InicioTab> {
                               children: [
                                 Text(
                                   'Dirección :  ',
-                                  style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: responsive.ip(1.6),
+                                  ),
                                 ),
                                 Expanded(
                                   child: Text(
                                     'JR. Alférez West 553 (ex calle Nanay)',
-                                    style: TextStyle(color: Colors.white,fontSize:responsive.ip(1.6),),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: responsive.ip(1.6),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -378,11 +400,10 @@ class _InicioTabState extends State<InicioTab> {
 
 class CardExpandable extends StatefulWidget {
   const CardExpandable(
-      {Key key,
-      @required this.color,
-      @required this.texto,
-      @required this.deudas})
-      : super(key: key);
+      {super.key,
+      required this.color,
+      required this.texto,
+      required this.deudas});
 
   final Color color;
   final String texto;
@@ -470,7 +491,7 @@ class _CardExpandableState extends State<CardExpandable> {
                             Text(
                               ('${widget.deudas.cesantia}' == 'null')
                                   ? '-'
-                                  : 'S/.${dosdecimales(double.parse(widget.deudas.cesantia))}',
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.cesantia ?? ''))}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -492,7 +513,7 @@ class _CardExpandableState extends State<CardExpandable> {
                             Text(
                               ('${widget.deudas.funeral}' == 'null')
                                   ? '-'
-                                  : 'S/.${dosdecimales(double.parse(widget.deudas.funeral))}',
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.funeral ?? '0'))}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -518,7 +539,7 @@ class _CardExpandableState extends State<CardExpandable> {
                             Text(
                               ('${widget.deudas.jubilacion}' == 'null')
                                   ? '-'
-                                  : 'S/.${dosdecimales(double.parse(widget.deudas.jubilacion))}',
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.jubilacion ?? ''))}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -548,7 +569,7 @@ class _CardExpandableState extends State<CardExpandable> {
                             Text(
                               ('${widget.deudas.multa}' == 'null')
                                   ? '-'
-                                  : 'S/.${dosdecimales(double.parse(widget.deudas.multa))}',
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.multa ?? ''))}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -570,7 +591,7 @@ class _CardExpandableState extends State<CardExpandable> {
                             Text(
                               ('${widget.deudas.apr}' == 'null')
                                   ? '-'
-                                  : 'S/.${dosdecimales(double.parse(widget.deudas.apr))}',
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.apr ?? ''))}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -596,7 +617,7 @@ class _CardExpandableState extends State<CardExpandable> {
                             Text(
                               ('${widget.deudas.garantizado}' == 'null')
                                   ? '-'
-                                  : 'S/.${dosdecimales(double.parse(widget.deudas.garantizado))}',
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.garantizado ?? ''))}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -626,7 +647,7 @@ class _CardExpandableState extends State<CardExpandable> {
                             Text(
                               ('${widget.deudas.descuento}' == 'null')
                                   ? '-'
-                                  : 'S/.${dosdecimales(double.parse(widget.deudas.descuento))}',
+                                  : 'S/.${dosdecimales(double.parse(widget.deudas.descuento ?? ''))}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -708,15 +729,14 @@ class _CardExpandableState extends State<CardExpandable> {
 
 class ExpandableContainer extends StatelessWidget {
   final bool expanded;
-  final double collapsedHeight;
+  final double? collapsedHeight;
   final Widget child;
 
-  ExpandableContainer({
-    @required this.child,
-    this.collapsedHeight = 0.0,
-    this.expanded = true,
-  });
-
+  ExpandableContainer(
+      {super.key,
+      this.collapsedHeight,
+      required this.expanded,
+      required this.child});
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -734,9 +754,11 @@ class ExpandableContainer extends StatelessWidget {
 }
 
 class PrestamosItem extends StatefulWidget {
-  PrestamosItem(
-      {Key key, @required this.prestamoModel, @required this.mostrarButton})
-      : super(key: key);
+  PrestamosItem({
+    super.key,
+    required this.prestamoModel,
+    required this.mostrarButton,
+  });
 
   final PrestamosModel prestamoModel;
   final bool mostrarButton;
@@ -745,7 +767,7 @@ class PrestamosItem extends StatefulWidget {
 }
 
 class _PrestamosItemState extends State<PrestamosItem> {
-  int touchedIndex;
+  int? touchedIndex;
 
   @override
   Widget build(BuildContext context) {

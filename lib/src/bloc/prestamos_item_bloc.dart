@@ -1,5 +1,3 @@
-
-
 import 'package:rxdart/rxdart.dart';
 
 class PrestamosItemBloc {
@@ -13,6 +11,6 @@ class PrestamosItemBloc {
   int get prestamosItem => selectTab.value;
 
   dispose() {
-    selectTab?.close();
+    selectTab.close();
   }
 }

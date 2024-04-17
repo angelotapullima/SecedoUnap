@@ -1,4 +1,3 @@
-import 'package:age/age.dart';
 import 'package:flutter/material.dart';
 import 'package:secedo_unap/src/database/beneficiarios_database.dart';
 import 'package:secedo_unap/src/database/cuotas_prestamos_database.dart';
@@ -13,23 +12,23 @@ import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
 
 class UsuarioTab extends StatelessWidget {
-  const UsuarioTab({Key key}) : super(key: key);
+  const UsuarioTab({super.key});
 
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final preferences = Preferences();
-    DateTime today = DateTime.now();
-    AgeDuration age, ageAfiliacion;
+    DateTime today = DateTime.now(); /* 
+    AgeDuration age, ageAfiliacion; */
 
     String nacimientoValidacion = 'false';
     String afiliacionValidacion = 'false';
 
     if (preferences.fechaNac != 'null') {
       DateTime birthday = DateTime(int.parse(preferences.yearNacimiento));
-      age = Age.dateDifference(
+      /* age = Age.dateDifference(
           fromDate: birthday, toDate: today, includeToDate: false);
-
+ */
       nacimientoValidacion = 'true';
     }
     if (preferences.fechaAfiliacion != 'null') {
@@ -38,8 +37,8 @@ class UsuarioTab extends StatelessWidget {
           int.parse(preferences.mesAfiliacion),
           int.parse(preferences.diaAfiliacion));
 
-      ageAfiliacion = Age.dateDifference(
-          fromDate: timeAfiliacion, toDate: today, includeToDate: false);
+      /*  ageAfiliacion = Age.dateDifference(
+          fromDate: timeAfiliacion, toDate: today, includeToDate: false); */
       afiliacionValidacion = 'true';
     }
 
@@ -67,7 +66,7 @@ class UsuarioTab extends StatelessWidget {
               height: responsive.hp(92.5),
               color: Color(0xFFF6F7F8), //Colors.grey[100],
               child: SafeArea(
-                bottom:false,
+                bottom: false,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,7 +212,7 @@ class UsuarioTab extends StatelessWidget {
                                       'Edad:',
                                       (nacimientoValidacion == 'false')
                                           ? '-'
-                                          : '${age.years} Años'),
+                                          : 'age.years Años'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
@@ -470,7 +469,7 @@ class UsuarioTab extends StatelessWidget {
                         ),
                         child: Text(
                           (afiliacionValidacion == 'true')
-                              ? '${ageAfiliacion.years} años , ${ageAfiliacion.months} meses y ${ageAfiliacion.days} días '
+                              ? '{ageAfiliacion.years} años , {ageAfiliacion.months} meses y {ageAfiliacion.days} días '
                               : '-',
                           style: TextStyle(
                             color: Colors.white,
@@ -524,7 +523,10 @@ class UsuarioTab extends StatelessWidget {
                             },
                           ),
                         ),
-                      ),SizedBox(height: responsive.hp(5),)
+                      ),
+                      SizedBox(
+                        height: responsive.hp(5),
+                      )
                     ],
                   ),
                 ),

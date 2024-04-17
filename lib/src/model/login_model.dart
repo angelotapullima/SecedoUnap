@@ -1,6 +1,3 @@
-
-
-
 import 'dart:convert';
 
 UsuarioModel usuarioFromJson(String str) =>
@@ -9,8 +6,8 @@ UsuarioModel usuarioFromJson(String str) =>
 String usuarioToJson(UsuarioModel data) => json.encode(data.toJson());
 
 class UsuarioModel {
-  Result result;
-  Data data;
+  Result? result;
+  Data? data;
 
   UsuarioModel({
     this.result,
@@ -25,23 +22,23 @@ class UsuarioModel {
 
   //recibe un modelo y lo transforma a un JSON
   Map<String, dynamic> toJson() => {
-        "result": result.toJson(),
-        "data": data.toJson(),
+        "result": result?.toJson(),
+        "data": data?.toJson(),
       };
 }
 
 class Data {
-  String idUser;
-  String idCity;
-  String idPerson;
-  String userNickname;
-  String userEmail;
-  String userImage;
-  String personName;
-  String personSurname;
-  String idRoleUser;
-  String roleName;
-  String token;
+  String? idUser;
+  String? idCity;
+  String? idPerson;
+  String? userNickname;
+  String? userEmail;
+  String? userImage;
+  String? personName;
+  String? personSurname;
+  String? idRoleUser;
+  String? roleName;
+  String? token;
 
   Data({
     this.idUser,
@@ -87,8 +84,8 @@ class Data {
 }
 
 class Result {
-  int code;
-  String message;
+  int? code;
+  String? message;
 
   Result({
     this.code,
