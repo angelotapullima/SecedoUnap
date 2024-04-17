@@ -10,6 +10,7 @@ import 'package:secedo_unap/src/pages/change_password.dart';
 import 'package:secedo_unap/src/preferencias/preferencias_usuario.dart';
 import 'package:secedo_unap/src/utils/responsive.dart';
 import 'package:secedo_unap/src/utils/extentions.dart';
+import 'package:secedo_unap/src/utils/utils.dart';
 
 class UsuarioTab extends StatelessWidget {
   const UsuarioTab({super.key});
@@ -18,17 +19,16 @@ class UsuarioTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final responsive = Responsive.of(context);
     final preferences = Preferences();
-    DateTime today = DateTime.now(); /* 
-    AgeDuration age, ageAfiliacion; */
+    DateTime today = DateTime.now();
+    Map<String, int>? age, ageAfiliacion;
 
     String nacimientoValidacion = 'false';
     String afiliacionValidacion = 'false';
 
     if (preferences.fechaNac != 'null') {
       DateTime birthday = DateTime(int.parse(preferences.yearNacimiento));
-      /* age = Age.dateDifference(
-          fromDate: birthday, toDate: today, includeToDate: false);
- */
+
+      age = getDifferenceDate(birthday, today).cast<String, int>();
       nacimientoValidacion = 'true';
     }
     if (preferences.fechaAfiliacion != 'null') {
@@ -36,9 +36,8 @@ class UsuarioTab extends StatelessWidget {
           int.parse(preferences.yearAfiliacion),
           int.parse(preferences.mesAfiliacion),
           int.parse(preferences.diaAfiliacion));
-
-      /*  ageAfiliacion = Age.dateDifference(
-          fromDate: timeAfiliacion, toDate: today, includeToDate: false); */
+      ageAfiliacion =
+          getDifferenceDate(timeAfiliacion, today).cast<String, int>();
       afiliacionValidacion = 'true';
     }
 
@@ -212,7 +211,7 @@ class UsuarioTab extends StatelessWidget {
                                       'Edad:',
                                       (nacimientoValidacion == 'false')
                                           ? '-'
-                                          : 'age.years Años'),
+                                          : '${age?['year'].toString()} Años'),
                                   SizedBox(
                                     height: responsive.hp(.5),
                                   ),
@@ -469,7 +468,7 @@ class UsuarioTab extends StatelessWidget {
                         ),
                         child: Text(
                           (afiliacionValidacion == 'true')
-                              ? '{ageAfiliacion.years} años , {ageAfiliacion.months} meses y {ageAfiliacion.days} días '
+                              ? '${ageAfiliacion?['year']} años , ${ageAfiliacion?['month']} meses y ${ageAfiliacion?['day']} días '
                               : '-',
                           style: TextStyle(
                             color: Colors.white,

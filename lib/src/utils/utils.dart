@@ -1,14 +1,9 @@
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 String dosdecimales(double n) {
   return n.toStringAsFixed(n.truncateToDouble() == n ? 2 : 2);
 }
-
 
 void showToast1(String msg, int duration, ToastGravity gravity) {
   Fluttertoast.showToast(
@@ -21,33 +16,41 @@ void showToast1(String msg, int duration, ToastGravity gravity) {
       fontSize: 16.0);
 }
 
+Map getDifferenceDate(DateTime fechaInicial, DateTime fechaFinal) {
+  Duration diferencia = fechaFinal.difference(fechaInicial);
 
+  // Obtenemos los años, meses y días
+  int years = (diferencia.inDays / 365).floor();
+  int month = ((diferencia.inDays % 365) / 30).floor();
+  int days = (diferencia.inDays % 30);
 
-String obtenerMes(int numero){
+  return {"year": years, "month": month, "day": days};
+}
 
-  if(numero == 1){
+String obtenerMes(int numero) {
+  if (numero == 1) {
     return 'Enero';
-  }else if(numero == 2){
+  } else if (numero == 2) {
     return 'Febrero';
-  }else if(numero == 3){
+  } else if (numero == 3) {
     return 'Marzo';
-  }else if(numero == 4){
+  } else if (numero == 4) {
     return 'Abril';
-  }else if(numero == 5){
+  } else if (numero == 5) {
     return 'Mayo';
-  }else if(numero == 6){
+  } else if (numero == 6) {
     return 'Junio';
-  }else if(numero == 7){
+  } else if (numero == 7) {
     return 'Julio';
-  }else if(numero == 8){
+  } else if (numero == 8) {
     return 'Agosto';
-  }else if(numero == 9){
+  } else if (numero == 9) {
     return 'Septiembre';
-  }else if(numero == 10){
+  } else if (numero == 10) {
     return 'Octubre';
-  }else if(numero == 11){
+  } else if (numero == 11) {
     return 'Noviembre';
-  }else if(numero == 12){
+  } else if (numero == 12) {
     return 'Diciembre';
   }
   return ' ';
